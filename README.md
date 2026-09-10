@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 6 — Golden Evaluation Set: IN PROGRESS
-> Phases 1-5 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
+> **Current Status:** Phase 7 — Intent Classification Baselines: IN PROGRESS
+> Phases 1-6 are complete. No LLM, RAG, vector database, reply generation, or escalation has been implemented yet.
 
 ---
 
@@ -302,6 +302,38 @@ python scripts/validate_dataset.py
 # 8. Run the pipeline (Phase 2 only prints foundation info)
 python run_pipeline.py
 ```
+
+---
+
+## Phase 7 — Intent Classification Baselines
+
+### Dataset Splits
+
+TRAIN (70%) / DEV (15%) / TEST (15%) / GOLDEN (external, locked)
+
+### Baselines
+
+**Baseline 1 — Majority Class (Trivial)**
+Always predicts the most frequent intent from training data.
+
+**Baseline 2 — TF-IDF + Logistic Regression (Simple)**
+TF-IDF vectorization + Logistic Regression with balanced classes.
+
+### Run
+
+```bash
+python scripts/create_model_splits.py --seed 42
+python scripts/verify_split_isolation.py
+python scripts/run_baselines.py
+```
+
+### Results
+
+Results are stored in `evaluation/results/`.
+
+### Golden-Set Protection
+
+Golden data is evaluation-only. Do NOT use for training or tuning.
 
 ---
 

@@ -391,3 +391,70 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Lock the golden set after annotation and review, preventing silent modifications.
 
 **Rationale:** The golden set is the evaluation standard. Silently changing labels based on model performance would invalidate evaluation results. If genuine errors are discovered, they must be documented and versioned.
+
+---
+
+## Phase 7 Decisions
+
+### Decision 49: Use Majority-Class Classifier as Trivial Baseline
+
+**Date:** Phase 7
+**Decision:** Implement a majority-class classifier as the trivial baseline.
+
+**Rationale:** The majority-class classifier establishes the lowest possible bar. Any useful model must exceed this baseline. It also reveals the class imbalance in the dataset.
+
+### Decision 50: Use TF-IDF + Logistic Regression as Simple Baseline
+
+**Date:** Phase 7
+**Decision:** Implement TF-IDF vectorization + Logistic Regression as the simple baseline.
+
+**Rationale:** TF-IDF + Logistic Regression is a well-understood, fast, and competitive text classification baseline. It requires no embeddings or LLMs, making it a fair comparison point for more complex systems.
+
+### Decision 51: Use Conversation-Level Splitting
+
+**Date:** Phase 7
+**Decision:** Split data by conversation, not by individual message.
+
+**Rationale:** Messages within the same conversation share context. Splitting messages from the same conversation across train/dev would cause leakage through contextual similarity.
+
+### Decision 52: Use Macro F1 as Candidate Headline Metric
+
+**Date:** Phase 7
+**Decision:** Use macro F1 as the candidate headline metric for intent classification.
+
+**Rationale:** Macro F1 gives each intent equal weight, which is important when classes are imbalanced. A model can achieve high accuracy while performing poorly on rare intents. Final reporting will consider the full evaluation suite.
+
+### Decision 53: Use DEV for Development Decisions
+
+**Date:** Phase 7
+**Decision:** Use the DEV split for all development decisions, including hyperparameter selection and error analysis.
+
+**Rationale:** The DEV split provides a reliable signal for development without contaminating the golden evaluation set. Using golden for development would invalidate evaluation results.
+
+### Decision 54: Keep GOLDEN Strictly Evaluation-Only
+
+**Date:** Phase 7
+**Decision:** Golden set is used ONLY for final evaluation reporting, never for tuning or model selection.
+
+**Rationale:** The golden set is the locked evaluation standard. Using it for any development purpose would produce overly optimistic results.
+
+### Decision 55: Use Fixed Random Seed
+
+**Date:** Phase 7
+**Decision:** Use random_state=42 for all splits and model training.
+
+**Rationale:** Fixed seeds ensure reproducibility. All baseline results can be regenerated from scratch with the same outputs.
+
+### Decision 56: Use Class Balancing in Logistic Regression
+
+**Date:** Phase 7
+**Decision:** Use class_weight="balanced" in Logistic Regression.
+
+**Rationale:** The dataset likely has class imbalance. Balanced class weights help the model avoid biasing toward majority classes.
+
+### Decision 57: Avoid Large Hyperparameter Search
+
+**Date:** Phase 7
+**Decision:** Use reasonable default hyperparameters without extensive tuning.
+
+**Rationale:** These are baselines, not optimized models. Extensive tuning would defeat the purpose of establishing a comparison point. Tuning belongs to the next phase.
