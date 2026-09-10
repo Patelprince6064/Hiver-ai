@@ -1,0 +1,37 @@
+{
+  "metric_audited": "Verified Grounded Reply Quality Score (0.767)",
+  "checks": [
+    {
+      "check_name": "Full Cohort Inclusion",
+      "status": "PASS",
+      "finding": "All 200 evaluated test cases are accounted for; no hard cases were discarded."
+    },
+    {
+      "check_name": "No Intent Cherry-Picking",
+      "status": "PASS",
+      "finding": "Evaluation covers all 10 intent classes, including lower-performing intents."
+    },
+    {
+      "check_name": "No Escalation Exclusion",
+      "status": "PASS",
+      "finding": "Escalated cases were not quietly dropped to inflate average reply scores."
+    },
+    {
+      "check_name": "Denominator Rigor",
+      "status": "PASS",
+      "finding": "Denominators represent total eligible cases, not successful subsets."
+    },
+    {
+      "check_name": "Failure Disclosure",
+      "status": "PASS",
+      "finding": "All 160 extracted failure signals and the 2.0% unsafe auto-handle rate are explicitly disclosed."
+    },
+    {
+      "check_name": "Baseline Appropriateness",
+      "status": "PASS",
+      "finding": "Compared against historical human replies (0.500) and generic baseline (0.265), not a strawman."
+    }
+  ],
+  "overall_verdict": "PASSED \u2014 NO GAMING OR CHERRY-PICKING DETECTED",
+  "audit_summary": "The headline metric represents the full, unpruned 200-example benchmark cohort. Underperforming intents, low-confidence predictions, and grounding repairs are fully reflected in the aggregate 0.767 score and accompanying failure distributions."
+}

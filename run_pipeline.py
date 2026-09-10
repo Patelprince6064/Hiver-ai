@@ -39,6 +39,33 @@ def run_phase_21() -> int:
     return 0
 
 
+def run_phase_22() -> int:
+    """Execute Phase 22 headline metric analysis, audits, and report verification."""
+    print("=" * 60)
+    print("RUNNING PHASE 22 — HEADLINE METRIC & METRIC HONESTY PIPELINE")
+    print("=" * 60)
+
+    scripts = [
+        ("Auditing headline metric & denominator integrity", "scripts/audit_headline_metric.py"),
+        ("Analyzing headline metric subgroup stability", "scripts/analyze_headline_stability.py"),
+        ("Analyzing headline metric perturbation sensitivity", "scripts/analyze_headline_sensitivity.py"),
+        ("Generating final metric comparison table", "scripts/create_final_metric_table.py"),
+    ]
+
+    for desc, script_path in scripts:
+        print(f"\n--> {desc} ({script_path})...")
+        cmd = [sys.executable, script_path]
+        res = subprocess.run(cmd, capture_output=False)
+        if res.returncode != 0:
+            print(f"Error executing {script_path}, exit code: {res.returncode}")
+            return res.returncode
+
+    print("\n" + "=" * 60)
+    print("PHASE 22 PIPELINE EXECUTION SUCCESSFUL")
+    print("=" * 60)
+    return 0
+
+
 def main() -> int:
     """Run pipeline entry point with CLI argument support."""
     parser = argparse.ArgumentParser(description="Hiver AI Support Agent Pipeline Runner")
@@ -46,20 +73,22 @@ def main() -> int:
         "--phase",
         type=int,
         default=None,
-        help="Pipeline phase number to execute (e.g. 21)",
+        help="Pipeline phase number to execute (e.g. 21, 22)",
     )
 
     args = parser.parse_args()
 
     if args.phase == 21:
         return run_phase_21()
+    elif args.phase == 22:
+        return run_phase_22()
     elif args.phase is not None:
         print(f"Hiver AI Support Agent — Phase {args.phase}")
         print(f"Phase {args.phase} completed.")
         return 0
     else:
         print("Hiver AI Support Agent")
-        print("Use --phase <number> to run specific phases (e.g. --phase 21)")
+        print("Use --phase <number> to run specific phases (e.g. --phase 21, --phase 22)")
         return 0
 
 

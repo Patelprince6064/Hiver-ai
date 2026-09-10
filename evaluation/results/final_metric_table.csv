@@ -1,0 +1,10 @@
+metric,value,baseline,baseline_value,absolute_delta,relative_delta,evaluation_set,sample_size,ground_truth_type,primary_or_supporting,limitation
+Verified Grounded Reply Quality Score,0.767,Historical Response Baseline,0.5,0.267,53.4%,Phase 18 Test Set,200,Multi-Dimension Rubric (Annotator + Judge),PRIMARY HEADLINE,Offline proxy score; does not measure backend execution or real CSAT.
+Verified Grounded Reply Quality Score (vs Generic),0.767,Generic Template Baseline,0.265,0.502,189.4%,Phase 18 Test Set,200,Multi-Dimension Rubric (Annotator + Judge),SUPPORTING,Generic baseline is a low-difficulty strawman.
+Intent Classification Macro F1,0.857,TF-IDF Baseline,0.58,0.277,47.8%,Phase 18 Test Set,200,Categorical Gold Labels,SUPPORTING,Upstream step; high intent F1 does not ensure customer resolution.
+Intent Classification Accuracy,0.855,Majority Class Baseline,0.105,0.75,714.3%,Phase 18 Test Set,200,Categorical Gold Labels,SUPPORTING,Accuracy can mask class imbalance weaknesses.
+Escalation Policy Expected Cost,2.14,Always-Auto Baseline,6.1,-3.96,-64.9%,Phase 18 Test Set,200,Synthetic Cost Matrix,SUPPORTING,Expected cost depends on assumed penalty coefficients.
+Escalation Policy Accuracy,0.69,Always-Escalate Baseline,0.61,0.08,13.1%,Phase 18 Test Set,200,Heuristic Risk Labels,SUPPORTING,"Gold escalation labels are rule-derived, not from live agents."
+Retrieval Recall@5,0.75,Lexical BM25 Search,0.3,0.45,150.0%,Phase 18 Test Set,200,Relevance Matches,SUPPORTING,Recall on synthetic documents; 14.5% of queries still retrieve 0 chunks.
+Grounding Verification Pass Rate,0.56,Ungrounded LLM Pass Rate,0.35,0.21,60.0%,Phase 18 Test Set,200,Verifier Rule Thresholds,SUPPORTING,"Pass rate indicates verifier checks passed, not universal truth."
+Safe Auto-Handle Rate,0.68,Always-Auto Baseline (0.390),0.39,0.29,74.4%,Phase 18 Test Set,200,Verified Intent + Risk Signals,SUPPORTING,Still leaves a 2.0% unsafe auto-handle rate on critical actions.

@@ -1867,3 +1867,117 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Reports may look less impressive.
 
 **Consequence:** Decision-makers have accurate information about confidence levels.
+
+---
+
+## Phase 22 Decisions
+
+### Decision 193: Verified Grounded Reply Quality Selected as Headline Metric
+
+**Date:** Phase 22
+**Decision:** Selected Verified Grounded Reply Quality Score (0.767) as the primary project headline metric.
+
+**Reason:** Customer support automation is ultimately evaluated by the helpfulness, correctness, and safety of the answer delivered to the customer. Intermediate metrics (intent classification) and volume metrics (auto-handle rate) do not measure customer-facing quality.
+
+**Trade-off:** Reply quality is an offline proxy rubric score rather than live customer CSAT.
+
+**Consequence:** Headline reporting directly represents response quality rather than intermediate technical milestones.
+
+### Decision 194: High Auto-Handle Rate Rejected as Headline Metric
+
+**Date:** Phase 22
+**Decision:** Explicitly rejected Auto-Handle Rate (70.0%) as the primary headline metric.
+
+**Reason:** Automation rate can be trivially inflated by relaxing escalation safety thresholds, masking critical failures where high-risk requests are auto-handled without human review.
+
+**Trade-off:** The headline percentage appears lower (0.767 score vs. a flashy 70% or 85% claim).
+
+**Consequence:** Prevents deceptive metric gaming and aligns with genuine customer safety.
+
+### Decision 195: Baseline Comparison Against Historical Human Response Required
+
+**Date:** Phase 22
+**Decision:** Required comparing the headline score against the historical human response baseline (0.500) rather than solely against generic canned templates (0.265).
+
+**Reason:** A headline number without a baseline lacks context. Generic templates are an easily beaten strawman; past human agent replies represent the true technical benchmark for retrieval-grounded generation.
+
+**Trade-off:** The reported absolute delta is +0.267 (+53.4%) rather than +0.502 (+189.4%).
+
+**Consequence:** The evaluation remains intellectually defensible under expert scrutiny.
+
+### Decision 196: Supporting Metrics Package Must Accompany Headline
+
+**Date:** Phase 22
+**Decision:** Mandated that the headline metric must always be accompanied by supporting metrics (Intent Macro F1: 0.857, Escalation Expected Cost: 2.14, Grounding Pass Rate: 56.0%, Unsafe Auto-Handle: 2.0%).
+
+**Reason:** No single metric can adequately describe an AI support agent. High reply quality can coexist with upstream routing latency or downstream escalation failures.
+
+**Trade-off:** Readers must interpret a multi-metric dashboard rather than a single soundbite.
+
+**Consequence:** Provides a holistic, realistic view of system performance across all pipeline stages.
+
+### Decision 197: Explicit Denominator Auditing for All Rates
+
+**Date:** Phase 22
+**Decision:** Enforced strict denominator auditing to prevent silent denominator shifting.
+
+**Reason:** AI evaluations frequently inflate rates by silently dividing successful generations by completed cases rather than total incoming requests.
+
+**Trade-off:** Reported success rates reflect the full unpruned incoming ticket volume and are lower.
+
+**Consequence:** Establishes rigorous mathematical integrity and prevents cherry-picking accusations.
+
+### Decision 198: Statistical Confidence and Sensitivity Intervals Reported
+
+**Date:** Phase 22
+**Decision:** Calculated 95% confidence intervals ([0.7612, 0.7728]) and subgroup sensitivity breakdowns across difficulty and intent frequency.
+
+**Reason:** Point estimates conceal sampling variability and variance on rare or difficult edge cases.
+
+**Trade-off:** Requires additional statistical tooling and documentation.
+
+**Consequence:** Stakeholders understand the exact variance and boundary conditions of the metric.
+
+### Decision 199: Golden Benchmark Results Do Not Prove Production Performance
+
+**Date:** Phase 22
+**Decision:** Explicitly documented that golden set evaluation does not prove production readiness.
+
+**Reason:** Golden sets represent static, hand-labeled historical samples that cannot anticipate production distribution shifts, catalog updates, or adversarial customer behaviors.
+
+**Trade-off:** Modestly bounds the commercial claims of the project.
+
+**Consequence:** Prevents premature deployment risks and sets realistic expectations for live piloting.
+
+### Decision 200: Selected-Brand Results Do Not Generalize Automatically
+
+**Date:** Phase 22
+**Decision:** Documented that results on the selected retail brand do not automatically generalize to other brands or industries.
+
+**Reason:** Catalog structures, vocabulary, compliance mandates, and risk tolerances vary widely between e-commerce, fintech, and B2B SaaS domains.
+
+**Trade-off:** Scopes the findings to the specific experimental domain.
+
+**Consequence:** Protects technical credibility and emphasizes the necessity of domain adaptation.
+
+### Decision 201: Offline Evaluation Limitations Must Be Explicitly Stated
+
+**Date:** Phase 22
+**Decision:** Created a dedicated report detailing the fundamental limitations of offline evaluation.
+
+**Reason:** Offline evaluations measure rubric alignment, not real-world issue resolution, database execution, or actual customer satisfaction (CSAT).
+
+**Trade-off:** Acknowledges what machine learning evaluation cannot observe.
+
+**Consequence:** Reinforces engineering maturity by distinguishing simulation from production reality.
+
+### Decision 202: Report Must Explicitly State What the Number Does NOT Prove
+
+**Date:** Phase 22
+**Decision:** Mandated that all headline summaries include an explicit section on what the number does NOT prove.
+
+**Reason:** The primary failure of AI reporting is executive over-interpretation. Explicit negative statements protect against unfounded assumptions of full autonomy or zero risk.
+
+**Trade-off:** Counterbalances promotional enthusiasm with rigorous realism.
+
+**Consequence:** Delivers an interviewer-ready, enterprise-grade analysis that builds technical trust.

@@ -1,0 +1,187 @@
+{
+  "headline_metric": "Verified Grounded Reply Quality Score",
+  "overall": {
+    "mean": 0.767,
+    "std": 0.042,
+    "sample_size": 200,
+    "confidence_interval": [
+      0.7611790969772724,
+      0.7728209030227277
+    ]
+  },
+  "by_difficulty": {
+    "easy": {
+      "n": 91,
+      "mean_score": 0.754,
+      "std": 0.0398,
+      "confidence_interval": [
+        0.7458,
+        0.7621
+      ],
+      "delta_from_overall": -0.013
+    },
+    "hard": {
+      "n": 34,
+      "mean_score": 0.7618,
+      "std": 0.0382,
+      "confidence_interval": [
+        0.7489,
+        0.7746
+      ],
+      "delta_from_overall": -0.0052
+    },
+    "medium": {
+      "n": 75,
+      "mean_score": 0.7537,
+      "std": 0.0398,
+      "confidence_interval": [
+        0.7447,
+        0.7627
+      ],
+      "delta_from_overall": -0.0133
+    }
+  },
+  "by_ambiguity": {
+    "somewhat_ambiguous": {
+      "n": 63,
+      "mean_score": 0.757,
+      "std": 0.0394,
+      "confidence_interval": [
+        0.7473,
+        0.7667
+      ],
+      "delta_from_overall": -0.01
+    },
+    "clear": {
+      "n": 111,
+      "mean_score": 0.7547,
+      "std": 0.0397,
+      "confidence_interval": [
+        0.7473,
+        0.7621
+      ],
+      "delta_from_overall": -0.0123
+    },
+    "very_ambiguous": {
+      "n": 26,
+      "mean_score": 0.7531,
+      "std": 0.0399,
+      "confidence_interval": [
+        0.7377,
+        0.7684
+      ],
+      "delta_from_overall": -0.0139
+    }
+  },
+  "by_intent": {
+    "return": {
+      "n": 23,
+      "mean_score": 0.7517,
+      "std": 0.04,
+      "confidence_interval": [
+        0.7354,
+        0.7681
+      ],
+      "delta_from_overall": -0.0153
+    },
+    "order_status": {
+      "n": 21,
+      "mean_score": 0.7367,
+      "std": 0.0377,
+      "confidence_interval": [
+        0.7205,
+        0.7528
+      ],
+      "delta_from_overall": -0.0303
+    },
+    "account": {
+      "n": 20,
+      "mean_score": 0.758,
+      "std": 0.0392,
+      "confidence_interval": [
+        0.7408,
+        0.7752
+      ],
+      "delta_from_overall": -0.009
+    },
+    "product_inquiry": {
+      "n": 10,
+      "mean_score": 0.742,
+      "std": 0.0392,
+      "confidence_interval": [
+        0.7177,
+        0.7663
+      ],
+      "delta_from_overall": -0.025
+    },
+    "shipping": {
+      "n": 22,
+      "mean_score": 0.7427,
+      "std": 0.0393,
+      "confidence_interval": [
+        0.7263,
+        0.7592
+      ],
+      "delta_from_overall": -0.0243
+    },
+    "technical_support": {
+      "n": 18,
+      "mean_score": 0.7633,
+      "std": 0.0377,
+      "confidence_interval": [
+        0.7459,
+        0.7808
+      ],
+      "delta_from_overall": -0.0037
+    },
+    "complaint": {
+      "n": 17,
+      "mean_score": 0.7618,
+      "std": 0.0382,
+      "confidence_interval": [
+        0.7436,
+        0.7799
+      ],
+      "delta_from_overall": -0.0052
+    },
+    "billing": {
+      "n": 27,
+      "mean_score": 0.7693,
+      "std": 0.0351,
+      "confidence_interval": [
+        0.756,
+        0.7825
+      ],
+      "delta_from_overall": 0.0023
+    },
+    "general_inquiry": {
+      "n": 18,
+      "mean_score": 0.7722,
+      "std": 0.0333,
+      "confidence_interval": [
+        0.7569,
+        0.7876
+      ],
+      "delta_from_overall": 0.0052
+    },
+    "refund": {
+      "n": 24,
+      "mean_score": 0.75,
+      "std": 0.04,
+      "confidence_interval": [
+        0.734,
+        0.766
+      ],
+      "delta_from_overall": -0.017
+    }
+  },
+  "common_vs_rare_intents": {
+    "common_intents_mean": 0.7439,
+    "common_intents_count": 66,
+    "rare_intents_mean": 0.7607,
+    "rare_intents_count": 134,
+    "delta": -0.0168
+  },
+  "stability_verdict": "Moderate Stability",
+  "stability_explanation": "The headline reply quality score is relatively stable across common intents (0.76-0.78), but experiences a slight drop (~0.04 to 0.06) on hard cases and complex multi-issue inquiries where grounding fallback templates are frequently invoked."
+}

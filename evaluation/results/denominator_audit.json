@@ -1,0 +1,67 @@
+{
+  "verified_reply_quality_score": {
+    "metric": "Verified Grounded Reply Quality Score",
+    "numerator": "Sum of 6-dimension scores for all evaluated test requests",
+    "numerator_value": 153.4,
+    "denominator": "Total evaluated test conversations (all requests, including those requiring escalation or repair)",
+    "denominator_value": 200,
+    "value": 0.767,
+    "integrity_check": "PASSED (all 200 cases included, no failed generations excluded from denominator)"
+  },
+  "intent_accuracy": {
+    "metric": "Intent Classification Accuracy",
+    "numerator": "Cases where predicted intent matches true intent",
+    "numerator_value": 171,
+    "denominator": "Total evaluated test requests",
+    "denominator_value": 200,
+    "value": 0.855,
+    "integrity_check": "PASSED (evaluated on complete test set, not restricted to common classes)"
+  },
+  "auto_handle_rate": {
+    "metric": "Auto-Handle Rate",
+    "numerator": "Conversations assigned AUTO_HANDLE decision",
+    "numerator_value": 140,
+    "denominator": "Total incoming customer support requests",
+    "denominator_value": 200,
+    "value": 0.7,
+    "integrity_check": "PASSED (denominator is all incoming requests, not only successful resolutions)"
+  },
+  "escalation_rate": {
+    "metric": "Escalation Rate",
+    "numerator": "Conversations routed to ESCALATE_TO_HUMAN",
+    "numerator_value": 60,
+    "denominator": "Total incoming customer support requests",
+    "denominator_value": 200,
+    "value": 0.3,
+    "integrity_check": "PASSED (complements auto-handle rate: 0.70 + 0.30 = 1.00)"
+  },
+  "grounding_pass_rate": {
+    "metric": "Grounding Verification Pass Rate",
+    "numerator": "Generated responses passing grounding check without repair or escalation",
+    "numerator_value": 112,
+    "denominator": "Total generated responses evaluated",
+    "denominator_value": 200,
+    "value": 0.56,
+    "integrity_check": "PASSED (reported over all generated replies, not just high-confidence replies)"
+  },
+  "unsupported_claim_rate": {
+    "metric": "Unsupported Claim Detection Rate",
+    "numerator": "Responses containing at least one ungrounded claim detected by verifier",
+    "numerator_value": 23,
+    "denominator": "Total candidate replies evaluated",
+    "denominator_value": 200,
+    "value": 0.115,
+    "integrity_check": "PASSED (raw rate reported transparently, not suppressed)"
+  },
+  "unsafe_auto_handle_rate": {
+    "metric": "Unsafe Auto-Handle Rate",
+    "numerator": "High-risk requests mistakenly auto-handled without human review",
+    "numerator_value": 4,
+    "denominator": "Total evaluated test conversations",
+    "denominator_value": 200,
+    "value": 0.02,
+    "high_risk_subset_denominator": 31,
+    "high_risk_subset_rate": 0.129,
+    "integrity_check": "PASSED (both overall cohort rate [2.0%] and high-risk subset rate [12.9%] explicitly tracked)"
+  }
+}

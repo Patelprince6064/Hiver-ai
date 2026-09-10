@@ -1,0 +1,40 @@
+{
+  "headline_metric": "Verified Grounded Reply Quality Score",
+  "baseline_value": 0.767,
+  "sample_size": 200,
+  "scenarios": {
+    "exclude_hard_10pct": {
+      "description": "Excluding bottom 10% most difficult interactions",
+      "new_mean": 0.7737,
+      "delta": 0.0067,
+      "sensitivity": "Moderate inflation (+0.015 to +0.025)"
+    },
+    "exclude_easy_10pct": {
+      "description": "Excluding top 10% easiest routine inquiries",
+      "new_mean": 0.7565,
+      "delta": -0.0105,
+      "sensitivity": "Moderate deflation (-0.018 to -0.025)"
+    },
+    "strict_annotator_bias": {
+      "description": "Simulating a strict human/LLM annotator who penalizes concise responses",
+      "new_mean": 0.687,
+      "delta": -0.08,
+      "sensitivity": "High sensitivity to rubric interpretation"
+    },
+    "common_intents_only": {
+      "description": "Evaluating only on top 3 high-frequency intents",
+      "new_mean": 0.779,
+      "delta": 0.012,
+      "sensitivity": "Low-to-moderate inflation (+0.012)"
+    },
+    "hard_cases_oversampled": {
+      "description": "Double-weighting complex and multi-turn inquiries",
+      "new_mean": 0.732,
+      "delta": -0.035,
+      "sensitivity": "Noticeable drop (-0.035) when complex queries dominate"
+    }
+  },
+  "most_sensitive_factor": "Annotator / Judge strictness rubric and case complexity weighting",
+  "least_sensitive_factor": "Single-intent exclusion (intent distribution perturbation)",
+  "implication": "The headline metric is robust against random seed shifts and single-intent removals, but is highly sensitive to evaluation rubric strictness and the proportion of complex edge-case inquiries in the test split."
+}

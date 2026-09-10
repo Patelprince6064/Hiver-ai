@@ -2,8 +2,44 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 21 — Failure Analysis: COMPLETE
-> Phases 1-21 are complete. Phase 21 performs rigorous final failure analysis of the complete AI customer-support system. Note: Real dataset not downloaded - all evaluation uses synthetic data.
+> **Current Status:** Phase 22 — Headline Metric & Metric Honesty: COMPLETE
+> Phases 1-22 are complete. Phase 22 identifies, audits, and contextualizes the project's headline metric with strict intellectual honesty and baseline comparisons. Note: Real dataset not downloaded - all evaluation uses synthetic data.
+
+---
+
+## Headline Results
+
+| Metric Dimension | Primary / Supporting | System Result | Strongest Baseline | Absolute Delta | Relative Delta | Evaluation Set |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Verified Grounded Reply Quality** | **Primary Headline** | **0.767 / 1.000** | 0.500 (Historical Human) | **+0.267** | **+53.4%** | Frozen Test ($N=200$) |
+| **Intent Macro F1** | Supporting | **0.857** | 0.580 (TF-IDF Baseline) | **+0.277** | **+47.8%** | Frozen Test ($N=200$) |
+| **Escalation Expected Cost** | Supporting | **2.14** | 6.10 (Always-Auto Baseline) | **-3.96** | **-64.9%** | Frozen Test ($N=200$) |
+| **Grounding Pass Rate** | Supporting | **56.0%** (112/200) | 0.0% (Unchecked Base LLM) | **+56.0 pp** | N/A | Frozen Test ($N=200$) |
+| **Unsafe Auto-Handle Rate** | Safety Constraint | **2.0%** (4/200) | 8.0% (Always-Auto Baseline) | **-6.0 pp** | **-75.0%** | Frozen Test ($N=200$) |
+
+- **Primary Headline Metric**: Mean Verified Grounded Reply Quality Score = **0.767 / 1.000** (95% Bootstrap CI: $[0.7612, 0.7728]$).
+- **Strongest Baseline**: Historical Human Reply Reference = **0.500 / 1.000** ($\Delta = +0.267$, $+53.4\%$ relative improvement).
+- **Secondary Baseline**: Generic Template Baseline = **0.265 / 1.000** ($\Delta = +0.502$, $+189.4\%$ relative improvement).
+- **Supporting Package**: Upstream Intent Macro F1 (0.857), Risk-sensitive Escalation Expected Cost (2.14 vs. 6.10), Grounding Verification Pass Rate (56.0%), and Critical Safety Failure Rate (2.0%).
+- **Key Limitation**: 0.767 reflects structured rubric compliance (1-5 scale normalized to 0-1) across 6 dimensions on synthetic multi-turn interactions under offline conditions; it does not measure backend operational execution or actual customer satisfaction.
+
+---
+
+## What the Headline Number Does NOT Mean
+
+1. **It does NOT mean 76.7% customer satisfaction or resolution**:
+   Rubric adherence (Relevance, Correctness, Groundedness, Helpfulness, Completeness, Professional Style) evaluates response structure and information consistency. A grammatically perfect, policy-accurate reply does not confirm whether a user's refund was processed in Stripe or whether the user felt satisfied.
+
+2. **It does NOT mean 76.7% autonomous resolution**:
+   The system's autonomous handling rate is 70.0% (140/200 requests auto-handled, 60 escalated to human agents). Reply quality is scored across all requests eligible for generation; it is distinct from routing volume.
+
+3. **It does NOT mean the system is 100% factually safe**:
+   While grounding verification intercepts 11.5% of unsupported speculative statements, 4 critical compound high-risk inquiries (2.0%) were auto-handled unsafely due to escalation heuristic blindspots.
+
+4. **It does NOT guarantee cross-brand or production generalization**:
+   Evaluation was conducted on a single synthetic e-commerce brand distribution (`brand_001`). It does not account for production distribution shifts, noisy multi-turn channel noise, live API latencies, or real human agent workflows.
+
+---
 
 ---
 
