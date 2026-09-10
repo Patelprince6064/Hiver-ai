@@ -1,0 +1,6 @@
+failure_category,count,rate,low,medium,high,critical,top_intents,likely_root_stage
+GROUNDING_FAILURE,88,0.440,0,0,88,0,"order_status(14), refund(13), shipping(13)",GROUNDING
+RETRIEVAL_FAILURE,29,0.145,1,28,0,0,"return(7), general_inquiry(7), complaint(4)",RETRIEVAL
+INTENT_CLASSIFICATION_FAILURE,28,0.140,0,28,0,0,"account(5), shipping(4), technical_support(4)",INTENT
+ESCALATION_FAILURE,12,0.060,1,6,1,4,"order_status(5), billing_issue(2), account(1)",ESCALATION
+EVALUATION_FAILURE,3,0.015,3,0,0,0,return(3),SYSTEM

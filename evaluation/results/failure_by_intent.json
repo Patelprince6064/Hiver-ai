@@ -1,0 +1,848 @@
+{
+  "intent_analysis": {
+    "shipping": {
+      "failure_count": 20,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "INTENT_CLASSIFICATION_FAILURE": 4,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 13,
+      "retrieval_failures": 3,
+      "escalation_failures": 0,
+      "top_failure_tags": {
+        "grounding_failure": 13,
+        "status_fail": 13,
+        "retrieval_failure": 3,
+        "no_evidence": 3,
+        "low_intent_confidence": 3
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_001",
+          "secondary_category": "wrong_intent",
+          "severity": "MEDIUM",
+          "root_cause": "Intent classifier predicted wrong intent"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0007",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0020",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    "return": {
+      "failure_count": 22,
+      "top_categories": {
+        "GROUNDING_FAILURE": 11,
+        "RETRIEVAL_FAILURE": 7,
+        "EVALUATION_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 11,
+      "retrieval_failures": 7,
+      "escalation_failures": 0,
+      "top_failure_tags": {
+        "grounding_failure": 11,
+        "status_fail": 11,
+        "retrieval_failure": 7,
+        "no_evidence": 6,
+        "judge_disagreement": 3
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_002",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "LOW",
+          "root_cause": "No relevant evidence found in knowledge base"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0001",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0002",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        }
+      ]
+    },
+    "complaint": {
+      "failure_count": 12,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "RETRIEVAL_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM",
+      "grounding_failures": 6,
+      "retrieval_failures": 4,
+      "escalation_failures": 0,
+      "top_failure_tags": {
+        "grounding_failure": 6,
+        "status_fail": 6,
+        "retrieval_failure": 3,
+        "no_evidence": 3,
+        "low_intent_confidence": 2
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_003",
+          "secondary_category": "wrong_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "Retrieved evidence does not match query intent"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0011",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0052",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        }
+      ]
+    },
+    "refund": {
+      "failure_count": 17,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "RETRIEVAL_FAILURE": 2,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 13,
+      "retrieval_failures": 2,
+      "escalation_failures": 0,
+      "top_failure_tags": {
+        "grounding_failure": 12,
+        "status_fail": 12,
+        "retrieval_failure": 2,
+        "no_evidence": 2,
+        "low_intent_confidence": 2
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_004",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0033",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0045",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    "account": {
+      "failure_count": 17,
+      "top_categories": {
+        "GROUNDING_FAILURE": 8,
+        "INTENT_CLASSIFICATION_FAILURE": 5,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "MEDIUM",
+      "grounding_failures": 8,
+      "retrieval_failures": 3,
+      "escalation_failures": 1,
+      "top_failure_tags": {
+        "grounding_failure": 8,
+        "status_fail": 8,
+        "low_intent_confidence": 5,
+        "retrieval_failure": 3,
+        "no_evidence": 3
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_005",
+          "secondary_category": "unsafe_auto_handle",
+          "severity": "CRITICAL",
+          "root_cause": "High-risk request auto-handled instead of escalated"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0005",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0017",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    "general_inquiry": {
+      "failure_count": 14,
+      "top_categories": {
+        "RETRIEVAL_FAILURE": 7,
+        "GROUNDING_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM",
+      "grounding_failures": 4,
+      "retrieval_failures": 7,
+      "escalation_failures": 1,
+      "top_failure_tags": {
+        "retrieval_failure": 7,
+        "no_evidence": 7,
+        "grounding_failure": 4,
+        "status_fail": 4,
+        "low_intent_confidence": 2
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_006",
+          "secondary_category": "unnecessary_escalation",
+          "severity": "LOW",
+          "root_cause": "Safe request unnecessarily escalated"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0029",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0059",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        }
+      ]
+    },
+    "order_status": {
+      "failure_count": 22,
+      "top_categories": {
+        "GROUNDING_FAILURE": 14,
+        "ESCALATION_FAILURE": 5,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 14,
+      "retrieval_failures": 0,
+      "escalation_failures": 5,
+      "top_failure_tags": {
+        "grounding_failure": 14,
+        "status_fail": 14,
+        "low_intent_confidence": 3,
+        "policy_threshold": 3,
+        "borderline_escalation": 3
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_INT_eval_0003",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0014",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0032",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    "product_inquiry": {
+      "failure_count": 8,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 6,
+      "retrieval_failures": 0,
+      "escalation_failures": 0,
+      "top_failure_tags": {
+        "grounding_failure": 6,
+        "status_fail": 6,
+        "low_intent_confidence": 2
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_INT_eval_0006",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0057",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0075",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        }
+      ]
+    },
+    "technical_support": {
+      "failure_count": 10,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 4
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 6,
+      "retrieval_failures": 0,
+      "escalation_failures": 0,
+      "top_failure_tags": {
+        "grounding_failure": 6,
+        "status_fail": 6,
+        "low_intent_confidence": 4
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_GND_eval_0009",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0026",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0039",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        }
+      ]
+    },
+    "billing": {
+      "failure_count": 13,
+      "top_categories": {
+        "GROUNDING_FAILURE": 7,
+        "RETRIEVAL_FAILURE": 3,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 7,
+      "retrieval_failures": 3,
+      "escalation_failures": 0,
+      "top_failure_tags": {
+        "grounding_failure": 7,
+        "status_fail": 7,
+        "retrieval_failure": 3,
+        "no_evidence": 3,
+        "low_intent_confidence": 3
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_GND_eval_0016",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0024",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0027",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    "account_help": {
+      "failure_count": 1,
+      "top_categories": {
+        "ESCALATION_FAILURE": 1
+      },
+      "top_severity": "CRITICAL",
+      "grounding_failures": 0,
+      "retrieval_failures": 0,
+      "escalation_failures": 1,
+      "top_failure_tags": {
+        "unsafe_auto_handle": 1,
+        "high_risk_missed": 1
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_ESC_UNSAFE_001",
+          "secondary_category": "unsafe_auto_handle",
+          "severity": "CRITICAL",
+          "root_cause": "High-risk request auto-handled instead of escalated"
+        }
+      ]
+    },
+    "billing_issue": {
+      "failure_count": 2,
+      "top_categories": {
+        "ESCALATION_FAILURE": 2
+      },
+      "top_severity": "CRITICAL",
+      "grounding_failures": 0,
+      "retrieval_failures": 0,
+      "escalation_failures": 2,
+      "top_failure_tags": {
+        "unsafe_auto_handle": 2,
+        "high_risk_missed": 2
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_ESC_UNSAFE_002",
+          "secondary_category": "unsafe_auto_handle",
+          "severity": "CRITICAL",
+          "root_cause": "High-risk request auto-handled instead of escalated"
+        },
+        {
+          "failure_id": "FAIL_ESC_UNSAFE_003",
+          "secondary_category": "unsafe_auto_handle",
+          "severity": "CRITICAL",
+          "root_cause": "High-risk request auto-handled instead of escalated"
+        }
+      ]
+    },
+    "shipping_info": {
+      "failure_count": 1,
+      "top_categories": {
+        "ESCALATION_FAILURE": 1
+      },
+      "top_severity": "MEDIUM",
+      "grounding_failures": 0,
+      "retrieval_failures": 0,
+      "escalation_failures": 1,
+      "top_failure_tags": {
+        "intent_uncertainty": 1,
+        "unnecessary_escalation": 1
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_ESC_UNCERT_002",
+          "secondary_category": "incorrect_escalation_reason",
+          "severity": "MEDIUM",
+          "root_cause": "Escalation triggered due to borderline threshold or low intent confidence"
+        }
+      ]
+    },
+    "product_question": {
+      "failure_count": 1,
+      "top_categories": {
+        "ESCALATION_FAILURE": 1
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 0,
+      "retrieval_failures": 0,
+      "escalation_failures": 1,
+      "top_failure_tags": {
+        "complexity_failure": 1,
+        "missed_escalation": 1
+      },
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_ESC_COMPLEX_001",
+          "secondary_category": "missed_high_risk_case",
+          "severity": "HIGH",
+          "root_cause": "High-risk case not identified"
+        }
+      ]
+    }
+  },
+  "weakest_intents": [
+    {
+      "intent": "order_status",
+      "failure_count": 22,
+      "weakness_score": 106,
+      "top_categories": {
+        "GROUNDING_FAILURE": 14,
+        "ESCALATION_FAILURE": 5,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 14,
+      "retrieval_failures": 0,
+      "escalation_failures": 5,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_INT_eval_0003",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0014",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0032",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    {
+      "intent": "return",
+      "failure_count": 22,
+      "weakness_score": 91,
+      "top_categories": {
+        "GROUNDING_FAILURE": 11,
+        "RETRIEVAL_FAILURE": 7,
+        "EVALUATION_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 11,
+      "retrieval_failures": 7,
+      "escalation_failures": 0,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_002",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "LOW",
+          "root_cause": "No relevant evidence found in knowledge base"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0001",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0002",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        }
+      ]
+    },
+    {
+      "intent": "shipping",
+      "failure_count": 20,
+      "weakness_score": 85,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "INTENT_CLASSIFICATION_FAILURE": 4,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 13,
+      "retrieval_failures": 3,
+      "escalation_failures": 0,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_001",
+          "secondary_category": "wrong_intent",
+          "severity": "MEDIUM",
+          "root_cause": "Intent classifier predicted wrong intent"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0007",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0020",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    {
+      "intent": "refund",
+      "failure_count": 17,
+      "weakness_score": 77,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "RETRIEVAL_FAILURE": 2,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 13,
+      "retrieval_failures": 2,
+      "escalation_failures": 0,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_004",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0033",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0045",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    {
+      "intent": "account",
+      "failure_count": 17,
+      "weakness_score": 68,
+      "top_categories": {
+        "GROUNDING_FAILURE": 8,
+        "INTENT_CLASSIFICATION_FAILURE": 5,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "MEDIUM",
+      "grounding_failures": 8,
+      "retrieval_failures": 3,
+      "escalation_failures": 1,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_005",
+          "secondary_category": "unsafe_auto_handle",
+          "severity": "CRITICAL",
+          "root_cause": "High-risk request auto-handled instead of escalated"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0005",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0017",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    {
+      "intent": "general_inquiry",
+      "failure_count": 14,
+      "weakness_score": 58,
+      "top_categories": {
+        "RETRIEVAL_FAILURE": 7,
+        "GROUNDING_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM",
+      "grounding_failures": 4,
+      "retrieval_failures": 7,
+      "escalation_failures": 1,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_006",
+          "secondary_category": "unnecessary_escalation",
+          "severity": "LOW",
+          "root_cause": "Safe request unnecessarily escalated"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0029",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0059",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        }
+      ]
+    },
+    {
+      "intent": "billing",
+      "failure_count": 13,
+      "weakness_score": 53,
+      "top_categories": {
+        "GROUNDING_FAILURE": 7,
+        "RETRIEVAL_FAILURE": 3,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 7,
+      "retrieval_failures": 3,
+      "escalation_failures": 0,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_GND_eval_0016",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0024",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0027",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        }
+      ]
+    },
+    {
+      "intent": "complaint",
+      "failure_count": 12,
+      "weakness_score": 50,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "RETRIEVAL_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM",
+      "grounding_failures": 6,
+      "retrieval_failures": 4,
+      "escalation_failures": 0,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_PH18_003",
+          "secondary_category": "wrong_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "Retrieved evidence does not match query intent"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0011",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        },
+        {
+          "failure_id": "FAIL_RET_eval_0052",
+          "secondary_category": "no_relevant_evidence",
+          "severity": "MEDIUM",
+          "root_cause": "No relevant evidence found in knowledge base"
+        }
+      ]
+    },
+    {
+      "intent": "technical_support",
+      "failure_count": 10,
+      "weakness_score": 38,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 4
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 6,
+      "retrieval_failures": 0,
+      "escalation_failures": 0,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_GND_eval_0009",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0026",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0039",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        }
+      ]
+    },
+    {
+      "intent": "product_inquiry",
+      "failure_count": 8,
+      "weakness_score": 34,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH",
+      "grounding_failures": 6,
+      "retrieval_failures": 0,
+      "escalation_failures": 0,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_INT_eval_0006",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        },
+        {
+          "failure_id": "FAIL_GND_eval_0057",
+          "secondary_category": "unsupported_claim",
+          "severity": "HIGH",
+          "root_cause": "Reply contains claims not supported by evidence"
+        },
+        {
+          "failure_id": "FAIL_INT_eval_0075",
+          "secondary_category": "low_confidence",
+          "severity": "MEDIUM",
+          "root_cause": "Low confidence in intent prediction"
+        }
+      ]
+    },
+    {
+      "intent": "billing_issue",
+      "failure_count": 2,
+      "weakness_score": 12,
+      "top_categories": {
+        "ESCALATION_FAILURE": 2
+      },
+      "top_severity": "CRITICAL",
+      "grounding_failures": 0,
+      "retrieval_failures": 0,
+      "escalation_failures": 2,
+      "sample_failures": [
+        {
+          "failure_id": "FAIL_ESC_UNSAFE_002",
+          "secondary_category": "unsafe_auto_handle",
+          "severity": "CRITICAL",
+          "root_cause": "High-risk request auto-handled instead of escalated"
+        },
+        {
+          "failure_id": "FAIL_ESC_UNSAFE_003",
+          "secondary_category": "unsafe_auto_handle",
+          "severity": "CRITICAL",
+          "root_cause": "High-risk request auto-handled instead of escalated"
+        }
+      ]
+    }
+  ]
+}

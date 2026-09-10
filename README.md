@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 19 — LLM-as-Judge: COMPLETE
-> Phases 1-19 are complete. Phase 19 adds LLM-as-judge evaluation for scalable reply quality assessment. Note: Real dataset not downloaded - all evaluation uses synthetic data.
+> **Current Status:** Phase 21 — Failure Analysis: COMPLETE
+> Phases 1-21 are complete. Phase 21 performs rigorous final failure analysis of the complete AI customer-support system. Note: Real dataset not downloaded - all evaluation uses synthetic data.
 
 ---
 
@@ -66,6 +66,83 @@ python scripts/create_judge_plots.py
 - LLM judge may be biased by confident-sounding text
 - Requires validation on real customer support data
 - Current implementation uses mock judge (no API calls)
+
+---
+
+## Failure Analysis
+
+Phase 21 performs a rigorous final failure analysis of the complete AI customer-support system.
+
+### Purpose
+
+- Understand what the system fails at
+- Identify failure frequency and severity
+- Determine root causes across the pipeline
+- Prioritize improvements for next week
+
+### Top 5 Failure Modes
+
+1. **Unsafe Auto-Handle of High-Risk Inquiries** (`CRITICAL` — 4 cases / 2.0%): Compound high-risk requests (e.g., account deletion + refund) auto-handled due to heuristic rule blindspots.
+2. **Grounding Verification Failures & Unsupported Claims** (`HIGH` — 88 cases / 44.0%): Generation model produced speculative operational details ungrounded in retrieved context (11.5% unsupported claim rate).
+3. **Retrieval Misses & Zero Evidence Retrieved** (`MEDIUM` — 29 cases / 14.5%): Dense bi-encoder failed on atypical, colloquial, or ultra-short queries (< 5 words).
+4. **Intent Classification Uncertainty** (`MEDIUM` — 28 cases / 14.0%): Brief single-turn messages yielded low classifier confidence (< 0.50), causing routing hesitation.
+5. **Borderline Policy Escalation Errors** (`MEDIUM` — 8 cases / 4.0%): Uniform global scalar threshold misclassified routine inquiries as requiring human intervention.
+
+### Pipeline Stage & Severity Distribution
+
+- **Evaluated Test Cases:** 200 sessions | **Failure Candidates:** 160 signals (80.0% failure rate across all operational stages)
+- **Severity Breakdown:** CRITICAL: 4 (2.5%), HIGH: 89 (55.6%), MEDIUM: 62 (38.8%), LOW: 5 (3.1%)
+- **Stage Breakdown:** Grounding (88), Retrieval (29), Intent (28), Escalation (12), Evaluation (3)
+- **Highest Failure Stage:** Grounding (44.0% session fail rate)
+- **Highest Severity Stage:** Escalation (contains all 4 CRITICAL failures)
+- **Most Common Upstream Bottleneck:** Intent & Retrieval (upstream misses propagate downstream to 86% of reply failures)
+
+### Major Root Causes
+
+1. **Heuristic Rule Blindspots:** Isolated intent keyword matching misses compound destructive/financial requests.
+2. **Generative Hallucination:** LLM generation attempts to provide complete answers even when evidence lacks specific policy numbers.
+3. **Dense Embedding Lexical Gaps:** Semantic embeddings struggle with domain-shifted terminology and short keyword queries.
+4. **Rigid Global Thresholds:** Scalar thresholds fail to accommodate variance across heterogeneous intent categories.
+
+### Next-Week Improvements (Hypotheses)
+
+1. **Pre-Classifier Regex Safety Gate:** Enforce deterministic human escalation on account termination and financial actions (target: 0.0% unsafe auto-handle).
+2. **Two-Stage Claim Verification & Macro Fallback:** Strict token overlap checks with pre-approved template fallback (target: < 3.0% unsupported claims).
+3. **Hybrid BM25 + Dense Retrieval:** Reciprocal Rank Fusion search to capture exact lexical matches (target: Recall@5 >= 0.85).
+4. **Context-Aware Multi-Turn Intent Classifier:** Prepend conversational history to resolve brief, ambiguous queries (target: 40% reduction in low confidence).
+5. **Intent-Calibrated Escalation Thresholds:** Optimize confidence thresholds per intent class on validation split (target: >= 76% policy accuracy).
+
+### Running the Analysis
+
+```bash
+# Extract failure candidates
+python scripts/extract_failure_cases.py
+
+# Analyze root causes
+python scripts/analyze_failure_root_causes.py
+
+# Calculate failure frequency
+python scripts/failure_frequency_analysis.py
+
+# Analyze by intent
+python scripts/failure_analysis_by_intent.py
+
+# Create failure matrix
+python scripts/create_failure_matrix.py
+
+# Generate failure reports
+python scripts/create_failure_case_reports.py
+
+# Create analysis summary
+python scripts/create_failure_analysis_summary.py
+```
+
+### Limitations
+
+- All data is synthetic (real dataset not downloaded)
+- Single-annotator human evaluation (simulated)
+- LLM judge uses mock mode (no API calls)
+- Golden set is empty (no real ground truth)
 
 ---
 

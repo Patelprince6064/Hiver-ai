@@ -1,0 +1,351 @@
+{
+  "frequency_statistics": {
+    "total_cases": 200,
+    "total_failures": 160,
+    "failure_rate": 0.8,
+    "by_category": {
+      "GROUNDING_FAILURE": 88,
+      "RETRIEVAL_FAILURE": 29,
+      "INTENT_CLASSIFICATION_FAILURE": 28,
+      "ESCALATION_FAILURE": 12,
+      "EVALUATION_FAILURE": 3
+    },
+    "by_severity": {
+      "MEDIUM": 62,
+      "LOW": 5,
+      "HIGH": 89,
+      "CRITICAL": 4
+    },
+    "by_pipeline_stage": {
+      "GROUNDING": 88,
+      "RETRIEVAL": 29,
+      "INTENT": 28,
+      "ESCALATION": 12,
+      "SYSTEM": 3
+    },
+    "by_confidence": {
+      "HIGH": 155,
+      "MEDIUM": 2,
+      "LOW": 3
+    },
+    "by_failure_tags": {
+      "grounding_failure": 87,
+      "status_fail": 87,
+      "retrieval_failure": 28,
+      "no_evidence": 27,
+      "low_intent_confidence": 27,
+      "unsafe_auto_handle": 4,
+      "unnecessary_escalation": 4,
+      "high_risk_missed": 3,
+      "intent_uncertainty": 3,
+      "policy_threshold": 3
+    }
+  },
+  "intent_statistics": {
+    "account": {
+      "failure_count": 18,
+      "top_categories": {
+        "GROUNDING_FAILURE": 8,
+        "INTENT_CLASSIFICATION_FAILURE": 5,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "MEDIUM"
+    },
+    "billing": {
+      "failure_count": 15,
+      "top_categories": {
+        "GROUNDING_FAILURE": 7,
+        "RETRIEVAL_FAILURE": 3,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    "complaint": {
+      "failure_count": 12,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "RETRIEVAL_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM"
+    },
+    "general_inquiry": {
+      "failure_count": 14,
+      "top_categories": {
+        "RETRIEVAL_FAILURE": 7,
+        "GROUNDING_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM"
+    },
+    "order_status": {
+      "failure_count": 22,
+      "top_categories": {
+        "GROUNDING_FAILURE": 14,
+        "ESCALATION_FAILURE": 5,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    "product_inquiry": {
+      "failure_count": 8,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH"
+    },
+    "refund": {
+      "failure_count": 17,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "RETRIEVAL_FAILURE": 2,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH"
+    },
+    "return": {
+      "failure_count": 22,
+      "top_categories": {
+        "GROUNDING_FAILURE": 11,
+        "RETRIEVAL_FAILURE": 7,
+        "EVALUATION_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    "shipping": {
+      "failure_count": 21,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "INTENT_CLASSIFICATION_FAILURE": 4,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    "technical_support": {
+      "failure_count": 10,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 4
+      },
+      "top_severity": "HIGH"
+    }
+  },
+  "weakest_intents": [
+    {
+      "intent": "order_status",
+      "failure_count": 22,
+      "top_categories": {
+        "GROUNDING_FAILURE": 14,
+        "ESCALATION_FAILURE": 5,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    {
+      "intent": "return",
+      "failure_count": 22,
+      "top_categories": {
+        "GROUNDING_FAILURE": 11,
+        "RETRIEVAL_FAILURE": 7,
+        "EVALUATION_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    {
+      "intent": "shipping",
+      "failure_count": 21,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "INTENT_CLASSIFICATION_FAILURE": 4,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    {
+      "intent": "account",
+      "failure_count": 18,
+      "top_categories": {
+        "GROUNDING_FAILURE": 8,
+        "INTENT_CLASSIFICATION_FAILURE": 5,
+        "RETRIEVAL_FAILURE": 3
+      },
+      "top_severity": "MEDIUM"
+    },
+    {
+      "intent": "refund",
+      "failure_count": 17,
+      "top_categories": {
+        "GROUNDING_FAILURE": 13,
+        "RETRIEVAL_FAILURE": 2,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH"
+    },
+    {
+      "intent": "billing",
+      "failure_count": 15,
+      "top_categories": {
+        "GROUNDING_FAILURE": 7,
+        "RETRIEVAL_FAILURE": 3,
+        "INTENT_CLASSIFICATION_FAILURE": 3
+      },
+      "top_severity": "HIGH"
+    },
+    {
+      "intent": "general_inquiry",
+      "failure_count": 14,
+      "top_categories": {
+        "RETRIEVAL_FAILURE": 7,
+        "GROUNDING_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM"
+    },
+    {
+      "intent": "complaint",
+      "failure_count": 12,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "RETRIEVAL_FAILURE": 4,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "MEDIUM"
+    },
+    {
+      "intent": "technical_support",
+      "failure_count": 10,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 4
+      },
+      "top_severity": "HIGH"
+    },
+    {
+      "intent": "product_inquiry",
+      "failure_count": 8,
+      "top_categories": {
+        "GROUNDING_FAILURE": 6,
+        "INTENT_CLASSIFICATION_FAILURE": 2
+      },
+      "top_severity": "HIGH"
+    }
+  ],
+  "pipeline_stages": {
+    "total_cases": 200,
+    "stages": {
+      "INPUT": {
+        "failure_count": 0,
+        "failure_rate": 0.0,
+        "severity_breakdown": {},
+        "severity_weighted_score": 0,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 0,
+        "low_count": 0
+      },
+      "PREPROCESSING": {
+        "failure_count": 0,
+        "failure_rate": 0.0,
+        "severity_breakdown": {},
+        "severity_weighted_score": 0,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 0,
+        "low_count": 0
+      },
+      "INTENT": {
+        "failure_count": 28,
+        "failure_rate": 0.14,
+        "severity_breakdown": {
+          "MEDIUM": 28
+        },
+        "severity_weighted_score": 56,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 28,
+        "low_count": 0
+      },
+      "RETRIEVAL": {
+        "failure_count": 29,
+        "failure_rate": 0.145,
+        "severity_breakdown": {
+          "LOW": 1,
+          "MEDIUM": 28
+        },
+        "severity_weighted_score": 57,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 28,
+        "low_count": 1
+      },
+      "EVIDENCE": {
+        "failure_count": 0,
+        "failure_rate": 0.0,
+        "severity_breakdown": {},
+        "severity_weighted_score": 0,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 0,
+        "low_count": 0
+      },
+      "GENERATION": {
+        "failure_count": 0,
+        "failure_rate": 0.0,
+        "severity_breakdown": {},
+        "severity_weighted_score": 0,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 0,
+        "low_count": 0
+      },
+      "GROUNDING": {
+        "failure_count": 88,
+        "failure_rate": 0.44,
+        "severity_breakdown": {
+          "HIGH": 88
+        },
+        "severity_weighted_score": 352,
+        "critical_count": 0,
+        "high_count": 88,
+        "medium_count": 0,
+        "low_count": 0
+      },
+      "ESCALATION": {
+        "failure_count": 12,
+        "failure_rate": 0.06,
+        "severity_breakdown": {
+          "CRITICAL": 4,
+          "LOW": 1,
+          "MEDIUM": 6,
+          "HIGH": 1
+        },
+        "severity_weighted_score": 49,
+        "critical_count": 4,
+        "high_count": 1,
+        "medium_count": 6,
+        "low_count": 1
+      },
+      "SYSTEM": {
+        "failure_count": 3,
+        "failure_rate": 0.015,
+        "severity_breakdown": {
+          "LOW": 3
+        },
+        "severity_weighted_score": 3,
+        "critical_count": 0,
+        "high_count": 0,
+        "medium_count": 0,
+        "low_count": 3
+      }
+    },
+    "highest_failure_stage": "GROUNDING",
+    "highest_severity_stage": "ESCALATION",
+    "most_common_upstream_bottleneck": "RETRIEVAL",
+    "summary": {
+      "highest_failure_stage_count": 88,
+      "highest_severity_stage_critical_count": 4,
+      "upstream_bottleneck_count": 29
+    }
+  }
+}

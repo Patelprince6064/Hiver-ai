@@ -1753,3 +1753,117 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Cannot fully automate quality assessment.
 
 **Consequence:** Quality decisions require human oversight.
+
+---
+
+## Phase 21 Decisions
+
+### Decision 183: Failure Taxonomy Separates Pipeline Stages
+
+**Date:** Phase 21
+**Decision:** The failure taxonomy separates pipeline stages (INPUT, INTENT, RETRIEVAL, etc.) rather than grouping all failures together.
+
+**Reason:** Understanding where failures originate is essential for targeted improvements. A failure in grounding may actually be caused by retrieval, which may be caused by intent classification.
+
+**Trade-off:** More complex taxonomy requires more analysis.
+
+**Consequence:** Root cause analysis can trace failures upstream.
+
+### Decision 184: Root Cause Differs from Visible Symptom
+
+**Date:** Phase 21
+**Decision:** Root cause analysis distinguishes between the visible symptom (e.g., "bad reply") and the underlying cause (e.g., "wrong intent").
+
+**Reason:** Addressing symptoms without fixing root causes leads to ineffective improvements. The same symptom can have different root causes.
+
+**Trade-off:** Requires more investigation per failure.
+
+**Consequence:** Improvements target actual causes, not symptoms.
+
+### Decision 185: Severity Is Separate from Frequency
+
+**Date:** Phase 21
+**Decision:** Failure severity is analyzed separately from failure frequency.
+
+**Reason:** A rare CRITICAL failure may be more important than a common LOW failure. Ranking only by frequency misses the most dangerous issues.
+
+**Trade-off:** Priority scoring requires combining both dimensions.
+
+**Consequence:** Safety-critical failures are prioritized appropriately.
+
+### Decision 186: Unsafe Auto-Handle Is Prioritized
+
+**Date:** Phase 21
+**Decision:** Unsafe auto-handle failures are prioritized as the most important safety category.
+
+**Reason:** Auto-handling high-risk requests without human review can lead to serious customer harm. This is the most dangerous failure mode.
+
+**Trade-off:** Other failure types receive less attention.
+
+**Consequence:** Safety improvements are prioritized.
+
+### Decision 187: Judge Disagreement Is Not Automatically a Model Failure
+
+**Date:** Phase 21
+**Decision:** Judge disagreements are analyzed separately from actual system failures.
+
+**Reason:** A disagreement between human and LLM judges may indicate rubric ambiguity, judge bias, or contextual interpretation differences, not necessarily a system failure.
+
+**Trade-off:** Requires separate analysis track.
+
+**Consequence:** Judge issues are distinguished from system issues.
+
+### Decision 188: Hypotheses Are Separated from Evidence
+
+**Date:** Phase 21
+**Decision:** Hypotheses about improvements are clearly labeled as hypotheses, not facts.
+
+**Reason:** Presenting hypotheses as facts misleads decision-making. Honest uncertainty is more valuable than false confidence.
+
+**Trade-off:** Reports look less definitive.
+
+**Consequence:** Decision-makers understand the uncertainty level.
+
+### Decision 189: No Improvements Are Implemented in This Phase
+
+**Date:** Phase 21
+**Decision:** This phase is analysis only. No improvements are implemented.
+
+**Reason:** Understanding failures thoroughly before fixing them prevents wasted effort on the wrong problems. The analysis produces evidence for next-week improvements.
+
+**Trade-off:** Delayed gratification.
+
+**Consequence:** Next-week improvements are evidence-based.
+
+### Decision 190: Real Examples Are Required
+
+**Date:** Phase 21
+**Decision:** Every reported failure example must come from actual evaluation outputs.
+
+**Reason:** Fabricated examples mislead analysis and waste engineering time on non-existent problems.
+
+**Trade-off:** Some failure categories may have no examples.
+
+**Consequence:** Analysis is grounded in reality.
+
+### Decision 191: Golden Failures Are Analyzed Only After Freeze
+
+**Date:** Phase 21
+**Decision:** Golden set failures are analyzed only after all systems are frozen.
+
+**Reason:** Using golden examples to tune rules would contaminate the evaluation. Golden failures must be discovered honestly.
+
+**Trade-off:** Cannot use golden set for iterative improvement during development.
+
+**Consequence:** Golden evaluation remains unbiased.
+
+### Decision 192: Limitations Are Explicitly Reported
+
+**Date:** Phase 21
+**Decision:** All limitations (sample size, human annotation, LLM judge, dataset, etc.) are explicitly reported.
+
+**Reason:** Hidden limitations lead to overconfident decisions. Transparency enables better risk assessment.
+
+**Trade-off:** Reports may look less impressive.
+
+**Consequence:** Decision-makers have accurate information about confidence levels.

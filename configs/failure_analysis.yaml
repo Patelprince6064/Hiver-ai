@@ -1,0 +1,62 @@
+# Failure Analysis Configuration
+# Phase 21 - Final Failure Analysis
+
+failure_priority:
+  severity_weights:
+    LOW: 1
+    MEDIUM: 2
+    HIGH: 4
+    CRITICAL: 8
+  
+  frequency_weight: 1.0
+  severity_weight: 1.0
+  impact_weight: 1.0
+
+severity_definitions:
+  LOW:
+    description: "Minor style, verbosity, or wording issue."
+    criteria:
+      - "Cosmetic or stylistic issues only"
+      - "No impact on correctness or helpfulness"
+      - "Would not cause customer confusion"
+  
+  MEDIUM:
+    description: "Meaningful quality problem but unlikely to create serious harm."
+    criteria:
+      - "Incorrect or incomplete information"
+      - "May cause minor customer confusion"
+      - "Does not involve safety or financial risk"
+  
+  HIGH:
+    description: "Wrong answer, materially misleading response, major error."
+    criteria:
+      - "Factually incorrect information"
+      - "Materially misleading response"
+      - "Major retrieval/generation error"
+      - "Could cause customer action based on wrong information"
+  
+  CRITICAL:
+    description: "Unsafe AUTO_HANDLE involving high-risk cases."
+    criteria:
+      - "Involves financial claims or actions"
+      - "Privacy-sensitive information exposure"
+      - "Safety-critical misinformation"
+      - "Account security issues"
+
+pipeline_stages:
+  - INPUT
+  - PREPROCESSING
+  - INTENT
+  - RETRIEVAL
+  - EVIDENCE
+  - GENERATION
+  - GROUNDING
+  - ESCALATION
+  - SYSTEM
+
+# Analysis parameters
+analysis:
+  min_samples_for_statistics: 10
+  confidence_threshold: 0.7
+  top_n_failure_modes: 5
+  representative_failures_count: 15

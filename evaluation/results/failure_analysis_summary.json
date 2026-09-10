@@ -1,0 +1,172 @@
+{
+  "total_cases": 200,
+  "total_failures": 160,
+  "failure_rate": 0.8,
+  "severity_distribution": {
+    "MEDIUM": 62,
+    "LOW": 5,
+    "HIGH": 89,
+    "CRITICAL": 4
+  },
+  "category_distribution": {
+    "INTENT_CLASSIFICATION_FAILURE": 28,
+    "RETRIEVAL_FAILURE": 29,
+    "GROUNDING_FAILURE": 88,
+    "ESCALATION_FAILURE": 12,
+    "EVALUATION_FAILURE": 3
+  },
+  "top_5_failure_modes": [
+    {
+      "rank": 1,
+      "name": "Unsafe Auto-Handle of High-Risk Inquiries",
+      "category": "ESCALATION_FAILURE",
+      "secondary_category": "unsafe_auto_handle",
+      "frequency": 4,
+      "rate": 0.02,
+      "severity": "CRITICAL",
+      "priority_score": 13.0,
+      "real_example": "I want to cancel my account and get a refund",
+      "pipeline_stage": "ESCALATION",
+      "root_cause": "High-risk request auto-handled instead of escalated to human",
+      "hypothesis": "Risk detection rules failed to catch sensitive action keywords (cancellation + refund)",
+      "proposed_next_step": "Strengthen high-risk regex filters and add mandatory escalation on account/financial actions"
+    },
+    {
+      "rank": 2,
+      "name": "Grounding Verification Failures & Unsupported Claims",
+      "category": "GROUNDING_FAILURE",
+      "secondary_category": "unsupported_claim",
+      "frequency": 88,
+      "rate": 0.44,
+      "severity": "HIGH",
+      "priority_score": 93.0,
+      "real_example": "Shipping cost seems wrong.",
+      "pipeline_stage": "GROUNDING",
+      "root_cause": "Generated text contains claims not supported by retrieved evidence",
+      "hypothesis": "LLM generation lacks strict claim verification boundaries in prompt",
+      "proposed_next_step": "Implement post-generation claim extraction and fallback to safe macros when grounding fails"
+    },
+    {
+      "rank": 3,
+      "name": "Retrieval Misses & Zero Evidence Retrieved",
+      "category": "RETRIEVAL_FAILURE",
+      "secondary_category": "no_relevant_evidence",
+      "frequency": 29,
+      "rate": 0.145,
+      "severity": "MEDIUM",
+      "priority_score": 32.0,
+      "real_example": "I need help with quantum computing returns",
+      "pipeline_stage": "RETRIEVAL",
+      "root_cause": "Zero relevant evidence retrieved from knowledge base",
+      "hypothesis": "Dense semantic retrieval missed relevant documents due to lexical divergence",
+      "proposed_next_step": "Implement hybrid dense + BM25 lexical retrieval and query expansion"
+    },
+    {
+      "rank": 4,
+      "name": "Intent Classification Uncertainty on Short/Ambiguous Inputs",
+      "category": "INTENT_CLASSIFICATION_FAILURE",
+      "secondary_category": "low_confidence",
+      "frequency": 28,
+      "rate": 0.14,
+      "severity": "MEDIUM",
+      "priority_score": 31.0,
+      "real_example": "Can you check my order status?",
+      "pipeline_stage": "INTENT",
+      "root_cause": "Low classifier confidence (<0.50) on brief user input",
+      "hypothesis": "Single-turn message lacks sufficient lexical features for confident classification",
+      "proposed_next_step": "Incorporate conversational turn history and confidence-based clarification routing"
+    },
+    {
+      "rank": 5,
+      "name": "Borderline Escalation Threshold & Reason Misclassification",
+      "category": "ESCALATION_FAILURE",
+      "secondary_category": "incorrect_escalation_reason",
+      "frequency": 8,
+      "rate": 0.04,
+      "severity": "MEDIUM",
+      "priority_score": 11.0,
+      "real_example": "Sample message about order_status (q_0002)",
+      "pipeline_stage": "ESCALATION",
+      "root_cause": "Borderline policy threshold misclassified escalation route",
+      "hypothesis": "Global threshold is overly conservative for routine inquiries",
+      "proposed_next_step": "Calibrate threshold per intent class on validation split"
+    }
+  ],
+  "pipeline_stage_distribution": {
+    "INTENT": 28,
+    "RETRIEVAL": 29,
+    "GROUNDING": 88,
+    "ESCALATION": 12,
+    "SYSTEM": 3
+  },
+  "weakest_intents": [
+    {
+      "intent": "return",
+      "failure_count": 22
+    },
+    {
+      "intent": "order_status",
+      "failure_count": 22
+    },
+    {
+      "intent": "shipping",
+      "failure_count": 20
+    },
+    {
+      "intent": "refund",
+      "failure_count": 17
+    },
+    {
+      "intent": "account",
+      "failure_count": 17
+    }
+  ],
+  "judge_disagreement_count": 3,
+  "strongest_areas": [
+    "Intent classification (85.5% accuracy on standard inquiries)",
+    "Escalation policy stability (69% accuracy, best policy V1.1 Risk-Aware)",
+    "Grounding verification coverage (detects 100% of unverified claims)"
+  ],
+  "next_week_hypotheses": [
+    {
+      "failure": "Unsafe auto-handle of high-risk cases",
+      "evidence": "4 observed critical unsafe auto-handles; 13 in escalation error analysis",
+      "hypothesis": "Risk detection rules missing key indicators for cancellation and refunds",
+      "proposed_experiment": "Strengthen high-risk detection with additional action-keyword regex rules",
+      "success_metric": "Reduce unsafe auto-handle rate to 0.0%",
+      "expected_risk": "May slightly increase escalation rate on borderline requests"
+    },
+    {
+      "failure": "Grounding failures (44% fail rate)",
+      "evidence": "88 failures failed grounding score threshold; 11.5% unsupported claims",
+      "hypothesis": "LLM generates plausible but unverified details when evidence lacks specificity",
+      "proposed_experiment": "Implement post-generation claim verification and safe-macro fallback",
+      "success_metric": "Reduce unsupported claim rate below 5%",
+      "expected_risk": "May reduce reply variety or length"
+    },
+    {
+      "failure": "Retrieval misses on short/atypical queries",
+      "evidence": "29 cases had zero evidence retrieved (14.5% miss rate)",
+      "hypothesis": "Dense semantic retrieval alone struggles with exact terminology or atypical queries",
+      "proposed_experiment": "Deploy hybrid BM25 + dense retrieval index with query expansion",
+      "success_metric": "Increase Recall@5 from 0.75 to >= 0.85",
+      "expected_risk": "Increased index memory and query latency"
+    },
+    {
+      "failure": "Intent uncertainty causing downstream routing delays",
+      "evidence": "28 cases with confidence < 0.50 (14% rate)",
+      "hypothesis": "Isolated customer tweets lack sufficient conversational context",
+      "proposed_experiment": "Feed preceding customer turns into classifier context",
+      "success_metric": "Reduce low-confidence predictions by 40%",
+      "expected_risk": "Requires multi-turn session tracking"
+    },
+    {
+      "failure": "Borderline escalation threshold misclassifications",
+      "evidence": "8 borderline cases escalated or misrouted due to composite score thresholds",
+      "hypothesis": "Uniform global threshold does not fit variance across different intents",
+      "proposed_experiment": "Calibrate per-intent escalation thresholds on validation split",
+      "success_metric": "Improve escalation precision to >= 0.75",
+      "expected_risk": "Added configuration complexity"
+    }
+  ]
+}

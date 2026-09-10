@@ -1,0 +1,117 @@
+{
+  "total_cases": 200,
+  "stages": {
+    "INPUT": {
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "severity_breakdown": {},
+      "severity_weighted_score": 0,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 0,
+      "low_count": 0
+    },
+    "PREPROCESSING": {
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "severity_breakdown": {},
+      "severity_weighted_score": 0,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 0,
+      "low_count": 0
+    },
+    "INTENT": {
+      "failure_count": 28,
+      "failure_rate": 0.14,
+      "severity_breakdown": {
+        "MEDIUM": 28
+      },
+      "severity_weighted_score": 56,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 28,
+      "low_count": 0
+    },
+    "RETRIEVAL": {
+      "failure_count": 29,
+      "failure_rate": 0.145,
+      "severity_breakdown": {
+        "LOW": 1,
+        "MEDIUM": 28
+      },
+      "severity_weighted_score": 57,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 28,
+      "low_count": 1
+    },
+    "EVIDENCE": {
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "severity_breakdown": {},
+      "severity_weighted_score": 0,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 0,
+      "low_count": 0
+    },
+    "GENERATION": {
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "severity_breakdown": {},
+      "severity_weighted_score": 0,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 0,
+      "low_count": 0
+    },
+    "GROUNDING": {
+      "failure_count": 88,
+      "failure_rate": 0.44,
+      "severity_breakdown": {
+        "HIGH": 88
+      },
+      "severity_weighted_score": 352,
+      "critical_count": 0,
+      "high_count": 88,
+      "medium_count": 0,
+      "low_count": 0
+    },
+    "ESCALATION": {
+      "failure_count": 12,
+      "failure_rate": 0.06,
+      "severity_breakdown": {
+        "CRITICAL": 4,
+        "LOW": 1,
+        "MEDIUM": 6,
+        "HIGH": 1
+      },
+      "severity_weighted_score": 49,
+      "critical_count": 4,
+      "high_count": 1,
+      "medium_count": 6,
+      "low_count": 1
+    },
+    "SYSTEM": {
+      "failure_count": 3,
+      "failure_rate": 0.015,
+      "severity_breakdown": {
+        "LOW": 3
+      },
+      "severity_weighted_score": 3,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 0,
+      "low_count": 3
+    }
+  },
+  "highest_failure_stage": "GROUNDING",
+  "highest_severity_stage": "ESCALATION",
+  "most_common_upstream_bottleneck": "RETRIEVAL",
+  "summary": {
+    "highest_failure_stage_count": 88,
+    "highest_severity_stage_critical_count": 4,
+    "upstream_bottleneck_count": 29
+  }
+}
