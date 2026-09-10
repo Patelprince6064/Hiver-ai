@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 8 — Semantic Intent Classifier: IN PROGRESS
-> Phases 1-7 are complete. No RAG, vector database, reply generation, or escalation has been implemented yet.
+> **Current Status:** Phase 9 — Historical Support Knowledge Base: IN PROGRESS
+> Phases 1-8 are complete. No RAG, vector database, reply generation, or escalation has been implemented yet.
 
 ---
 
@@ -373,6 +373,50 @@ Compare semantic classifier against:
 - Requires sentence-transformer model download (internet access)
 - Embedding computation is slower than TF-IDF
 - Performance depends on embedding model quality
+
+---
+
+## Phase 9 — Historical Support Knowledge Base
+
+### What It Contains
+
+Historical customer-support message pairs from the selected brand's conversations.
+
+### How It Works
+
+1. Reconstruct conversations from historical data
+2. Pair customer messages with support responses
+3. Extract resolution type and evidence
+4. Attach intent predictions (with provenance)
+5. Apply quality flags
+6. Create retrieval text for embedding
+
+### Run
+
+```bash
+python scripts/build_knowledge_base.py
+python scripts/analyze_knowledge_base.py
+python scripts/inspect_knowledge_base.py --n 30 --seed 42
+python scripts/validate_knowledge_base.py
+python scripts/check_knowledge_base_leakage.py
+```
+
+### Output Locations
+
+- Knowledge Base: `data/processed/knowledge_base.jsonl`
+- Metadata: `data/processed/knowledge_base_metadata.json`
+- Statistics: `data/processed/knowledge_base_statistics.json`
+
+### Golden Leakage Prevention
+
+Golden set conversations are excluded from the knowledge base.
+
+### Limitations
+
+- Historical responses may be outdated
+- Responses may be inconsistent
+- Some threads are incomplete
+- Twitter conversations are noisy
 
 ---
 

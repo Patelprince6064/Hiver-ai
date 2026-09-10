@@ -1,0 +1,42 @@
+knowledge_base:
+  enabled: true
+
+  source:
+    use_train_split: true
+    use_dev_split: false
+    use_test_split: false
+
+  resolution_types:
+    - information_provided
+    - troubleshooting
+    - requested_information
+    - requested_private_contact
+    - status_update
+    - refund_or_compensation_discussion
+    - replacement_or_rebooking_discussion
+    - escalated
+    - apology_only
+    - unclear
+    - no_resolution
+    - other
+
+  quality_flags:
+    - empty_customer_message
+    - empty_support_response
+    - very_short_message
+    - duplicate
+    - missing_conversation_id
+    - uncertain_pairing
+    - unclear_resolution
+    - multi_turn_context
+    - high_noise
+    - possible_language_mismatch
+
+  output:
+    knowledge_base_path: "data/processed/knowledge_base.jsonl"
+    metadata_path: "data/processed/knowledge_base_metadata.json"
+    statistics_path: "data/processed/knowledge_base_statistics.json"
+
+  min_customer_message_length: 3
+  min_support_response_length: 2
+  seed: 42

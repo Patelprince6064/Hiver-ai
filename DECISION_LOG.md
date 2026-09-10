@@ -532,3 +532,77 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Avoid aggressive text cleaning. Preserve punctuation, emojis, product names, and conversational wording.
 
 **Rationale:** Social-media language contains useful signals for intent classification. Removing emojis, slang, or punctuation could remove discriminative features. The same preprocessing as Phase 7 is used for consistency.
+
+---
+
+## Phase 9 Decisions
+
+### Decision 68: Use Historical Conversations as Knowledge Source
+
+**Date:** Phase 9
+**Decision:** Use the selected brand's historical Twitter conversations as the knowledge source.
+
+**Rationale:** The dataset contains real customer-support interactions. These provide grounded evidence of how the brand historically handled similar issues. This is more reliable than synthetic or LLM-generated examples.
+
+### Decision 69: Treat Support Responses as Evidence, Not Policy
+
+**Date:** Phase 9
+**Decision:** Historical support responses are treated as evidence, not guaranteed business policies.
+
+**Rationale:** Historical responses may contain incorrect advice, outdated policies, inconsistent support, or incomplete resolutions. Treating them as policy would be misleading.
+
+### Decision 70: Use Author-Based Message Pairing
+
+**Date:** Phase 9
+**Decision:** Pair customer messages with support responses using author/sender information where available.
+
+**Rationale:** Author information provides the most reliable way to identify who sent each message. Without it, alternating patterns or other heuristics are used as fallback.
+
+### Decision 71: Preserve Multi-Turn Conversation Structure
+
+**Date:** Phase 9
+**Decision:** Preserve multi-turn conversation structure rather than flattening to single pairs.
+
+**Rationale:** Support responses depend on conversation context. Preserving the structure ensures that future retrieval can access the full context.
+
+### Decision 72: Use Historical Action Categories for Resolution
+
+**Date:** Phase 9
+**Decision:** Resolution types are historical response categories, not business policy labels.
+
+**Rationale:** These categories describe what the support agent did, not what the company policy is. This avoids misleading inferences.
+
+### Decision 73: Retain Unresolved/Unclear Conversations
+
+**Date:** Phase 9
+**Decision:** Unresolved and unclear conversations are retained instead of being artificially labeled as resolved.
+
+**Rationale:** Artificially labeling conversations as resolved would be misleading. The knowledge base should honestly represent what is visible in the data.
+
+### Decision 74: Flag Rather Than Delete Noisy Records
+
+**Date:** Phase 9
+**Decision:** Noisy records are flagged with quality indicators rather than aggressively deleted.
+
+**Rationale:** Even noisy records may contain useful evidence. Flagging allows the retrieval layer to filter as needed while preserving provenance.
+
+### Decision 75: Store Intent Predictions with Provenance
+
+**Date:** Phase 9
+**Decision:** Semantic classifier predictions are stored with explicit `intent_source` field.
+
+**Rationale:** Model predictions are not ground truth. Recording provenance prevents confusion between predicted and actual intent labels.
+
+### Decision 76: Exclude Golden Conversations
+
+**Date:** Phase 9
+**Decision:** Golden set conversations are excluded from the knowledge base.
+
+**Rationale:** The golden set is the evaluation standard. Including golden conversations in the knowledge base would cause retrieval leakage, producing overly optimistic results.
+
+### Decision 77: Defer Vector Index to Next Phase
+
+**Date:** Phase 9
+**Decision:** The vector index/RAG system is not implemented in this phase.
+
+**Rationale:** Phase 9 focuses on creating a clean, auditable corpus. The vector index requires embedding generation and semantic search, which belong to the retrieval phase.
