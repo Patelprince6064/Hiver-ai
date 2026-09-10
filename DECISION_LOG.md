@@ -808,3 +808,139 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** The baseline cannot generate novel responses or adapt to context.
 
 **Consequence:** Phase 12 can directly compare LLM generation against this baseline to prove whether the LLM adds value.
+
+---
+
+## Phase 12 Decisions
+
+### Decision 100: LLM Introduced Only After Baselines Exist
+
+**Date:** Phase 12
+**Decision:** The LLM generator is introduced only after generic and historical baselines are established and evaluated.
+
+**Rationale:** Without baselines, we cannot measure whether the LLM adds value. The baselines provide the comparison point that proves whether the additional complexity of an LLM is justified.
+
+**Trade-off:** The baselines must be completed before LLM work begins, which adds a phase.
+
+**Consequence:** The final report can directly answer "Does the LLM actually improve reply quality beyond simply returning the most similar historical response?"
+
+### Decision 101: Historical Evidence Separated from Instructions
+
+**Date:** Phase 12
+**Decision:** The prompt explicitly separates system instructions from historical evidence content.
+
+**Rationale:** Mixing instructions with data creates ambiguity about what the model should follow. Clear separation ensures the model understands which text is instruction and which is reference data.
+
+**Trade-off:** Slightly longer prompts.
+
+**Consequence:** The model has a clear mental model: system prompt = rules, evidence = data to analyze.
+
+### Decision 102: Historical Messages Treated as Untrusted Data
+
+**Date:** Phase 12
+**Decision:** All historical messages (customer and support) are treated as untrusted reference data, not instructions.
+
+**Rationale:** Historical Twitter messages may contain adversarial content, including prompt injection attempts. Treating them as data prevents the model from following embedded instructions.
+
+**Trade-off:** The model cannot extract implicit instructions from historical context.
+
+**Consequence:** The prompt explicitly states that historical messages are data to analyze, not instructions to follow.
+
+### Decision 103: LLM Forbidden from Inventing Unsupported Policies
+
+**Date:** Phase 12
+**Decision:** The LLM must not invent business facts, policies, timelines, or guarantees not present in the evidence.
+
+**Rationale:** Customer-support responses must be grounded in what the brand actually does. Inventing policies creates legal and customer-experience risks.
+
+**Trade-off:** The model may sometimes say "insufficient evidence" when a human agent would infer a reasonable response.
+
+**Consequence:** The system is conservative but trustworthy. It will escalate rather than guess.
+
+### Decision 104: Insufficient Evidence Produces No Generated Reply
+
+**Date:** Phase 12
+**Decision:** When evidence is insufficient, the generator returns `status: insufficient_evidence` with `reply: null`.
+
+**Rationale:** Forcing a reply when evidence is weak leads to hallucination. Returning null allows the escalation system (Phase 13) to handle these cases appropriately.
+
+**Trade-off:** Some queries that could have a reasonable response will be escalated.
+
+**Consequence:** The escalation system receives clear signals about when to hand off to a human.
+
+### Decision 105: Evidence IDs Validated Against Actual Evidence
+
+**Date:** Phase 12
+**Decision:** The output validator checks that any evidence IDs mentioned in the LLM output correspond to actual evidence supplied to the model.
+
+**Rationale:** LLMs may hallucinate evidence references. Validating IDs prevents downstream systems from tracing replies to non-existent evidence.
+
+**Trade-off:** Adds a validation step.
+
+**Consequence:** Every cited evidence ID can be traced back to a real knowledge record.
+
+### Decision 106: Prompt Versioning Required
+
+**Date:** Phase 12
+**Decision:** Every prompt version is tracked and stored with evaluation results.
+
+**Rationale:** Prompt changes can significantly affect output quality. Versioning ensures reproducibility and prevents silent regressions.
+
+**Trade-off:** Requires maintaining version metadata.
+
+**Consequence:** Evaluation results are tied to specific prompt versions, enabling A/B comparison.
+
+### Decision 107: Mock LLM Provider for Testing
+
+**Date:** Phase 12
+**Decision:** A mock LLM provider is implemented for unit tests, CI, and offline development.
+
+**Rationale:** Tests must run without API keys. The mock provider enables the entire pipeline to be tested deterministically.
+
+**Trade-off:** Mock responses do not test actual LLM behavior.
+
+**Consequence:** The pipeline architecture is validated without API costs. Real LLM behavior is tested separately with the OpenAI provider.
+
+### Decision 108: Historical Customer-Specific Info Must Not Transfer
+
+**Date:** Phase 12
+**Decision:** The generator must not copy historical customer-specific information (order IDs, names, emails) into the current reply unless the current customer supplied the same information.
+
+**Rationale:** Copying another customer's order ID into a reply to a different customer is a serious privacy and correctness violation.
+
+**Trade-off:** The model must carefully distinguish between "evidence shows this pattern" and "this specific detail applies to the current customer."
+
+**Consequence:** Grounding checks detect historical PII leakage.
+
+### Decision 109: Output Validation Is Not a Complete Hallucination Detector
+
+**Date:** Phase 12
+**Decision:** Output validation catches obvious issues (length, internal terms, empty output) but does not claim to detect all hallucinations.
+
+**Rationale:** No automated system can guarantee complete hallucination detection. Validation is a safety net, not a guarantee.
+
+**Trade-off:** Some subtle hallucinations may pass validation.
+
+**Consequence:** Grounding checks and manual audit supplement automated validation.
+
+### Decision 110: LLM Evaluated Against Generic and Historical Baselines
+
+**Date:** Phase 12
+**Decision:** The grounded LLM is evaluated on the same queries as the generic and historical baselines.
+
+**Rationale:** Direct comparison on the same data reveals whether the LLM provides measurably better replies.
+
+**Trade-off:** The baselines may perform differently on different data distributions.
+
+**Consequence:** The evaluation report provides a clear three-way comparison.
+
+### Decision 111: Full LLM-as-Judge Deferred
+
+**Date:** Phase 12
+**Decision:** The judge schema is defined but LLM-as-judge evaluation is not performed in Phase 12.
+
+**Rationale:** Building the judge framework requires additional infrastructure (prompt design, calibration, human agreement measurement). Deferring it keeps Phase 12 focused on the generator.
+
+**Trade-off:** Reply quality evaluation relies on automated grounding checks and manual audit rather than LLM-as-judge scores.
+
+**Consequence:** Phase 19 can build on the judge schema defined here.

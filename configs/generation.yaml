@@ -1,6 +1,6 @@
 generation:
   enabled: true
-  default_method: "historical_baseline"
+  default_method: "grounded_llm"
 
   generic_baseline:
     enabled: true
@@ -11,6 +11,19 @@ generation:
     top_k: 1
     require_evidence: true
     min_similarity: null
+
+  grounded_llm:
+    enabled: true
+    provider: "openai"
+    model: "gpt-4o-mini"
+    temperature: 0.0
+    max_tokens: 300
+    timeout: 30
+    max_retries: 1
+    prompt_version: "v1"
+    evidence_top_k: 3
+    min_similarity: null
+    deduplicate_evidence: true
 
   safety_filters:
     enabled: true

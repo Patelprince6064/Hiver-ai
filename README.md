@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 11 — Reply Generation Baseline: COMPLETE
-> Phases 1-10 are complete. No LLM reply generation, RAG generation, escalation, or frontend has been implemented yet.
+> **Current Status:** Phase 12 — Grounded LLM Reply Generator: COMPLETE
+> Phases 1-11 are complete. No escalation, auto-handle, or frontend has been implemented yet.
 
 ---
 
@@ -514,6 +514,78 @@ All historical baseline replies pass through safety/risk detection for:
 - Cannot generate novel responses
 - Cannot ensure factual accuracy of copied content
 - Similarity ≠ correctness
+
+---
+
+## Phase 12 — Grounded LLM Reply Generation
+
+### Objective
+
+Build a working LLM reply generator that uses retrieved historical support evidence to draft concise, customer-facing replies without inventing unsupported business facts.
+
+### Architecture
+
+Customer Message → Intent Classification → Historical Retrieval → Evidence Selection → Context Budget → Prompt Builder → Grounded LLM → Output Validator → Grounding Checks → Draft Reply
+
+### Configuration
+
+- Provider: OpenAI (gpt-4o-mini default)
+- Temperature: 0.0
+- Max tokens: 300
+- Evidence top-K: 3
+- Prompt version: v1
+
+### Environment Variables
+
+```
+OPENAI_API_KEY=
+LLM_MODEL=gpt-4o-mini
+LLM_TIMEOUT=30
+```
+
+### Run
+
+```bash
+# Test with mock provider (no API key needed)
+python scripts/test_grounded_reply.py --query "My order has not arrived yet." --mock
+
+# Test with real provider
+python scripts/test_grounded_reply.py --query "My order has not arrived yet."
+
+# Evaluate on DEV split
+python scripts/evaluate_grounded_replies.py --mock
+
+# Analyze failures
+python scripts/analyze_grounded_reply_failures.py
+```
+
+### Output Locations
+
+- Predictions: `evaluation/results/grounded_reply_predictions.jsonl`
+- Summary: `evaluation/results/grounded_reply_summary.json`
+- Grounding checks: `evaluation/results/grounding_checks.json`
+- Failure analysis: `evaluation/results/grounded_reply_failure_analysis.json`
+
+### Grounding Rules
+
+- May rephrase/combine supported information
+- Must NOT invent policies, timelines, guarantees, prices
+- Must NOT copy historical customer-specific data
+- Must return INSUFFICIENT_EVIDENCE when evidence is weak
+
+### Safety Checks
+
+- Historical PII leakage detection
+- Unsupported numeric claim detection
+- Evidence phrase overlap verification
+- Internal terminology detection
+
+### Limitations
+
+- Depends on retrieval quality
+- May escalate when a human could resolve
+- No real-time knowledge access
+- Grounding checks are necessary but not sufficient
 
 ---
 

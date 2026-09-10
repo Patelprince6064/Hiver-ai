@@ -74,4 +74,4 @@ def test_env_example_exists():
 
     content = env_path.read_text()
     assert "OPENAI_API_KEY=" in content
-    assert "MODEL_NAME=" in content
+    assert "LLM_MODEL=" in content
