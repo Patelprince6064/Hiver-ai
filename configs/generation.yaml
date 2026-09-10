@@ -1,0 +1,23 @@
+generation:
+  enabled: true
+  default_method: "historical_baseline"
+
+  generic_baseline:
+    enabled: true
+    fallback_reply: "Thanks for reaching out. We're sorry you're experiencing this issue. Please provide more details so our support team can assist you."
+
+  historical_baseline:
+    enabled: true
+    top_k: 1
+    require_evidence: true
+    min_similarity: null
+
+  safety_filters:
+    enabled: true
+    detect_pii: true
+    detect_urls: true
+    detect_identifiers: true
+
+  reply_eval:
+    output_dir: "data/interim/reply_eval"
+    results_dir: "evaluation/results"

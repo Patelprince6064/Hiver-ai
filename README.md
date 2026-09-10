@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 10 — Semantic Retrieval: IN PROGRESS
-> Phases 1-9 are complete. No reply generation, escalation, or frontend has been implemented yet.
+> **Current Status:** Phase 11 — Reply Generation Baseline: COMPLETE
+> Phases 1-10 are complete. No LLM reply generation, RAG generation, escalation, or frontend has been implemented yet.
 
 ---
 
@@ -459,6 +459,61 @@ Golden set conversations are excluded from the retrieval index.
 - Semantic similarity does not guarantee relevance
 - Historical responses may be outdated
 - Similarity score is not correctness
+
+---
+
+## Phase 11 — Reply Generation Baseline
+
+### Objective
+
+Establish a non-LLM reply-generation baseline to measure whether LLM generation actually improves reply quality.
+
+### Baselines
+
+**Generic Baseline:** Returns a fixed support response. No retrieval, no evidence.
+
+**Historical Baseline:** Returns the top-ranked historical support response verbatim via semantic retrieval.
+
+### Architecture
+
+Customer Message → Intent Classification → Historical Retrieval → Top Historical Response → Safety Detection → Baseline Reply
+
+### Run
+
+```bash
+python scripts/evaluate_reply_baselines.py
+python scripts/analyze_reply_copy_risk.py
+python scripts/analyze_reply_baseline_errors.py
+```
+
+### Output Locations
+
+- Predictions: `evaluation/results/historical_reply_predictions.jsonl`
+- Predictions: `evaluation/results/generic_reply_predictions.jsonl`
+- Comparison: `evaluation/results/reply_baseline_comparison.json`
+- Risk analysis: `evaluation/results/reply_copy_risk_analysis.json`
+- Error analysis: `evaluation/results/reply_error_analysis.json`
+
+### Evidence Preservation
+
+Every reply includes the full evidence chain: knowledge_id, similarity_score, support_response, intent, resolution_type.
+
+### Safety Detection
+
+All historical baseline replies pass through safety/risk detection for:
+- Email addresses
+- Phone numbers
+- URLs
+- Order/reference IDs
+- Customer names
+
+### Limitations
+
+- Cannot rewrite or improve historical responses
+- Cannot handle multi-turn conversations
+- Cannot generate novel responses
+- Cannot ensure factual accuracy of copied content
+- Similarity ≠ correctness
 
 ---
 

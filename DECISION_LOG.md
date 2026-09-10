@@ -694,3 +694,117 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Retrieved historical responses are treated as evidence, not official policy.
 
 **Rationale:** Historical responses may contain incorrect advice, outdated policies, or inconsistent support. Treating them as policy would be misleading.
+
+---
+
+## Phase 11 Decisions
+
+### Decision 90: Create Generic Reply Baseline
+
+**Date:** Phase 11
+**Decision:** Implement a generic reply baseline that returns a fixed support response.
+
+**Rationale:** Establishes a floor for reply quality. Without this baseline, we cannot measure whether retrieval or generation adds value beyond a canned response.
+
+**Trade-off:** Generic responses are always available but never specific to the customer's issue.
+
+**Consequence:** The comparison between generic and historical baselines reveals how much value retrieval actually adds.
+
+### Decision 91: Use Direct Historical Response as Second Baseline
+
+**Date:** Phase 11
+**Decision:** Return the top-ranked historical support response verbatim as the candidate reply.
+
+**Rationale:** This is the simplest retrieval-based approach. It directly answers: "Is retrieving a similar historical response good enough?" If the LLM cannot beat this, the additional complexity is not justified.
+
+**Trade-off:** Copying verbatim preserves errors, outdated content, and customer-specific data from the source.
+
+**Consequence:** Safety/risk analysis becomes necessary to flag problematic copied content.
+
+### Decision 92: Historical Responses Are Not Ground-Truth Answers
+
+**Date:** Phase 11
+**Decision:** Do not treat historical support responses as ground-truth correct answers for evaluation.
+
+**Rationale:** Customer-support responses are context-dependent. A response that was appropriate in the original conversation may be wrong for a different customer with a similar query. There is no single correct reply.
+
+**Trade-off:** This limits which automated metrics can be used (no exact-match, limited BLEU/ROUGE utility).
+
+**Consequence:** Evaluation relies on coverage, evidence quality, intent consistency, and safety metrics rather than reply correctness.
+
+### Decision 93: Exact-Match Metrics Are Insufficient for Reply Quality
+
+**Date:** Phase 11
+**Decision:** Do not use BLEU, ROUGE, or exact string matching as primary reply quality metrics.
+
+**Rationale:** Multiple valid responses exist for any customer message. Measuring overlap with a single reference reply would be misleading. These metrics can be reported as supplementary diagnostics only.
+
+**Trade-off:** Objective automated metrics are limited; more weight falls on manual audit and proxy metrics.
+
+**Consequence:** Reply quality evaluation focuses on response coverage, evidence availability, similarity distribution, and safety risk rate.
+
+### Decision 94: Preserve Evidence with Every Reply
+
+**Date:** Phase 11
+**Decision:** Every generated reply includes the full evidence chain (knowledge_id, similarity_score, support_response, intent, resolution_type).
+
+**Rationale:** Evidence preservation enables downstream auditing, explaining why a reply was generated, and debugging failures. It also supports the future escalation system's evidence sufficiency check.
+
+**Trade-off:** Slightly larger output schema.
+
+**Consequence:** Every reply can be traced back to its source, supporting transparency and debugging.
+
+### Decision 95: Copying Historical Responses Requires Safety Analysis
+
+**Date:** Phase 11
+**Decision:** All historical baseline replies pass through safety/risk detection before being returned.
+
+**Rationale:** Verbatim copying from historical responses risks leaking customer-specific data (order IDs, emails, phone numbers), outdated URLs, and names. Detection is necessary to quantify this risk.
+
+**Trade-off:** Detection adds processing overhead and is not complete PII protection.
+
+**Consequence:** Risk flags are attached to every reply, enabling informed decisions about deployment safety.
+
+### Decision 96: PII Detection Is a Risk Identifier, Not Protection
+
+**Date:** Phase 11
+**Decision:** Safety filters detect potentially risky content but do not claim to provide complete PII protection.
+
+**Rationale:** No regex-based system can guarantee complete PII detection. The purpose is to identify why blindly copying historical responses is unsafe, not to make copied responses safe.
+
+**Trade-off:** Some PII may slip through detection.
+
+**Consequence:** The safety analysis quantifies risk exposure; it does not eliminate it.
+
+### Decision 97: No Arbitrary Similarity Threshold
+
+**Date:** Phase 11
+**Decision:** Do not introduce a fixed similarity threshold (e.g., >= 0.80) for the baseline.
+
+**Rationale:** Phase 10 similarity analysis has not yet established a defensible threshold. Introducing one without data would be arbitrary.
+
+**Trade-off:** Some low-quality retrievals may be returned as replies.
+
+**Consequence:** The "insufficient_evidence" status remains a future policy decision based on actual similarity distribution analysis.
+
+### Decision 98: Golden Set Is Not Used for Tuning
+
+**Date:** Phase 11
+**Decision:** The golden evaluation set is not used for tuning reply generation parameters.
+
+**Rationale:** Tuning on the golden set would produce overly optimistic results. The baseline must be frozen before any golden evaluation.
+
+**Trade-off:** DEV-only evaluation may not perfectly predict golden set performance.
+
+**Consequence:** If golden evaluation is performed, it happens once on a frozen baseline, and results are recorded without further modification.
+
+### Decision 99: Defer LLM Generation to Phase 12
+
+**Date:** Phase 11
+**Decision:** No LLM calls, prompt engineering, or generative model usage in Phase 11.
+
+**Rationale:** The purpose of Phase 11 is to establish what non-generative retrieval can achieve. Introducing an LLM now would conflate the baseline with the advanced system.
+
+**Trade-off:** The baseline cannot generate novel responses or adapt to context.
+
+**Consequence:** Phase 12 can directly compare LLM generation against this baseline to prove whether the LLM adds value.
