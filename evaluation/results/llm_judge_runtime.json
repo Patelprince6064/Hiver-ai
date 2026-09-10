@@ -1,0 +1,11 @@
+{
+  "n_examples": 800,
+  "n_successful": 800,
+  "n_failed": 0,
+  "total_time_seconds": 0.02,
+  "avg_latency_ms": 19.09875,
+  "items_per_second": 47726.95,
+  "model": "mock-judge",
+  "call_count": 800,
+  "total_latency_ms": 15279.0
+}

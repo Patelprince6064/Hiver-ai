@@ -1,0 +1,81 @@
+# LLM Judge Configuration
+# Phase 19 — LLM-as-Judge for Reply Quality
+
+judge:
+  enabled: true
+  
+  # LLM provider configuration
+  provider:
+    type: "mock"  # Options: "openai", "mock"
+    # For OpenAI:
+    # api_key_env: "OPENAI_API_KEY"
+    # For other providers, add configuration here
+  
+  # Model configuration
+  model: "gpt-3.5-turbo"
+  temperature: 0  # Must be 0 for determinism
+  max_tokens: 1000
+  timeout: 60  # seconds
+  
+  # Retry configuration
+  retries: 2
+  retry_delay: 1  # seconds
+  
+  # Evaluation dimensions (from Phase 14 rubric)
+  dimensions:
+    - relevance
+    - groundedness
+    - correctness
+    - helpfulness
+    - completeness
+    - style
+  
+  # Score range
+  score_min: 1
+  score_max: 5
+  
+  # Random seed for reproducibility
+  random_seed: 42
+  
+  # Dataset configuration
+  dataset:
+    # Source files
+    agent_outputs: "evaluation/results/final_agent_outputs.jsonl"
+    reply_comparison: "evaluation/results/final_reply_comparison.json"
+    
+    # Sampling
+    max_examples: 200
+    sampling_method: "all"  # Options: "all", "random", "stratified"
+    
+    # Systems to evaluate
+    systems:
+      - "generic_baseline"
+      - "historical_baseline"
+      - "grounded_llm"
+      - "grounded_llm_verified"
+  
+  # Blind evaluation
+  blind_evaluation:
+    enabled: true
+    anonymize_systems: true
+    candidate_labels: ["A", "B", "C", "D"]
+  
+  # Output configuration
+  output:
+    scores_file: "evaluation/results/llm_judge_scores.jsonl"
+    comparison_file: "evaluation/results/human_llm_comparison.jsonl"
+    agreement_file: "evaluation/results/judge_agreement_summary.json"
+    runtime_file: "evaluation/results/llm_judge_runtime.json"
+    plots_dir: "evaluation/results"
+  
+  # Reliability checks
+  reliability:
+    enabled: true
+    repeat_count: 3  # Number of times to repeat evaluation
+    min_agreement: 0.8  # Minimum acceptable agreement
+  
+  # Analysis
+  analysis:
+    bias_analysis: true
+    disagreement_analysis: true
+    dimension_analysis: true

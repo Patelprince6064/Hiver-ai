@@ -1,0 +1,82 @@
+{
+  "overall": {
+    "n_examples": 10,
+    "human_mean": 3.0,
+    "llm_mean": 2.55,
+    "mean_absolute_difference": 0.952,
+    "exact_agreement": 0.2,
+    "within_1_agreement": 0.5,
+    "within_2_agreement": 1.0,
+    "pearson": 0.0,
+    "spearman": 0.091
+  },
+  "by_dimension": {
+    "relevance": {
+      "n_examples": 10,
+      "human_mean": 3.0,
+      "llm_mean": 2.5,
+      "mean_absolute_difference": 1.1,
+      "exact_agreement": 0.3,
+      "within_1_agreement": 0.6,
+      "within_2_agreement": 1.0,
+      "pearson": 0.0,
+      "spearman": 0.055
+    },
+    "groundedness": {
+      "n_examples": 10,
+      "human_mean": 3.0,
+      "llm_mean": 2.7,
+      "mean_absolute_difference": 0.9,
+      "exact_agreement": 0.3,
+      "within_1_agreement": 0.8,
+      "within_2_agreement": 1.0,
+      "pearson": 0.0,
+      "spearman": 0.261
+    },
+    "correctness": {
+      "n_examples": 10,
+      "human_mean": 3.0,
+      "llm_mean": 2.7,
+      "mean_absolute_difference": 1.3,
+      "exact_agreement": 0.2,
+      "within_1_agreement": 0.5,
+      "within_2_agreement": 1.0,
+      "pearson": 0.0,
+      "spearman": 0.055
+    },
+    "helpfulness": {
+      "n_examples": 10,
+      "human_mean": 3.0,
+      "llm_mean": 2.4,
+      "mean_absolute_difference": 0.8,
+      "exact_agreement": 0.4,
+      "within_1_agreement": 0.8,
+      "within_2_agreement": 1.0,
+      "pearson": 0.0,
+      "spearman": 0.418
+    },
+    "completeness": {
+      "n_examples": 10,
+      "human_mean": 3.0,
+      "llm_mean": 2.5,
+      "mean_absolute_difference": 0.9,
+      "exact_agreement": 0.3,
+      "within_1_agreement": 0.8,
+      "within_2_agreement": 1.0,
+      "pearson": 0.0,
+      "spearman": -0.079
+    },
+    "style": {
+      "n_examples": 10,
+      "human_mean": 3.0,
+      "llm_mean": 2.5,
+      "mean_absolute_difference": 1.3,
+      "exact_agreement": 0.1,
+      "within_1_agreement": 0.6,
+      "within_2_agreement": 1.0,
+      "pearson": 0.0,
+      "spearman": 0.127
+    }
+  },
+  "n_common_items": 10
+}

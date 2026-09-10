@@ -1,0 +1,16 @@
+{
+  "n_examples": 20,
+  "n_repeated": 20,
+  "repeat_count": 3,
+  "score_agreement": 1.0,
+  "dimension_variance": {
+    "relevance": 0.0,
+    "groundedness": 0.0,
+    "correctness": 0.0,
+    "helpfulness": 0.0,
+    "completeness": 0.0,
+    "style": 0.0
+  },
+  "overall_variance": 0.0,
+  "notes": "Variance calculated across repeated evaluations. Lower variance indicates higher reliability."
+}

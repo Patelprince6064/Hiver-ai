@@ -1639,3 +1639,117 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Results are not from real customer support data.
 
 **Consequence:** All metrics are demonstrations, not production performance estimates.
+
+---
+
+## Phase 19 Decisions
+
+### Decision 173: Human Evaluation Remains Primary
+
+**Date:** Phase 19
+**Decision:** Human evaluation from Phase 14 remains the primary reference for reply quality. The LLM judge is supplementary.
+
+**Rationale:** Human judgment captures nuances that automated metrics miss. The LLM judge complements human evaluation for scalability but cannot replace it.
+
+**Trade-off:** Slower evaluation process, but more reliable quality assessment.
+
+**Consequence:** Quality decisions are based on human judgment, not automated scores.
+
+### Decision 174: Same Six Dimensions Are Reused
+
+**Date:** Phase 19
+**Decision:** The LLM judge uses the same six dimensions (relevance, groundedness, correctness, helpfulness, completeness, style) as human evaluation.
+
+**Rationale:** Using the same dimensions ensures consistency between human and LLM evaluation. Creating new dimensions would make comparison impossible.
+
+**Trade-off:** Cannot optimize dimensions for LLM evaluation.
+
+**Consequence:** Direct comparison between human and LLM scores is possible.
+
+### Decision 175: Judge System Identity Is Hidden
+
+**Date:** Phase 19
+**Decision:** Systems are anonymized as A/B/C/D in judge input. Mapping is stored separately.
+
+**Rationale:** Hidden identity prevents bias toward known systems. The judge evaluates only the reply quality, not the system reputation.
+
+**Trade-off:** Cannot analyze per-system bias in judge.
+
+**Consequence:** Blind evaluation prevents systematic bias.
+
+### Decision 176: Judge Receives Evidence
+
+**Date:** Phase 19
+**Decision:** The judge receives the same evidence used to generate the reply.
+
+**Rationale:** To evaluate groundedness, the judge must know what evidence was available. Without evidence, groundedness scoring is impossible.
+
+**Trade-off:** Judge may be influenced by evidence quality.
+
+**Consequence:** Groundedness evaluation is evidence-based.
+
+### Decision 177: Judge Cannot Browse
+
+**Date:** Phase 19
+**Decision:** The judge must NOT browse the internet, invent policies, or infer current facts.
+
+**Rationale:** The judge should evaluate only the supplied evidence. Allowing external knowledge would make evaluation uncontrolled and non-reproducible.
+
+**Trade-off:** Judge cannot verify facts against external sources.
+
+**Consequence:** Evaluation is controlled and reproducible.
+
+### Decision 178: Overall Score Is Recalculated Locally
+
+**Date:** Phase 19
+**Decision:** The overall score is calculated locally as the mean of six dimensions, not from LLM output.
+
+**Rationale:** LLM arithmetic may be inaccurate. Local calculation ensures correctness and consistency.
+
+**Trade-off:** Minor computational overhead.
+
+**Consequence:** Overall scores are always correct.
+
+### Decision 179: Spearman Is Important for Ordinal Scores
+
+**Date:** Phase 19
+**Decision:** Spearman correlation is preferred over Pearson for measuring agreement.
+
+**Rationale:** Scores are ordinal (1-5), not continuous. Spearman measures rank correlation, which is appropriate for ordinal data.
+
+**Trade-off:** Pearson may be misleading for ordinal data.
+
+**Consequence:** Agreement metrics are statistically appropriate.
+
+### Decision 180: Pairwise Agreement Is Measured
+
+**Date:** Phase 19
+**Decision:** Pairwise agreement between systems is measured (A vs B comparisons).
+
+**Rationale:** The assignment is fundamentally about deciding which reply is better. Pairwise comparison directly measures this ability.
+
+**Trade-off:** More comparisons to report.
+
+**Consequence:** Direct measurement of "which reply is better" ability.
+
+### Decision 181: Judge Bias Is Analyzed
+
+**Date:** Phase 19
+**Decision:** Analyze whether LLM judge systematically favors longer, more confident, or more verbose replies.
+
+**Rationale:** LLM judges may have systematic biases. Understanding these biases is essential for interpreting results.
+
+**Trade-off:** Additional analysis required.
+
+**Consequence:** Biases are documented and can be accounted for.
+
+### Decision 182: LLM Judge Is Supplementary
+
+**Date:** Phase 19
+**Decision:** The LLM judge is used for scalable supplementary evaluation, not as the authoritative quality measure.
+
+**Rationale:** Without strong validation on real data, the LLM judge cannot be trusted as the sole quality measure.
+
+**Trade-off:** Cannot fully automate quality assessment.
+
+**Consequence:** Quality decisions require human oversight.

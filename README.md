@@ -2,8 +2,70 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 18 — Final End-to-End Evaluation: COMPLETE
-> Phases 1-18 are complete. Phase 18 provides rigorous evaluation of the complete system. Note: Real dataset not downloaded - all evaluation uses synthetic data.
+> **Current Status:** Phase 19 — LLM-as-Judge: COMPLETE
+> Phases 1-19 are complete. Phase 19 adds LLM-as-judge evaluation for scalable reply quality assessment. Note: Real dataset not downloaded - all evaluation uses synthetic data.
+
+---
+
+## LLM-as-Judge
+
+Phase 19 introduces an LLM-as-judge system for automated reply quality evaluation.
+
+### Purpose
+
+- Scalable evaluation of many examples
+- Consistent scoring across examples
+- Complements human evaluation (which remains the primary reference)
+
+### Rubric
+
+Six dimensions, each scored 1-5:
+- **Relevance**: Does the reply address the customer's actual request?
+- **Groundedness**: Are claims supported by the supplied evidence?
+- **Correctness**: Is the reply consistent with the evidence and conversation?
+- **Helpfulness**: Does the reply provide useful assistance?
+- **Completeness**: Does it address important parts of the request?
+- **Style**: Is it clear, professional, concise, and appropriate?
+
+### Blind Evaluation
+
+Systems are anonymized as A/B/C/D to prevent bias. The judge does not receive:
+- System name/model identity
+- Provider information
+- Human scores
+- Expected scores
+
+### Running the Judge
+
+```bash
+# Prepare blind evaluation dataset
+python scripts/prepare_judge_dataset.py
+
+# Run LLM judge evaluation
+python scripts/run_llm_judge.py
+
+# Evaluate judge reliability
+python scripts/evaluate_judge_reliability.py
+
+# Compare with human scores
+python scripts/compare_human_llm_scores.py
+
+# Analyze disagreements
+python scripts/analyze_judge_disagreements.py
+
+# Audit blindness
+python scripts/audit_judge_blindness.py
+
+# Create visualizations
+python scripts/create_judge_plots.py
+```
+
+### Limitations
+
+- Human evaluation remains the primary reference
+- LLM judge may be biased by confident-sounding text
+- Requires validation on real customer support data
+- Current implementation uses mock judge (no API calls)
 
 ---
 
