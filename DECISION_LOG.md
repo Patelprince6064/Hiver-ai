@@ -1400,3 +1400,117 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** May miss some edge cases.
 
 **Consequence:** The policy remains explainable and generalizable.
+
+---
+
+## Phase 17 Decisions
+
+### Decision 152: Phase 8 Classifier Used in Production Path
+
+**Date:** Phase 17
+**Decision:** Use the Phase 8 SemanticIntentClassifier as the sole intent classifier in the production end-to-end path.
+
+**Rationale:** The Phase 8 classifier has been evaluated and validated. Using baselines (majority, TF-IDF) would degrade performance without justification.
+
+**Trade-off:** None — this is the correct choice.
+
+**Consequence:** Intent classification quality is maximized.
+
+### Decision 153: Baselines Excluded from Production Path
+
+**Date:** Phase 17
+**Decision:** Do not use majority baseline or TF-IDF baseline in the production agent pipeline.
+
+**Rationale:** Baselines exist for benchmarking, not production use. The semantic classifier outperforms them.
+
+**Trade-off:** None.
+
+**Consequence:** Only the best available classifier is used.
+
+### Decision 154: Retrieval Precedes Generation
+
+**Date:** Phase 17
+**Decision:** Retrieve historical evidence before generating replies.
+
+**Rationale:** The generator needs evidence to produce grounded responses. Without retrieval, the generator would have no basis for its reply.
+
+**Trade-off:** Retrieval latency is added to the pipeline.
+
+**Consequence:** Replies are grounded in actual historical evidence.
+
+### Decision 155: Historical Evidence Treated as Reference Material
+
+**Date:** Phase 17
+**Decision:** Historical evidence is treated as untrusted reference data, not authoritative policy.
+
+**Rationale:** Historical responses may contain errors, outdated information, or brand-specific policies that no longer apply. Blind copying could propagate mistakes.
+
+**Trade-off:** More verification required.
+
+**Consequence:** The system avoids blindly copying historical responses.
+
+### Decision 156: Grounding Verification Is Mandatory
+
+**Date:** Phase 17
+**Decision:** Every generated reply must pass grounding verification before being considered for AUTO_HANDLE.
+
+**Rationale:** LLMs can hallucinate. Grounding verification catches unsupported claims, PII leakage, and fabricated information.
+
+**Trade-off:** Some valid replies may fail grounding checks.
+
+**Consequence:** Unsafe replies are caught before reaching customers.
+
+### Decision 157: Escalation After Grounding
+
+**Date:** Phase 17
+**Decision:** Escalation evaluation happens after grounding verification.
+
+**Rationale:** Grounding results are a critical signal for escalation decisions. If grounding fails, the escalation policy must know about it.
+
+**Trade-off:** None — this is the correct ordering.
+
+**Consequence:** Escalation decisions incorporate grounding quality.
+
+### Decision 158: System Failures Default to Escalation
+
+**Date:** Phase 17
+**Decision:** Any critical component failure (intent, retrieval, generation, grounding, escalation) defaults to ESCALATE_TO_HUMAN.
+
+**Rationale:** Fail-closed is safer than fail-open. If the system cannot verify safety, it should not AUTO_HANDLE.
+
+**Trade-off:** May increase escalation rate during system issues.
+
+**Consequence:** System failures never result in unsafe auto-handles.
+
+### Decision 159: Human Review Packages Include Structured Evidence
+
+**Date:** Phase 17
+**Decision:** Human review packages include customer message, predicted intent, intent confidence, retrieved evidence, draft reply, grounding status, and escalation reasons.
+
+**Rationale:** Human reviewers need complete context to make informed decisions. Structured packages reduce review time.
+
+**Trade-off:** Larger payload size.
+
+**Consequence:** Human reviewers have all necessary information.
+
+### Decision 160: External Actions Out of Scope
+
+**Date:** Phase 17
+**Decision:** The agent does not perform external actions (refunds, account changes, emails, etc.).
+
+**Rationale:** The assignment specifies a support-response recommendation system, not an autonomous action system. External actions require authentication, authorization, and error handling beyond scope.
+
+**Trade-off:** Account-specific requests always escalate.
+
+**Consequence:** The agent is safe by design — it cannot accidentally modify accounts or issue refunds.
+
+### Decision 161: Mock Mode Required for Reproducibility
+
+**Date:** Phase 17
+**Decision:** Mock mode is required so that all tests, scripts, and evaluations can run without API keys or internet.
+
+**Rationale:** Reproducibility is essential for evaluation. Tests must pass in any environment.
+
+**Trade-off:** Mock responses are deterministic but not realistic.
+
+**Consequence:** The entire pipeline can be tested offline.

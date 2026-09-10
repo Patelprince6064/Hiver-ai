@@ -1,0 +1,21 @@
+{
+  "total_requests": 50,
+  "auto_handle_count": 50,
+  "escalate_count": 0,
+  "system_failure_count": 0,
+  "auto_handle_rate": 1.0,
+  "escalate_rate": 0.0,
+  "system_failure_rate": 0.0,
+  "unique_intents": 1,
+  "intent_distribution": {
+    "order_status": 50
+  },
+  "avg_intent_confidence": 0.85,
+  "grounding_pass_count": 50,
+  "grounding_fail_count": 0,
+  "grounding_pass_rate": 1.0,
+  "grounding_fail_rate": 0.0,
+  "reply_generation_rate": 1.0,
+  "evidence_coverage_rate": 0.0,
+  "top_escalation_reasons": {}
+}

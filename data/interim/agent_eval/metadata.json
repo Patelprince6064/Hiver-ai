@@ -1,0 +1,22 @@
+{
+  "description": "Agent evaluation test data for Phase 17",
+  "created_at": "2026-09-10",
+  "total_requests": 50,
+  "categories": {
+    "common_intent": 20,
+    "ambiguous": 5,
+    "noisy": 2,
+    "multi_intent": 2,
+    "short": 3,
+    "high_risk": 5,
+    "account_action": 5,
+    "courtesy": 3,
+    "other": 5
+  },
+  "notes": [
+    "Real dataset not downloaded; using synthetic representative data",
+    "Golden set excluded from this data",
+    "Data covers common intents: order_status, return, refund, account, technical_support",
+    "Includes edge cases: ambiguous messages, multi-intent, noisy input"
+  ]
+}

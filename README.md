@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 16 — Escalation Policy Optimization: COMPLETE
-> Phases 1-16 are complete. Phase 16 adds risk-aware escalation policy optimization with confidence margin, retrieval quality, high-risk detection, conversation complexity, and policy versioning. No frontend has been implemented yet.
+> **Current Status:** Phase 17 — End-to-End AI Support Agent: COMPLETE
+> Phases 1-17 are complete. Phase 17 connects all components into a single end-to-end pipeline. No frontend has been implemented yet.
 
 ---
 
@@ -865,7 +865,80 @@ flowchart TD
 | Reply Quality Evaluation | COMPLETE (Phase 14) |
 | Escalation Decision | COMPLETE (Phase 15) |
 | Escalation Policy Optimization | COMPLETE (Phase 16) |
-| Full Agent Orchestration | PLANNED |
+| Full Agent Orchestration | COMPLETE (Phase 17) |
+
+---
+
+## End-to-End Agent
+
+Phase 17 connects all components into a single end-to-end pipeline:
+
+```
+Customer Message
+       |
+       v
+Input Validation
+       |
+       v
+Intent Classification (Phase 8)
+       |
+       v
+Semantic Retrieval (Phase 10)
+       |
+       v
+Evidence Selection (Phase 12)
+       |
+       v
+Grounded Reply Generation (Phase 12)
+       |
+       v
+Grounding Verification (Phase 13)
+       |
+       v
+Escalation Decision (Phase 15-16)
+       |
+       +--------------------+
+       |                    |
+       v                    v
+AUTO_HANDLE          ESCALATE_TO_HUMAN
+```
+
+### Usage
+
+**Single request:**
+```bash
+python scripts/run_agent.py --message "Where is my order?" --mock
+```
+
+**Batch processing:**
+```bash
+python scripts/run_agent_batch.py \
+    --input data/interim/agent_eval/requests.jsonl \
+    --output evaluation/results/agent_outputs.jsonl \
+    --mock
+```
+
+**Evaluation:**
+```bash
+python scripts/evaluate_end_to_end.py
+```
+
+### Mock Mode
+
+All scripts support `--mock` flag for testing without API keys:
+
+```bash
+python scripts/run_agent.py --message "test" --mock
+```
+
+### Safety Limitations
+
+The agent does NOT:
+- Issue refunds or cancel orders
+- Modify customer accounts
+- Access private customer data
+- Send emails or notifications
+- Post to social media
 
 ---
 
