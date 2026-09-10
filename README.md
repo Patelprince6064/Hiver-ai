@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 13 — Grounding Verification & Hallucination Protection: COMPLETE
-> Phases 1-12 are complete. Phase 13 adds multi-layer grounding verification. No escalation, auto-handle, or frontend has been implemented yet.
+> **Current Status:** Phase 14 — Reply Quality Evaluation: COMPLETE
+> Phases 1-13 are complete. Phase 14 adds a blinded, human-centered reply quality evaluation framework. No escalation, auto-handle, or frontend has been implemented yet.
 
 ---
 
@@ -660,6 +660,87 @@ python scripts/analyze_grounding_failures.py
 
 ---
 
+## Phase 14 — Reply Quality Evaluation
+
+### Objective
+
+Build a rigorous, blinded, human-centered reply-quality evaluation framework that determines whether the grounded LLM actually improves customer-support replies over simple baselines.
+
+### Evaluation Design
+
+- **Blind evaluation** — Evaluators see anonymized system labels (System A/B/C/D)
+- **Randomized order** — Reply order is randomized per query (seed 42)
+- **Paired comparison** — All systems evaluated on identical queries
+- **Six dimensions** — Relevance, Groundedness, Correctness, Helpfulness, Completeness, Style
+- **1–5 scale** — Each dimension scored independently
+
+### Systems Compared
+
+| System | Description |
+|--------|-------------|
+| Generic Baseline | Fixed support response, no retrieval |
+| Historical Baseline | Top-1 historical response verbatim |
+| Grounded LLM | LLM with retrieved evidence |
+| Grounded + Verification | LLM with grounding verification and repair |
+
+### Rubric
+
+Six quality dimensions on a 1–5 scale:
+
+- **Relevance** — Does the reply address the customer's issue?
+- **Groundedness** — Is the reply supported by evidence?
+- **Correctness** — Does the reply avoid incorrect claims?
+- **Helpfulness** — Does the reply provide useful next steps?
+- **Completeness** — Does the reply address important parts?
+- **Style** — Is the reply professional and natural?
+
+Full rubric: `docs/REPLY_QUALITY_RUBRIC.md`
+
+### Run
+
+```bash
+# 1. Prepare evaluation dataset
+python scripts/prepare_reply_evaluation.py --n-queries 150
+
+# 2. Run all systems on same queries
+python scripts/run_reply_evaluation.py --mock
+
+# 3. Annotate replies (interactive)
+python scripts/annotate_replies.py
+
+# 4. Compare systems
+python scripts/compare_reply_systems.py
+
+# 5. Analyze quality
+python scripts/analyze_reply_quality.py
+```
+
+### Output Locations
+
+- Manifest: `data/interim/reply_eval/evaluation_manifest.jsonl`
+- Predictions: `evaluation/results/reply_evaluation_results.jsonl`
+- Blind mappings: `evaluation/results/blind_system_mappings.jsonl`
+- Human scores: `evaluation/results/human_reply_scores.jsonl`
+- Pairwise: `evaluation/results/pairwise_comparison.json`
+- By intent: `evaluation/results/reply_quality_by_intent.json`
+- Analysis: `evaluation/results/top_failure_modes.json`
+
+### Annotation
+
+- Interactive CLI tool (`annotate_replies.py`) presents anonymized replies
+- Evaluator scores each reply on 6 dimensions
+- Failure tags and free-text reasons collected
+- Supports multiple annotators with overlap for agreement measurement
+
+### Limitations
+
+- Requires human annotators (not automated)
+- Single-annotator results have lower statistical confidence
+- Evaluation quality depends on rubric adherence
+- Dataset not yet downloaded — all metrics are pending real data
+
+---
+
 ## Assignment Objectives
 
 ### Core Agent Capabilities
@@ -715,6 +796,7 @@ flowchart TD
 | Reply Generation Baselines | COMPLETE (Phase 11) |
 | Grounded LLM Reply Generator | COMPLETE (Phase 12) |
 | Grounding Verification | COMPLETE (Phase 13) |
+| Reply Quality Evaluation | COMPLETE (Phase 14) |
 | Escalation Decision | PLANNED |
 | Full Agent Orchestration | PLANNED |
 

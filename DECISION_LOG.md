@@ -1047,3 +1047,139 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Very exotic URL formats may be incorrectly truncated.
 
 **Consequence:** URL support checking works correctly for standard web URLs in natural-language text.
+
+---
+
+## Phase 14 Decisions
+
+### Decision 121: Human Evaluation Is Necessary for Reply Quality
+
+**Date:** Phase 14
+**Decision:** Reply quality is evaluated primarily through human scoring, not automated metrics.
+
+**Rationale:** Customer support has many valid responses. Automated metrics like BLEU or ROUGE cannot distinguish between a helpful reply and a technically similar but unhelpful one. Human judgment is required to assess relevance, helpfulness, and appropriateness.
+
+**Trade-off:** Human evaluation is slower and more expensive than automated metrics.
+
+**Consequence:** The evaluation framework requires human annotators but produces trustworthy quality signals.
+
+### Decision 122: Reply Quality Is Multidimensional
+
+**Date:** Phase 14
+**Decision:** Evaluate replies on six independent dimensions: relevance, groundedness, correctness, helpfulness, completeness, and style.
+
+**Rationale:** A reply can be relevant but unhelpful, grounded but incomplete, or correct but poorly styled. Single-number evaluations collapse important distinctions. Reporting all six dimensions preserves diagnostic information.
+
+**Trade-off:** More dimensions mean more annotation time per query.
+
+**Consequence:** Failure analysis can identify specific weaknesses per system (e.g., "System A is grounded but unhelpful").
+
+### Decision 123: Exact-Match Metrics Are Not Primary
+
+**Date:** Phase 14
+**Decision:** BLEU, ROUGE, and exact-match accuracy are supplementary diagnostics, not primary reply-quality scores.
+
+**Rationale:** "Please DM us your order number" and "Send us your order details via DM" are equally valid but have low lexical overlap. Customer support correctness is semantic, not lexical.
+
+**Trade-off:** Excluding lexical metrics may miss some surface-level issues.
+
+**Consequence:** The evaluation focuses on what matters to customers, not what is easy to compute.
+
+### Decision 124: Blind Evaluation Prevents Evaluator Bias
+
+**Date:** Phase 14
+**Decision:** Human evaluators see anonymized system labels (System A/B/C/D) without model names, provider info, or generation method.
+
+**Rationale:** Knowing that "System C is the grounded LLM" could bias evaluators toward higher scores. Blind evaluation ensures scores reflect reply quality, not expectations.
+
+**Trade-off:** Evaluators cannot provide system-specific feedback during scoring.
+
+**Consequence:** Scores are more trustworthy but feedback must be collected separately.
+
+### Decision 125: Reply Order Is Randomized Per Query
+
+**Date:** Phase 14
+**Decision:** For each query, the order of replies (System A/B/C/D) is randomly assigned using a deterministic seed.
+
+**Rationale:** Presenting replies in a fixed order (e.g., always Generic first) could create position bias. Randomization with a fixed seed ensures reproducibility.
+
+**Trade-off:** Annotators must track which reply is which across dimensions.
+
+**Consequence:** Position effects are eliminated while maintaining reproducibility.
+
+### Decision 126: Same Queries for All Systems
+
+**Date:** Phase 14
+**Decision:** Every system is evaluated on the exact same set of queries.
+
+**Rationale:** Comparing System A on query set X and System B on query set Y is meaningless. Paired evaluation on identical queries enables direct comparison and paired statistical tests.
+
+**Trade-off:** All systems must be able to process all queries (including those with no evidence).
+
+**Consequence:** Win/tie/loss analysis is statistically valid.
+
+### Decision 127: Fixed Rubric Ensures Consistency
+
+**Date:** Phase 14
+**Decision:** Evaluators follow a detailed rubric with 1–5 scales, definitions, and examples for each dimension.
+
+**Rationale:** Without a rubric, each evaluator develops their own implicit scoring standards. A fixed rubric with examples calibrates scoring across annotators and sessions.
+
+**Trade-off:** Rigid rubrics may not capture all edge cases.
+
+**Consequence:** Inter-annotator agreement can be measured; scoring is documented and auditable.
+
+### Decision 128: Grounding and Helpfulness Are Evaluated Separately
+
+**Date:** Phase 14
+**Decision:** Groundedness and helpfulness are independent dimensions, not a single combined metric.
+
+**Rationale:** A reply can be fully grounded ("Please contact support") but unhelpful, or helpful-looking ("Your refund arrives tomorrow") but unsupported. Combining them hides this critical trade-off.
+
+**Trade-off:** Two separate scores instead of one combined score.
+
+**Consequence:** The evaluation explicitly surfaces the grounding-helpfulness trade-off.
+
+### Decision 129: Automated Metrics Are Supplementary
+
+**Date:** Phase 14
+**Decision:** Automated metrics (response length, grounding pass rate, risk rate, retrieval coverage) are reported alongside human scores but not used as primary quality signals.
+
+**Rationale:** Automated metrics provide useful diagnostics (e.g., "System A produces very short replies") but cannot assess whether those replies are actually good.
+
+**Trade-off:** More metrics to report and interpret.
+
+**Consequence:** The report includes both human quality scores and automated diagnostics for completeness.
+
+### Decision 130: Paired Comparisons Over Independent Rankings
+
+**Date:** Phase 14
+**Decision:** System comparison uses paired win/tie/loss analysis on the same queries rather than independent mean-score rankings.
+
+**Rationale:** Independent rankings can be misleading if systems are evaluated on different query distributions. Paired analysis compares systems directly on identical inputs.
+
+**Trade-off:** Only pairwise comparisons are reported, not global rankings.
+
+**Consequence:** Results are statistically honest and directly comparable.
+
+### Decision 131: Golden Data Is Not Used for Tuning
+
+**Date:** Phase 14
+**Decision:** The golden evaluation set is used only for final locked evaluation, never for prompt tuning, model selection, or threshold adjustment.
+
+**Rationale:** Using golden data for tuning creates information leakage and overestimates real-world performance. The golden set must remain a held-out benchmark.
+
+**Trade-off:** Less data available for development iterations.
+
+**Consequence:** Final golden-set results are trustworthy estimates of real-world performance.
+
+### Decision 132: Single Annotator Results Are Reported Honestly
+
+**Date:** Phase 14
+**Decision:** If only one human annotator is available, results are reported as "single-annotator evaluation" without claiming inter-annotator agreement.
+
+**Rationale:** Fabricating agreement statistics from a single annotator is dishonest. Clearly documenting the limitation is more useful than false precision.
+
+**Trade-off:** Results have lower statistical confidence.
+
+**Consequence:** The report transparently states that results reflect a single evaluator's judgment.
