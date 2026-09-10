@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 12 — Grounded LLM Reply Generator: COMPLETE
-> Phases 1-11 are complete. No escalation, auto-handle, or frontend has been implemented yet.
+> **Current Status:** Phase 13 — Grounding Verification & Hallucination Protection: COMPLETE
+> Phases 1-12 are complete. Phase 13 adds multi-layer grounding verification. No escalation, auto-handle, or frontend has been implemented yet.
 
 ---
 
@@ -589,6 +589,77 @@ python scripts/analyze_grounded_reply_failures.py
 
 ---
 
+## Phase 13 — Grounding Verification & Hallucination Protection
+
+### Objective
+
+Detect and prevent hallucinated, unsupported, or risky claims in generated replies before they reach the customer.
+
+### Architecture
+
+Reply → Claim Extraction → Evidence Support Check → Numeric Claim Check → URL Check → PII Leakage Check → Semantic Grounding → Hybrid Verdict (pass/review/fail) → [Optional: Reply Repair]
+
+### Verification Layers
+
+1. **Claim Extraction** — Sentence/clause splitting with fact-type classification (15 types)
+2. **Evidence Support** — Multi-signal heuristic: exact match → customer match → partial overlap → entity inference
+3. **Numeric Claims** — Detect prices, percentages, durations, quantities; verify against evidence
+4. **URL Check** — Detect URLs; verify they exist in evidence or customer message
+5. **PII Leakage** — Detect order IDs, emails, phone numbers from historical evidence
+6. **Semantic Grounding** — Embedding similarity or token overlap between reply and evidence
+7. **Hybrid Verdict** — Priority-ordered policy combining all signals into pass/review/fail
+
+### Verdict Policy
+
+| Condition | Verdict |
+|-----------|---------|
+| No evidence available | insufficient_evidence |
+| Unsupported high-risk claim (price, guarantee, timeline) | fail |
+| Unsupported URL | fail |
+| Historical PII leakage | fail |
+| Multiple unsupported claims | fail |
+| One unsupported claim | review |
+| Low semantic grounding | review |
+| All claims supported | pass |
+
+### Reply Repair
+
+When verification fails, a targeted repair prompt instructs the LLM to remove unsupported claims while preserving supported content. Single repair attempt; if insufficient evidence, returns `INSUFFICIENT_EVIDENCE`.
+
+### Run
+
+```bash
+# Evaluate grounding on DEV split (mock mode)
+python scripts/evaluate_grounding.py --mock
+
+# Analyze grounding failures
+python scripts/analyze_grounding_failures.py
+```
+
+### Output Locations
+
+- Verifications: `evaluation/results/grounding_verifications.jsonl`
+- Summary: `evaluation/results/grounding_summary.json`
+- Failure analysis: `evaluation/results/grounding_failure_analysis.json`
+
+### Key Metrics
+
+- **Grounding pass rate** — % of replies with all claims supported
+- **Unsupported claim rate** — % of replies with at least one unsupported claim
+- **High-risk unsupported rate** — % with unsupported price/guarantee/timeline claims
+- **Repair rate** — % of failed replies that attempted repair
+- **Repair success rate** — % of repairs that produced an acceptable reply
+- **Final rejection rate** — % of replies that could not be safely delivered
+
+### Limitations
+
+- Deterministic checks may miss subtle semantic hallucinations
+- Token-overlap heuristics can produce false positives
+- Semantic grounding without embeddings is approximate
+- Repair adds latency and cost
+
+---
+
 ## Assignment Objectives
 
 ### Core Agent Capabilities
@@ -633,14 +704,19 @@ flowchart TD
 | Component | Status |
 |-----------|--------|
 | Project Foundation | COMPLETE (Phase 1) |
-| Dataset Acquisition | IN PROGRESS (Phase 2) |
-| Preprocessing | PLANNED |
-| Intent Classification | PLANNED |
-| Historical Support Retrieval | PLANNED |
-| Evidence Sufficiency Check | PLANNED |
-| Grounded Reply Generation | PLANNED |
+| Dataset Acquisition | COMPLETE (Phase 2) |
+| EDA & Brand Selection | COMPLETE (Phases 3-4) |
+| Intent Discovery | COMPLETE (Phase 5) |
+| Golden Evaluation Set | COMPLETE (Phase 6) |
+| Intent Classification Baselines | COMPLETE (Phase 7) |
+| Semantic Intent Classification | COMPLETE (Phase 8) |
+| Historical Support Knowledge Base | COMPLETE (Phase 9) |
+| Semantic Retrieval | COMPLETE (Phase 10) |
+| Reply Generation Baselines | COMPLETE (Phase 11) |
+| Grounded LLM Reply Generator | COMPLETE (Phase 12) |
+| Grounding Verification | COMPLETE (Phase 13) |
 | Escalation Decision | PLANNED |
-| Evaluation Harness | PLANNED |
+| Full Agent Orchestration | PLANNED |
 
 ---
 

@@ -944,3 +944,106 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Reply quality evaluation relies on automated grounding checks and manual audit rather than LLM-as-judge scores.
 
 **Consequence:** Phase 19 can build on the judge schema defined here.
+
+---
+
+## Phase 13 Decisions
+
+### Decision 112: Multi-Layer Grounding Verification
+
+**Date:** Phase 13
+**Decision:** Implement a multi-layer grounding verification pipeline with deterministic checks (claim extraction, evidence support, numeric claims, URLs, PII) combined with optional semantic grounding via embeddings.
+
+**Rationale:** Single-method hallucination detection is insufficient. Deterministic checks catch concrete violations (unsupported numbers, leaked IDs, bogus URLs) while semantic checks catch subtler content drift. Combining both provides defense-in-depth.
+
+**Trade-off:** More components to maintain; semantic checks add compute cost.
+
+**Consequence:** Each reply is checked by 5+ independent verifiers before acceptance.
+
+### Decision 113: Claim Extraction via Sentence/Clause Splitting
+
+**Date:** Phase 13
+**Decision:** Extract candidate claims using sentence splitting (`.!?\\n`) and clause splitting (`,;`) rather than NER or dependency parsing.
+
+**Rationale:** NLP parsers add heavy dependencies and are fragile on noisy social-media text. Sentence/clause splitting is fast, dependency-free, and sufficient for grounding verification where false negatives are acceptable.
+
+**Trade-off:** May miss complex multi-clause claims.
+
+**Consequence:** Claim extraction works without any NLP model download.
+
+### Decision 114: Fact-Type Priority Ordering
+
+**Date:** Phase 13
+**Decision:** Classify fact types with explicit priority: GUARANTEE > POLICY > PRICE > IDENTIFIER > INSTRUCTION > CONTACT_METHOD > TIMELINE > others.
+
+**Rationale:** A claim like "Please DM us your order number" is both an instruction and a contact method. "We guarantee a response within 24 hours" contains both a guarantee and a timeline. Priority ordering ensures the most actionable/risky classification wins.
+
+**Trade-off:** Some claims may be misclassified if they straddle categories.
+
+**Consequence:** High-risk types (GUARANTEE, PRICE, TIMELINE) are checked first, reducing false negatives on safety-critical claims.
+
+### Decision 115: Hybrid Grounding Verdict Policy
+
+**Date:** Phase 13
+**Decision:** Use a priority-ordered verdict policy: (1) no evidence → insufficient_evidence, (2) unsupported high-risk claim → fail, (3) unsupported URL → fail, (4) PII leakage → fail, (5) multiple unsupported claims → fail, (6) one unsupported claim → review, (7) low semantic score → review, (8) otherwise → pass.
+
+**Rationale:** Different failure modes have different severity. A leaked order ID is worse than a slightly off-topic sentence. The policy encodes domain knowledge about which grounding failures are acceptable vs. dangerous.
+
+**Trade-off:** Hard-coded thresholds may not suit all use cases.
+
+**Consequence:** The verdict is deterministic and explainable in an interview setting.
+
+### Decision 116: Claim Support Uses Multi-Signal Heuristic
+
+**Date:** Phase 13
+**Decision:** Check claim support using a cascade: exact match → customer message match → partial token overlap → entity inference. Each level has decreasing confidence.
+
+**Rationale:** Exact string matching is too brittle for natural-language claims. A multi-signal approach catches paraphrases and reformulations while still flagging genuinely unsupported claims.
+
+**Trade-off:** Token-overlap heuristics can produce false positives on common phrases.
+
+**Consequence:** Support confidence decreases as the match becomes less direct, providing a calibrated signal.
+
+### Decision 117: Reply Repair as Second LLM Call
+
+**Date:** Phase 13
+**Decision:** When grounding verification fails, attempt a single repair call that instructs the LLM to remove unsupported claims while preserving supported content.
+
+**Rationale:** Rather than immediately escalating to a human, a targeted repair prompt gives the LLM a chance to self-correct. This is cheaper and faster than human escalation for fixable issues.
+
+**Trade-off:** The repair call adds latency and cost; repeated repairs could indicate systemic evidence quality issues.
+
+**Consequence:** The pipeline includes a `grounded_llm_repair` generation method alongside `grounded_llm`.
+
+### Decision 118: Semantic Grounding Uses Token Overlap Fallback
+
+**Date:** Phase 13
+**Decision:** When no sentence-transformer embedder is available, semantic grounding falls back to token overlap between reply and evidence.
+
+**Rationale:** Embedding computation requires model download and GPU. Token overlap is a zero-dependency approximation that works well enough for development and testing.
+
+**Trade-off:** Token overlap is less semantically meaningful than embeddings.
+
+**Consequence:** The grounding pipeline works in environments without sentence-transformers installed.
+
+### Decision 119: Grounding Metrics Report Pass/Review/Fail Rates
+
+**Date:** Phase 13
+**Decision:** Report grounding metrics as pass_rate, review_rate, fail_rate, repair_rate, and repair_success_rate rather than a single accuracy number.
+
+**Rationale:** A single accuracy number hides the distribution of failure modes. Reporting separate rates for each verdict category makes failure analysis actionable.
+
+**Trade-off:** More metrics to interpret.
+
+**Consequence:** The evaluation report clearly shows where the pipeline is strong (pass rate) and where it needs improvement (review/fail rates).
+
+### Decision 120: URL Checker Strips Trailing Punctuation
+
+**Date:** Phase 13
+**Decision:** URL extraction regex excludes trailing punctuation (`.`, `,`, `;`, `!`, `?)` to prevent false mismatches between reply URLs and evidence URLs.
+
+**Rationale:** A reply containing "Visit https://example.com/help." should match evidence containing "https://example.com/help" without the period causing a mismatch.
+
+**Trade-off:** Very exotic URL formats may be incorrectly truncated.
+
+**Consequence:** URL support checking works correctly for standard web URLs in natural-language text.

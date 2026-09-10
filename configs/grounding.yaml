@@ -1,0 +1,36 @@
+grounding:
+  enabled: true
+
+  semantic_check:
+    enabled: true
+    embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+
+  deterministic_checks:
+    enabled: true
+
+  repair:
+    enabled: true
+    max_attempts: 1
+
+  thresholds:
+    semantic_support: null
+
+  high_risk_claim_types:
+    - price
+    - refund
+    - guarantee
+    - timeline
+    - account_action
+    - order_status
+    - identifier
+    - personal_information
+    - financial_claim
+
+  fail_on:
+    unsupported_high_risk_claim: true
+    historical_identifier_leak: true
+    unsupported_url: true
+    no_evidence: true
+
+  reply_eval:
+    results_dir: "evaluation/results"
