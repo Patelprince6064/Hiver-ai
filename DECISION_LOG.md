@@ -2,11 +2,13 @@
 
 This log records non-obvious engineering decisions and their rationale.
 
-> **Note:** Decisions below are Phase 1 decisions. Later phases may add more decisions or revise these.
+> **Note:** Decisions are organized by phase. Later phases may add more decisions or revise these.
 
 ---
 
-## Decision 1: Evaluation-First Development
+## Phase 1 Decisions
+
+### Decision 1: Evaluation-First Development
 
 **Date:** Phase 1
 **Decision:** Build the evaluation harness and golden set before (or alongside) the agent pipeline.
@@ -138,3 +140,49 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** All secrets (API keys, etc.) go in `.env` files which are gitignored.
 
 **Rationale:** Hardcoded secrets in a repository are a security risk and would be caught in any code review. Using environment variables is the standard practice and makes the code portable.
+
+---
+
+## Phase 2 Decisions
+
+### Decision 16: Use Conversation-Level Sampling
+
+**Date:** Phase 2
+**Decision:** Sample at the conversation level rather than the row level when creating the development subsample.
+
+**Rationale:** The dataset contains multi-turn conversations where messages within the same thread are highly correlated. Random row-level sampling would split conversations, losing the threading context that is essential for intent classification and reply generation. Conversation-level sampling preserves all messages from each sampled conversation, maintaining the natural structure of support interactions.
+
+### Decision 17: Use Deterministic Seed 42
+
+**Date:** Phase 2
+**Decision:** Use `random_seed=42` for the development subsample.
+
+**Rationale:** A fixed seed ensures reproducibility — anyone running the same script with the same parameters will get the identical subsample. The value 42 is conventional and easy to remember. This makes it possible to share and compare results across different environments.
+
+### Decision 18: Development Subsample Instead of Full Dataset
+
+**Date:** Phase 2
+**Decision:** Create a development subsample of ~25,000 messages rather than attempting to process the full ~3M tweet dataset locally.
+
+**Rationale:** The assignment explicitly allows and encourages subsampling. Processing the full dataset locally would be slow, memory-intensive, and fragile. A well-chosen subsample that preserves conversation structure and brand distribution is sufficient for development and evaluation. The subsample can be increased later if needed.
+
+### Decision 19: Separate Raw and Interim Data
+
+**Date:** Phase 2
+**Decision:** Keep raw dataset files in `data/raw/` (gitignored) and derived subsamples in `data/interim/` (commitable).
+
+**Rationale:** Raw data files are large and should not be committed to version control. The interim directory contains small, reproducible derived files (subsample, metadata, statistics) that document the data pipeline without bloating the repository. This separation also prevents accidental modification of original data.
+
+### Decision 20: Support Both API and Manual Download
+
+**Date:** Phase 2
+**Decision:** The download script supports both Kaggle API download and manual download with verification.
+
+**Rationale:** Not all environments have Kaggle credentials configured. Supporting manual download with clear instructions and verification makes the project accessible to anyone. The verification step ensures the correct files are in place before proceeding.
+
+### Decision 21: Chunked Reading for Large CSV Files
+
+**Date:** Phase 2
+**Decision:** Use chunked pandas reading (`chunksize` parameter) when inspecting or processing the full dataset.
+
+**Rationale:** The main dataset file may contain millions of rows. Loading it entirely into memory could cause out-of-memory errors on machines with limited RAM. Chunked reading allows processing the data in manageable pieces while still computing aggregate statistics.

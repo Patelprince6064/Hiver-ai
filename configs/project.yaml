@@ -1,16 +1,26 @@
 project:
   name: "Hiver AI Support Agent"
-  version: "0.1.0"
+  version: "0.2.0"
 
 dataset:
   name: "Customer Support on Twitter"
   source: "thoughtvector/customer-support-on-twitter"
-  selected_brand: null  # To be chosen in Phase 2
+  raw_dir: "data/raw"
+  interim_dir: "data/interim"
+  processed_dir: "data/processed"
+  golden_dir: "data/golden"
+  selected_brand: null  # To be chosen in Phase 4
+  development_sample: "data/interim/development_sample.csv"
+
+sampling:
+  seed: 42
+  target_messages: 25000
+  sampling_unit: "conversation"
 
 evaluation:
   golden_set_size: 200
   target_runtime_minutes: 15
 
 agent:
-  auto_handle_threshold: null  # To be determined in Phase 2
+  auto_handle_threshold: null  # To be determined later
   retrieval_top_k: 5

@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 1 — Project foundation: IN PROGRESS
-> This document describes the project plan. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
+> **Current Status:** Phase 2 — Dataset acquisition & inspection: IN PROGRESS
+> Phase 1 (project foundation) is complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
 
 ---
 
@@ -20,6 +20,113 @@ Customer message
 ```
 
 The goal is not merely to produce a convincing chatbot, but to determine whether the agent is trustworthy enough to handle real customer-support messages autonomously.
+
+---
+
+## Dataset
+
+### Customer Support on Twitter
+
+**Source:** Kaggle — `thoughtvector/customer-support-on-twitter`
+**URL:** https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter
+
+### Why this dataset
+
+It contains real customer-support interactions and multi-turn conversations suitable for building the required support agent. The dataset includes tweets directed at various brands, along with the brands' responses, representing authentic support scenarios.
+
+### Download instructions
+
+**Option A: Kaggle API (automated)**
+
+```bash
+# 1. Install Kaggle CLI
+pip install kaggle
+
+# 2. Set up credentials
+#    Go to: https://www.kaggle.com/settings/account
+#    Create API token and set environment variables:
+export KAGGLE_USERNAME=your_username
+export KAGGLE_KEY=your_api_key
+
+# 3. Run download script
+python scripts/download_dataset.py --method kaggle
+```
+
+**Option B: Manual download**
+
+1. Go to: https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter
+2. Click "Download" (free Kaggle account required)
+3. Extract the ZIP file
+4. Copy CSV file(s) into `data/raw/`
+5. Verify: `python scripts/download_dataset.py --verify-only`
+
+**Important:** Raw dataset files are not committed to GitHub.
+
+---
+
+## Inspection
+
+After downloading the dataset, inspect its structure:
+
+```bash
+python scripts/inspect_dataset.py
+```
+
+This will report file sizes, row/column counts, column names, missing values, and sample records.
+
+---
+
+## Create development sample
+
+Create a reproducible subsample for development:
+
+```bash
+python scripts/create_subsample.py --target-messages 25000 --seed 42
+```
+
+This creates `data/interim/development_sample.csv` with conversation-level integrity preserved.
+
+---
+
+## Validation
+
+Run validation checks on the dataset:
+
+```bash
+python scripts/validate_dataset.py
+```
+
+---
+
+## Quick Start
+
+```bash
+# 1. Clone the repository
+git clone <repo-url>
+cd hiver-ai-support-agent
+
+# 2. Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Download dataset (see instructions above)
+python scripts/download_dataset.py
+
+# 5. Inspect the dataset
+python scripts/inspect_dataset.py
+
+# 6. Create development sample
+python scripts/create_subsample.py --target-messages 25000 --seed 42
+
+# 7. Validate
+python scripts/validate_dataset.py
+
+# 8. Run the pipeline (Phase 2 only prints foundation info)
+python run_pipeline.py
+```
 
 ---
 
@@ -66,6 +173,8 @@ flowchart TD
 
 | Component | Status |
 |-----------|--------|
+| Project Foundation | COMPLETE (Phase 1) |
+| Dataset Acquisition | IN PROGRESS (Phase 2) |
 | Preprocessing | PLANNED |
 | Intent Classification | PLANNED |
 | Historical Support Retrieval | PLANNED |
@@ -144,7 +253,7 @@ Key properties:
 - Sampled separately from training data
 - Conversation-level separation to reduce leakage
 - Independently labelled for reliable evaluation
-- **Not created in Phase 1**
+- **Not created yet**
 
 ---
 
@@ -179,10 +288,10 @@ hiver-ai-support-agent/
 ├── app/                    # Application entry points
 ├── configs/                # Project configuration
 ├── data/
-│   ├── raw/                # Raw downloaded dataset
-│   ├── interim/            # Intermediate processing outputs
-│   ├── processed/          # Clean, ready-to-use data
-│   └── golden/             # Hand-labelled evaluation set
+│   ├── raw/                # Raw downloaded dataset (not committed)
+│   ├── interim/            # Development subsample and inspection outputs
+│   ├── processed/          # Clean, ready-to-use data (Phase 3+)
+│   └── golden/             # Hand-labelled evaluation set (Phase 4+)
 ├── evaluation/
 │   ├── baselines/          # Baseline implementations
 │   ├── metrics/            # Metric computation code
@@ -207,30 +316,6 @@ hiver-ai-support-agent/
 ├── DECISION_LOG.md         # Engineering decisions log
 ├── requirements.txt        # Python dependencies
 └── run_pipeline.py         # Main entry point
-```
-
----
-
-## Quick Start
-
-```bash
-# 1. Clone the repository
-git clone <repo-url>
-cd hiver-ai-support-agent
-
-# 2. Create virtual environment
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Copy environment variables
-cp .env.example .env
-# Edit .env with your API keys
-
-# 5. Run the pipeline (Phase 1 only prints foundation info)
-python run_pipeline.py
 ```
 
 ---
