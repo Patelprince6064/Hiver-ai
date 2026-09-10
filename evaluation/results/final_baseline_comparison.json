@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-09-10",
+  "rows": [
+    {
+      "category": "Intent Classification",
+      "metric": "Accuracy",
+      "baseline": "Majority",
+      "baseline_value": 0.105,
+      "final_system": "Semantic",
+      "final_value": 0.855,
+      "delta": 0.75
+    },
+    {
+      "category": "Intent Classification",
+      "metric": "Macro F1",
+      "baseline": "Majority",
+      "baseline_value": 0.019004524886877826,
+      "final_system": "Semantic",
+      "final_value": 0.856942095394469,
+      "delta": 0.838
+    },
+    {
+      "category": "Escalation",
+      "metric": "Accuracy",
+      "baseline": "Always Escalate",
+      "baseline_value": 0.61,
+      "final_system": "V1.1 Risk-Aware",
+      "final_value": 0.69,
+      "delta": 0.08
+    },
+    {
+      "category": "Escalation",
+      "metric": "Expected Cost",
+      "baseline": "Always Auto",
+      "baseline_value": 6.1,
+      "final_system": "V1.1 Risk-Aware",
+      "final_value": 2.14,
+      "delta": -3.96
+    }
+  ],
+  "note": "Simulated results. Real dataset not downloaded."
+}

@@ -1,0 +1,161 @@
+# Final Evaluation Configuration
+# Phase 18 — FINAL_EVALUATION_CONFIG
+# 
+# This configuration is FROZEN for the final evaluation.
+# Do NOT change after evaluation begins.
+
+evaluation:
+  name: "Phase 18 Final Evaluation"
+  version: "1.0.0"
+  status: "FINAL_EVALUATION_CONFIG"
+  seed: 42
+  
+  # Dataset information
+  dataset:
+    name: "Customer Support on Twitter"
+    source: "thoughtvector/customer-support-on-twitter"
+    selected_brand: null  # Not downloaded - using synthetic data
+    download_status: "NOT_DOWNLOADED"
+    evaluation_data: "synthetic"
+    note: "Real dataset not downloaded. All evaluation uses synthetic representative data."
+  
+  # Evaluation splits
+  splits:
+    train: "data/processed/splits/train.csv"
+    dev: "data/processed/splits/dev.csv"
+    test: "data/processed/splits/test.csv"
+    golden: "data/golden/golden_set.jsonl"
+    final_evaluation: "data/interim/final_evaluation/final_manifest.jsonl"
+  
+  # Model configurations (frozen)
+  models:
+    intent:
+      baseline_majority:
+        type: "majority"
+        description: "Majority class classifier"
+      baseline_tfidf:
+        type: "tfidf_lr"
+        description: "TF-IDF + Logistic Regression"
+      semantic:
+        type: "semantic_transformer"
+        model: "sentence-transformers/all-MiniLM-L6-v2"
+        classifier: "logistic_regression"
+        description: "Semantic intent classifier"
+    
+    retrieval:
+      baseline_lexical:
+        type: "lexical"
+        description: "Lexical keyword matching"
+      semantic_faiss:
+        type: "semantic_faiss"
+        embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+        index_type: "flat_ip"
+        description: "FAISS semantic retrieval"
+    
+    generation:
+      generic_baseline:
+        type: "generic"
+        description: "Generic template response"
+      historical_baseline:
+        type: "historical"
+        description: "Retrieved historical response"
+      grounded_llm:
+        type: "grounded_llm"
+        provider: "mock"
+        model: "gpt-3.5-turbo"
+        temperature: 0.0
+        max_tokens: 300
+        prompt_version: "v1"
+        description: "Grounded LLM generation"
+    
+    grounding:
+      verifier:
+        type: "rule_based"
+        checks: ["evidence_presence", "pii_leakage", "unsupported_claims", "phrase_overlap"]
+        description: "Rule-based grounding verification"
+    
+    escalation:
+      baseline_always_auto:
+        type: "always_auto"
+        description: "Always auto-handle"
+      baseline_always_escalate:
+        type: "always_escalate"
+        description: "Always escalate to human"
+      v1_0:
+        type: "rule_based"
+        version: "v1.0"
+        min_intent_confidence: 0.70
+        require_evidence: true
+        description: "Conservative rule-based policy"
+      v1_1:
+        type: "risk_aware"
+        version: "v1.1"
+        min_intent_confidence: 0.70
+        min_confidence_margin: 0.15
+        require_evidence: true
+        description: "Risk-aware escalation policy"
+  
+  # End-to-end agent configuration
+  agent:
+    version: "Phase 17"
+    components: ["intent", "retrieval", "evidence_selection", "generation", "grounding", "escalation"]
+    fail_closed: true
+    no_external_actions: true
+  
+  # Evaluation metrics
+  metrics:
+    intent:
+      primary: "macro_f1"
+      secondary: ["accuracy", "weighted_f1", "per_intent_f1"]
+    retrieval:
+      primary: "recall_at_5"
+      secondary: ["recall_at_1", "recall_at_3", "recall_at_10", "mrr"]
+    reply_quality:
+      primary: "mean_quality_score"
+      dimensions: ["relevance", "groundedness", "correctness", "helpfulness", "comteness", "style"]
+    grounding:
+      primary: "grounding_pass_rate"
+      secondary: ["unsupported_claim_rate", "high_risk_claim_rate", "repair_rate"]
+    escalation:
+      primary: "false_auto_handle_rate"
+      secondary: ["auto_handle_rate", "escalate_rate", "expected_cost"]
+    end_to_end:
+      primary: "auto_handle_rate"
+      secondary: ["system_failure_rate", "evidence_coverage_rate"]
+  
+  # Data leakage prevention
+  leakage_check:
+    check_conversation_overlap: true
+    check_message_overlap: true
+    check_text_overlap: true
+    check_retrieval_overlap: true
+    check_golden_in_kb: true
+    check_golden_in_eval: true
+  
+  # Runtime measurement
+  runtime:
+    measure_preprocessing: true
+    measure_intent: true
+    measure_retrieval: true
+    measure_generation: true
+    measure_grounding: true
+    measure_escalation: true
+    measure_total: true
+  
+  # Output paths
+  paths:
+    results_dir: "evaluation/results"
+    final_results: "evaluation/results/final_evaluation_summary.json"
+    agent_outputs: "evaluation/results/final_agent_outputs.jsonl"
+    failure_cases: "evaluation/results/final_failures.jsonl"
+    baseline_comparison: "evaluation/results/final_baseline_comparison.json"
+    leakage_report: "evaluation/results/final_leakage_report.json"
+    runtime_results: "evaluation/results/final_runtime_results.json"
+    pipeline_attribution: "evaluation/results/pipeline_attribution.json"
+    golden_results: "evaluation/results/golden_final_results.json"
+  
+  # Reports
+  reports:
+    final_evaluation: "reports/phase_18_final_evaluation.md"
+    golden_evaluation: "reports/final_golden_evaluation.md"
+    metrics_definition: "docs/FINAL_METRICS.md"

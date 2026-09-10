@@ -1,0 +1,54 @@
+{
+  "total_requests": 200,
+  "auto_handle_count": 160,
+  "escalate_count": 40,
+  "system_failure_count": 0,
+  "auto_handle_rate": 0.8,
+  "escalate_rate": 0.2,
+  "system_failure_rate": 0.0,
+  "intent_accuracy": 1.0,
+  "avg_intent_confidence": 0.62768,
+  "evidence_coverage_rate": 0.525,
+  "avg_retrieval_score": 0.38417,
+  "grounding_pass_rate": 0.565,
+  "grounding_fail_rate": 0.435,
+  "top_escalation_reasons": {
+    "LOW_INTENT_CONFIDENCE": 27,
+    "GROUNDING_FAILURE": 15,
+    "AMBIGUOUS_REQUEST": 15,
+    "INSUFFICIENT_EVIDENCE": 11,
+    "HIGH_RISK_CLAIM": 7
+  },
+  "safety_analysis": {
+    "safe_auto_handle": 160,
+    "unsafe_auto_handle": 0,
+    "safe_escalation": 40,
+    "unnecessary_escalation": 0,
+    "safe_auto_rate": 0.8,
+    "unsafe_auto_rate": 0.0
+  },
+  "difficulty_analysis": {
+    "easy": {
+      "count": 91,
+      "auto_handle_rate": 0.8571428571428571,
+      "escalate_rate": 0.14285714285714285,
+      "intent_accuracy": 1.0
+    },
+    "medium": {
+      "count": 75,
+      "auto_handle_rate": 0.9066666666666666,
+      "escalate_rate": 0.09333333333333334,
+      "intent_accuracy": 1.0
+    },
+    "hard": {
+      "count": 34,
+      "auto_handle_rate": 0.4117647058823529,
+      "escalate_rate": 0.5882352941176471,
+      "intent_accuracy": 1.0
+    }
+  },
+  "timestamp": "2026-09-10",
+  "seed": 42,
+  "evaluation_data": "synthetic",
+  "note": "Simulated results. Real dataset not downloaded."
+}

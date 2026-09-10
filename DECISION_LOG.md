@@ -1514,3 +1514,128 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Mock responses are deterministic but not realistic.
 
 **Consequence:** The entire pipeline can be tested offline.
+
+---
+
+## Phase 18 Decisions
+
+### Decision 162: Final Configuration Is Frozen
+
+**Date:** Phase 18
+**Decision:** The evaluation configuration (configs/final_evaluation.yaml) is frozen before evaluation begins.
+
+**Rationale:** Freezing configuration prevents post-hoc adjustments that could invalidate results. This ensures reproducibility and honesty in reporting.
+
+**Trade-off:** Cannot fix configuration issues after evaluation starts.
+
+**Consequence:** All results are from a fixed, documented configuration.
+
+### Decision 163: Golden Evaluation Happens Last
+
+**Date:** Phase 18
+**Decision:** Golden set evaluation is performed only after all models, prompts, and policies are frozen.
+
+**Rationale:** Using the golden set for tuning would be data leakage. It must be reserved for final, independent evaluation.
+
+**Trade-off:** Cannot iterate on golden results to improve the system.
+
+**Consequence:** Golden evaluation provides an unbiased estimate of real-world performance.
+
+### Decision 164: Multiple Baselines Are Retained
+
+**Date:** Phase 18
+**Decision:** Keep all baselines (majority, TF-IDF, always-auto, always-escalate) even though they perform poorly.
+
+**Rationale:** Baselines establish the floor. Without them, we cannot determine if added complexity is justified.
+
+**Trade-off:** More comparisons to report.
+
+**Consequence:** Clear evidence that semantic classifier and risk-aware policy improve over simple approaches.
+
+### Decision 165: Macro F1 Is Primary Intent Metric
+
+**Date:** Phase 18
+**Decision:** Use macro F1 as the primary metric for intent classification, not accuracy.
+
+**Rationale:** Intent classes may be imbalanced. Macro F1 treats all classes equally, preventing majority-class bias.
+
+**Trade-off:** May penalize systems that perform well on common intents but poorly on rare ones.
+
+**Consequence:** Intent evaluation accounts for performance across all intent types.
+
+### Decision 166: Reply Quality Uses Human Evaluation Framework
+
+**Date:** Phase 18
+**Decision:** Reply quality evaluation uses the six-dimension framework (relevance, groundedness, correctness, helpfulness, completeness, style) from Phase 14.
+
+**Rationale:** Automated metrics (BLEU, ROUGE) do not capture reply quality. Human evaluation (or LLM-as-judge) is necessary.
+
+**Trade-off:** More expensive and time-consuming than automated metrics.
+
+**Consequence:** Reply quality results are meaningful and interpretable.
+
+### Decision 167: Grounding Metrics Are Separate
+
+**Date:** Phase 18
+**Decision:** Grounding evaluation is separate from reply quality evaluation.
+
+**Rationale:** Grounding measures whether the reply is supported by evidence. Quality measures whether the reply is good. These are different properties.
+
+**Trade-off:** More metrics to report.
+
+**Consequence:** Clear distinction between "supported by evidence" and "good reply."
+
+### Decision 168: False Auto-Handle Is Emphasized
+
+**Date:** Phase 18
+**Decision:** FALSE_AUTO_HANDLE_RATE is the primary safety metric for escalation evaluation.
+
+**Rationale:** Auto-handling a request that should have been escalated is the most dangerous failure mode. It can send incorrect or harmful responses to customers.
+
+**Trade-off:** May lead to overly conservative escalation policies.
+
+**Consequence:** Safety is prioritized over automation rate.
+
+### Decision 169: End-to-End Accuracy Is Not Fabricated
+
+**Date:** Phase 18
+**Decision:** Do not report a single "agent accuracy" metric when no end-to-end ground truth exists.
+
+**Rationale:** Without human-labeled ground truth for end-to-end decisions, any "accuracy" claim would be fabricated.
+
+**Trade-off:** Cannot provide a single headline number.
+
+**Consequence:** Evaluation is honest about what can and cannot be measured.
+
+### Decision 170: Pipeline Attrition Is Measured
+
+**Date:** Phase 18
+**Decision:** Track how many requests survive each pipeline stage (intent → retrieval → generation → grounding → escalation).
+
+**Rationale:** Understanding where requests are lost helps identify bottlenecks and failure modes.
+
+**Trade-off:** More detailed reporting required.
+
+**Consequence:** Clear visibility into pipeline behavior.
+
+### Decision 171: Limitations Are Included in Headline Results
+
+**Date:** Phase 18
+**Decision:** Every reported metric includes its limitations and what it does not measure.
+
+**Rationale:** Honest evaluation requires acknowledging limitations. Overclaiming undermines trust.
+
+**Trade-off:** Results look less impressive.
+
+**Consequence:** The evaluation is trustworthy and reproducible.
+
+### Decision 172: Real Dataset Not Downloaded
+
+**Date:** Phase 18
+**Decision:** Proceed with evaluation using synthetic data since the real dataset was not downloaded.
+
+**Rationale:** The evaluation framework is valuable even without real data. It demonstrates the methodology and can be reused when real data is available.
+
+**Trade-off:** Results are not from real customer support data.
+
+**Consequence:** All metrics are demonstrations, not production performance estimates.

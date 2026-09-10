@@ -1,0 +1,397 @@
+{
+  "timestamp": "2026-09-10",
+  "seed": 42,
+  "n_examples": 200,
+  "evaluation_data": "synthetic",
+  "results": {
+    "majority": {
+      "accuracy": 0.105,
+      "macro_precision": 0.010499999999999999,
+      "macro_recall": 0.1,
+      "macro_f1": 0.019004524886877826,
+      "weighted_f1": 0.01995475113122172,
+      "per_class": {
+        "account": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 20
+        },
+        "billing": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 27
+        },
+        "complaint": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 17
+        },
+        "general_inquiry": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 18
+        },
+        "order_status": {
+          "precision": 0.105,
+          "recall": 1.0,
+          "f1": 0.19004524886877827,
+          "support": 21
+        },
+        "product_inquiry": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 10
+        },
+        "refund": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 24
+        },
+        "return": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 23
+        },
+        "shipping": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 22
+        },
+        "technical_support": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 18
+        }
+      },
+      "confusion_matrix": {
+        "return": {
+          "order_status": 23
+        },
+        "order_status": {
+          "order_status": 21
+        },
+        "account": {
+          "order_status": 20
+        },
+        "product_inquiry": {
+          "order_status": 10
+        },
+        "shipping": {
+          "order_status": 22
+        },
+        "technical_support": {
+          "order_status": 18
+        },
+        "complaint": {
+          "order_status": 17
+        },
+        "billing": {
+          "order_status": 27
+        },
+        "general_inquiry": {
+          "order_status": 18
+        },
+        "refund": {
+          "order_status": 24
+        }
+      },
+      "n_examples": 200
+    },
+    "tfidf": {
+      "accuracy": 0.615,
+      "macro_precision": 0.6088974466079728,
+      "macro_recall": 0.5885305712095994,
+      "macro_f1": 0.575191222423809,
+      "weighted_f1": 0.6016479183959003,
+      "per_class": {
+        "account": {
+          "precision": 0.6666666666666666,
+          "recall": 0.7,
+          "f1": 0.6829268292682926,
+          "support": 20
+        },
+        "billing": {
+          "precision": 0.7307692307692307,
+          "recall": 0.7037037037037037,
+          "f1": 0.7169811320754716,
+          "support": 27
+        },
+        "complaint": {
+          "precision": 0.8571428571428571,
+          "recall": 0.35294117647058826,
+          "f1": 0.5,
+          "support": 17
+        },
+        "general_inquiry": {
+          "precision": 0.16666666666666666,
+          "recall": 0.05555555555555555,
+          "f1": 0.08333333333333333,
+          "support": 18
+        },
+        "order_status": {
+          "precision": 0.425,
+          "recall": 0.8095238095238095,
+          "f1": 0.5573770491803278,
+          "support": 21
+        },
+        "product_inquiry": {
+          "precision": 0.4,
+          "recall": 0.4,
+          "f1": 0.4000000000000001,
+          "support": 10
+        },
+        "refund": {
+          "precision": 0.8947368421052632,
+          "recall": 0.7083333333333334,
+          "f1": 0.7906976744186046,
+          "support": 24
+        },
+        "return": {
+          "precision": 0.64,
+          "recall": 0.6956521739130435,
+          "f1": 0.6666666666666666,
+          "support": 23
+        },
+        "shipping": {
+          "precision": 0.7894736842105263,
+          "recall": 0.6818181818181818,
+          "f1": 0.7317073170731707,
+          "support": 22
+        },
+        "technical_support": {
+          "precision": 0.5185185185185185,
+          "recall": 0.7777777777777778,
+          "f1": 0.6222222222222222,
+          "support": 18
+        }
+      },
+      "confusion_matrix": {
+        "return": {
+          "return": 16,
+          "order_status": 6,
+          "product_inquiry": 1
+        },
+        "order_status": {
+          "order_status": 17,
+          "return": 1,
+          "product_inquiry": 1,
+          "technical_support": 2
+        },
+        "account": {
+          "account": 14,
+          "return": 1,
+          "general_inquiry": 2,
+          "order_status": 1,
+          "billing": 1,
+          "complaint": 1
+        },
+        "product_inquiry": {
+          "product_inquiry": 4,
+          "order_status": 4,
+          "return": 1,
+          "shipping": 1
+        },
+        "shipping": {
+          "shipping": 15,
+          "order_status": 5,
+          "account": 1,
+          "general_inquiry": 1
+        },
+        "technical_support": {
+          "technical_support": 14,
+          "return": 1,
+          "account": 1,
+          "product_inquiry": 2
+        },
+        "complaint": {
+          "order_status": 1,
+          "technical_support": 4,
+          "complaint": 6,
+          "account": 2,
+          "billing": 1,
+          "return": 2,
+          "shipping": 1
+        },
+        "billing": {
+          "billing": 19,
+          "technical_support": 2,
+          "account": 1,
+          "shipping": 2,
+          "general_inquiry": 2,
+          "order_status": 1
+        },
+        "general_inquiry": {
+          "account": 1,
+          "refund": 2,
+          "billing": 5,
+          "return": 2,
+          "general_inquiry": 1,
+          "order_status": 1,
+          "technical_support": 5,
+          "product_inquiry": 1
+        },
+        "refund": {
+          "refund": 17,
+          "order_status": 4,
+          "account": 1,
+          "return": 1,
+          "product_inquiry": 1
+        }
+      },
+      "n_examples": 200
+    },
+    "semantic": {
+      "accuracy": 0.855,
+      "macro_precision": 0.8578994637450015,
+      "macro_recall": 0.8613042647889195,
+      "macro_f1": 0.856942095394469,
+      "weighted_f1": 0.8549774338526132,
+      "per_class": {
+        "account": {
+          "precision": 0.8947368421052632,
+          "recall": 0.85,
+          "f1": 0.8717948717948718,
+          "support": 20
+        },
+        "billing": {
+          "precision": 0.875,
+          "recall": 0.7777777777777778,
+          "f1": 0.823529411764706,
+          "support": 27
+        },
+        "complaint": {
+          "precision": 0.8888888888888888,
+          "recall": 0.9411764705882353,
+          "f1": 0.9142857142857143,
+          "support": 17
+        },
+        "general_inquiry": {
+          "precision": 0.7391304347826086,
+          "recall": 0.9444444444444444,
+          "f1": 0.8292682926829269,
+          "support": 18
+        },
+        "order_status": {
+          "precision": 0.9,
+          "recall": 0.8571428571428571,
+          "f1": 0.8780487804878048,
+          "support": 21
+        },
+        "product_inquiry": {
+          "precision": 0.8181818181818182,
+          "recall": 0.9,
+          "f1": 0.8571428571428572,
+          "support": 10
+        },
+        "refund": {
+          "precision": 0.84,
+          "recall": 0.875,
+          "f1": 0.8571428571428572,
+          "support": 24
+        },
+        "return": {
+          "precision": 0.8260869565217391,
+          "recall": 0.8260869565217391,
+          "f1": 0.8260869565217391,
+          "support": 23
+        },
+        "shipping": {
+          "precision": 0.8636363636363636,
+          "recall": 0.8636363636363636,
+          "f1": 0.8636363636363636,
+          "support": 22
+        },
+        "technical_support": {
+          "precision": 0.9333333333333333,
+          "recall": 0.7777777777777778,
+          "f1": 0.8484848484848485,
+          "support": 18
+        }
+      },
+      "confusion_matrix": {
+        "return": {
+          "return": 19,
+          "account": 1,
+          "general_inquiry": 1,
+          "shipping": 1,
+          "refund": 1
+        },
+        "order_status": {
+          "order_status": 18,
+          "refund": 1,
+          "complaint": 1,
+          "billing": 1
+        },
+        "account": {
+          "account": 17,
+          "general_inquiry": 1,
+          "refund": 1,
+          "billing": 1
+        },
+        "product_inquiry": {
+          "product_inquiry": 9,
+          "shipping": 1
+        },
+        "shipping": {
+          "return": 2,
+          "shipping": 19,
+          "general_inquiry": 1
+        },
+        "technical_support": {
+          "technical_support": 14,
+          "shipping": 1,
+          "general_inquiry": 1,
+          "product_inquiry": 1,
+          "return": 1
+        },
+        "complaint": {
+          "complaint": 16,
+          "technical_support": 1
+        },
+        "billing": {
+          "billing": 21,
+          "product_inquiry": 1,
+          "account": 1,
+          "return": 1,
+          "refund": 1,
+          "general_inquiry": 2
+        },
+        "general_inquiry": {
+          "general_inquiry": 17,
+          "complaint": 1
+        },
+        "refund": {
+          "refund": 21,
+          "order_status": 2,
+          "billing": 1
+        }
+      },
+      "n_examples": 200
+    }
+  },
+  "improvements": {
+    "tfidf_over_majority": {
+      "accuracy": 0.51,
+      "macro_f1": 0.5561866975369312
+    },
+    "semantic_over_tfidf": {
+      "accuracy": 0.24,
+      "macro_f1": 0.2817508729706599
+    },
+    "semantic_over_majority": {
+      "accuracy": 0.75,
+      "macro_f1": 0.8379375705075911
+    }
+  },
+  "primary_metric": "macro_f1",
+  "note": "Simulated results. Real dataset not downloaded."
+}

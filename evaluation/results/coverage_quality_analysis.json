@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-09-10",
+  "seed": 42,
+  "n_examples": 200,
+  "results": [
+    {
+      "threshold": 0.5,
+      "auto_handle_rate": 0.66,
+      "avg_quality": 0.7813584273366206,
+      "n_auto_handled": 132
+    },
+    {
+      "threshold": 0.6,
+      "auto_handle_rate": 0.52,
+      "avg_quality": 0.7760316814530154,
+      "n_auto_handled": 104
+    },
+    {
+      "threshold": 0.7,
+      "auto_handle_rate": 0.41,
+      "avg_quality": 0.7889933952689043,
+      "n_auto_handled": 82
+    },
+    {
+      "threshold": 0.8,
+      "auto_handle_rate": 0.225,
+      "avg_quality": 0.7643835642063779,
+      "n_auto_handled": 45
+    },
+    {
+      "threshold": 0.9,
+      "auto_handle_rate": 0.03,
+      "avg_quality": 0.8251757426109441,
+      "n_auto_handled": 6
+    }
+  ],
+  "note": "Simulated results. Real dataset not downloaded."
+}

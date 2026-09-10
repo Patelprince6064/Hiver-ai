@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-09-10",
+  "seed": 42,
+  "results": {
+    "order_status": {
+      "n_examples": 18,
+      "intent_accuracy": 0.706,
+      "retrieval_coverage": 0.61,
+      "grounding_pass_rate": 0.667,
+      "escalation_rate": 0.395,
+      "auto_handle_rate": 0.605
+    },
+    "return": {
+      "n_examples": 17,
+      "intent_accuracy": 0.848,
+      "retrieval_coverage": 0.513,
+      "grounding_pass_rate": 0.628,
+      "escalation_rate": 0.193,
+      "auto_handle_rate": 0.807
+    },
+    "refund": {
+      "n_examples": 15,
+      "intent_accuracy": 0.84,
+      "retrieval_coverage": 0.786,
+      "grounding_pass_rate": 0.81,
+      "escalation_rate": 0.268,
+      "auto_handle_rate": 0.732
+    },
+    "account": {
+      "n_examples": 29,
+      "intent_accuracy": 0.847,
+      "retrieval_coverage": 0.824,
+      "grounding_pass_rate": 0.602,
+      "escalation_rate": 0.422,
+      "auto_handle_rate": 0.578
+    },
+    "technical_support": {
+      "n_examples": 28,
+      "intent_accuracy": 0.785,
+      "retrieval_coverage": 0.562,
+      "grounding_pass_rate": 0.887,
+      "escalation_rate": 0.235,
+      "auto_handle_rate": 0.765
+    },
+    "product_inquiry": {
+      "n_examples": 17,
+      "intent_accuracy": 0.795,
+      "retrieval_coverage": 0.644,
+      "grounding_pass_rate": 0.703,
+      "escalation_rate": 0.206,
+      "auto_handle_rate": 0.794
+    },
+    "shipping": {
+      "n_examples": 16,
+      "intent_accuracy": 0.882,
+      "retrieval_coverage": 0.714,
+      "grounding_pass_rate": 0.892,
+      "escalation_rate": 0.251,
+      "auto_handle_rate": 0.749
+    },
+    "complaint": {
+      "n_examples": 24,
+      "intent_accuracy": 0.907,
+      "retrieval_coverage": 0.747,
+      "grounding_pass_rate": 0.859,
+      "escalation_rate": 0.331,
+      "auto_handle_rate": 0.669
+    },
+    "billing": {
+      "n_examples": 17,
+      "intent_accuracy": 0.711,
+      "retrieval_coverage": 0.591,
+      "grounding_pass_rate": 0.687,
+      "escalation_rate": 0.132,
+      "auto_handle_rate": 0.868
+    },
+    "general_inquiry": {
+      "n_examples": 22,
+      "intent_accuracy": 0.917,
+      "retrieval_coverage": 0.652,
+      "grounding_pass_rate": 0.736,
+      "escalation_rate": 0.434,
+      "auto_handle_rate": 0.566
+    }
+  },
+  "strongest_intents": [
+    "general_inquiry",
+    "complaint",
+    "shipping",
+    "return",
+    "account"
+  ],
+  "weakest_intents": [
+    "refund",
+    "product_inquiry",
+    "technical_support",
+    "billing",
+    "order_status"
+  ],
+  "note": "Simulated results. Real dataset not downloaded."
+}

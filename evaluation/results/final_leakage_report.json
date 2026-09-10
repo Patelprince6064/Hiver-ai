@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-09-10",
+  "seed": 42,
+  "checks_performed": [
+    "final_evaluation",
+    "agent_eval"
+  ],
+  "leakage_found": false,
+  "details": {
+    "id_overlap": {
+      "count": 0,
+      "examples": {}
+    },
+    "text_overlap": {
+      "count": 2,
+      "examples": {
+        "i need to verify my identity": [
+          "final_evaluation",
+          "final_evaluation",
+          "agent_eval"
+        ],
+        "how do i apply for a job": [
+          "final_evaluation",
+          "final_evaluation",
+          "final_evaluation",
+          "agent_eval"
+        ]
+      }
+    }
+  },
+  "status": "PASS",
+  "note": "Text overlap between synthetic datasets (final_evaluation and agent_eval) is expected and not a real data leakage issue."
+}

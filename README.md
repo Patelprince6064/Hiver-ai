@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 17 — End-to-End AI Support Agent: COMPLETE
-> Phases 1-17 are complete. Phase 17 connects all components into a single end-to-end pipeline. No frontend has been implemented yet.
+> **Current Status:** Phase 18 — Final End-to-End Evaluation: COMPLETE
+> Phases 1-18 are complete. Phase 18 provides rigorous evaluation of the complete system. Note: Real dataset not downloaded - all evaluation uses synthetic data.
 
 ---
 

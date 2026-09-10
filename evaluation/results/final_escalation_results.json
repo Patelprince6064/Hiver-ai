@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-09-10",
+  "seed": 42,
+  "n_examples": 200,
+  "evaluation_data": "synthetic",
+  "cost_weights": {
+    "false_auto_handle": 10.0,
+    "false_escalation": 1.0
+  },
+  "policies": {
+    "ALWAYS_AUTO_HANDLE": {
+      "auto_handle_rate": 1.0,
+      "escalate_rate": 0.0,
+      "false_auto_handle_rate": 0.61,
+      "false_escalation_rate": 0.0,
+      "accuracy": 0.39,
+      "auto_precision": 0.39,
+      "auto_recall": 1.0,
+      "auto_f1": 0.5611510791366906,
+      "escalate_precision": 0.0,
+      "escalate_recall": 0.0,
+      "escalate_f1": 0.0,
+      "expected_cost": 6.1
+    },
+    "ALWAYS_ESCALATE": {
+      "auto_handle_rate": 0.0,
+      "escalate_rate": 1.0,
+      "false_auto_handle_rate": 0.0,
+      "false_escalation_rate": 0.39,
+      "accuracy": 0.61,
+      "auto_precision": 0.0,
+      "auto_recall": 0.0,
+      "auto_f1": 0.0,
+      "escalate_precision": 0.61,
+      "escalate_recall": 1.0,
+      "escalate_f1": 0.7577639751552795,
+      "expected_cost": 0.39
+    },
+    "V1_0_CONSERVATIVE": {
+      "auto_handle_rate": 0.28,
+      "escalate_rate": 0.72,
+      "false_auto_handle_rate": 0.16,
+      "false_escalation_rate": 0.54,
+      "accuracy": 0.69,
+      "auto_precision": 0.84,
+      "auto_recall": 0.28,
+      "auto_f1": 0.42,
+      "escalate_precision": 0.45999999999999996,
+      "escalate_recall": 0.72,
+      "escalate_f1": 0.5613559322033898,
+      "expected_cost": 2.14
+    },
+    "V1_1_RISK_AWARE": {
+      "auto_handle_rate": 0.28,
+      "escalate_rate": 0.72,
+      "false_auto_handle_rate": 0.16,
+      "false_escalation_rate": 0.54,
+      "accuracy": 0.69,
+      "auto_precision": 0.84,
+      "auto_recall": 0.28,
+      "auto_f1": 0.42,
+      "escalate_precision": 0.45999999999999996,
+      "escalate_recall": 0.72,
+      "escalate_f1": 0.5613559322033898,
+      "expected_cost": 2.14
+    }
+  },
+  "best_by_accuracy": "V1_0_CONSERVATIVE",
+  "best_by_cost": "ALWAYS_ESCALATE",
+  "best_by_auto_f1": "ALWAYS_AUTO_HANDLE",
+  "note": "Simulated results. Real dataset not downloaded."
+}

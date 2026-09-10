@@ -1,0 +1,5 @@
+category,metric,baseline,baseline_value,final_system,final_value,delta
+Intent Classification,Accuracy,Majority,0.105,Semantic,0.855,0.75
+Intent Classification,Macro F1,Majority,0.019004524886877826,Semantic,0.856942095394469,0.838
+Escalation,Accuracy,Always Escalate,0.61,V1.1 Risk-Aware,0.69,0.08
+Escalation,Expected Cost,Always Auto,6.1,V1.1 Risk-Aware,2.14,-3.96

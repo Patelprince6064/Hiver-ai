@@ -1,0 +1,31 @@
+{
+  "description": "Final evaluation manifest for Phase 18",
+  "created_at": "2026-09-10",
+  "seed": 42,
+  "total_examples": 200,
+  "intent_distribution": {
+    "return": 23,
+    "order_status": 21,
+    "account": 20,
+    "product_inquiry": 10,
+    "shipping": 22,
+    "technical_support": 18,
+    "complaint": 17,
+    "billing": 27,
+    "general_inquiry": 18,
+    "refund": 24
+  },
+  "difficulty_distribution": {
+    "easy": 91,
+    "hard": 34,
+    "medium": 75
+  },
+  "ambiguity_distribution": {
+    "somewhat_ambiguous": 63,
+    "clear": 111,
+    "very_ambiguous": 26
+  },
+  "escalation_rate": 0.2,
+  "evidence_coverage_rate": 0.7,
+  "grounding_pass_rate": 0.565
+}

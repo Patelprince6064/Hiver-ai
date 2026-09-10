@@ -1,0 +1,260 @@
+{
+  "timestamp": "2026-09-10",
+  "seed": 42,
+  "n_examples": 200,
+  "evaluation_data": "synthetic",
+  "results": {
+    "systems": {
+      "generic_baseline": {
+        "description": "Generic template response",
+        "n_examples": 200,
+        "mean_score": 0.265,
+        "median_score": 0.264,
+        "std_score": 0.043,
+        "per_dimension": {
+          "relevance": {
+            "mean": 0.299,
+            "median": 0.298,
+            "std": 0.097
+          },
+          "groundedness": {
+            "mean": 0.106,
+            "median": 0.096,
+            "std": 0.092
+          },
+          "correctness": {
+            "mean": 0.296,
+            "median": 0.284,
+            "std": 0.102
+          },
+          "helpfulness": {
+            "mean": 0.281,
+            "median": 0.285,
+            "std": 0.095
+          },
+          "completeness": {
+            "mean": 0.306,
+            "median": 0.309,
+            "std": 0.102
+          },
+          "style": {
+            "mean": 0.302,
+            "median": 0.302,
+            "std": 0.099
+          }
+        },
+        "score_distribution": {
+          "0.0-0.2": 10,
+          "0.2-0.4": 190,
+          "0.4-0.6": 0,
+          "0.6-0.8": 0,
+          "0.8-1.0": 0
+        }
+      },
+      "historical_baseline": {
+        "description": "Retrieved historical response",
+        "n_examples": 200,
+        "mean_score": 0.5,
+        "median_score": 0.498,
+        "std_score": 0.065,
+        "per_dimension": {
+          "relevance": {
+            "mean": 0.498,
+            "median": 0.502,
+            "std": 0.146
+          },
+          "groundedness": {
+            "mean": 0.514,
+            "median": 0.518,
+            "std": 0.139
+          },
+          "correctness": {
+            "mean": 0.492,
+            "median": 0.49,
+            "std": 0.16
+          },
+          "helpfulness": {
+            "mean": 0.524,
+            "median": 0.515,
+            "std": 0.161
+          },
+          "completeness": {
+            "mean": 0.479,
+            "median": 0.478,
+            "std": 0.159
+          },
+          "style": {
+            "mean": 0.492,
+            "median": 0.478,
+            "std": 0.152
+          }
+        },
+        "score_distribution": {
+          "0.0-0.2": 0,
+          "0.2-0.4": 10,
+          "0.4-0.6": 179,
+          "0.6-0.8": 11,
+          "0.8-1.0": 0
+        }
+      },
+      "grounded_llm": {
+        "description": "Grounded LLM generation",
+        "n_examples": 200,
+        "mean_score": 0.702,
+        "median_score": 0.705,
+        "std_score": 0.046,
+        "per_dimension": {
+          "relevance": {
+            "mean": 0.71,
+            "median": 0.708,
+            "std": 0.117
+          },
+          "groundedness": {
+            "mean": 0.695,
+            "median": 0.695,
+            "std": 0.12
+          },
+          "correctness": {
+            "mean": 0.702,
+            "median": 0.702,
+            "std": 0.111
+          },
+          "helpfulness": {
+            "mean": 0.698,
+            "median": 0.7,
+            "std": 0.125
+          },
+          "completeness": {
+            "mean": 0.697,
+            "median": 0.689,
+            "std": 0.111
+          },
+          "style": {
+            "mean": 0.708,
+            "median": 0.697,
+            "std": 0.118
+          }
+        },
+        "score_distribution": {
+          "0.0-0.2": 0,
+          "0.2-0.4": 0,
+          "0.4-0.6": 3,
+          "0.6-0.8": 194,
+          "0.8-1.0": 3
+        }
+      },
+      "grounded_llm_verified": {
+        "description": "Grounded LLM + verification",
+        "n_examples": 200,
+        "mean_score": 0.767,
+        "median_score": 0.768,
+        "std_score": 0.042,
+        "per_dimension": {
+          "relevance": {
+            "mean": 0.757,
+            "median": 0.76,
+            "std": 0.104
+          },
+          "groundedness": {
+            "mean": 0.841,
+            "median": 0.845,
+            "std": 0.094
+          },
+          "correctness": {
+            "mean": 0.746,
+            "median": 0.749,
+            "std": 0.097
+          },
+          "helpfulness": {
+            "mean": 0.757,
+            "median": 0.768,
+            "std": 0.099
+          },
+          "completeness": {
+            "mean": 0.739,
+            "median": 0.73,
+            "std": 0.096
+          },
+          "style": {
+            "mean": 0.76,
+            "median": 0.753,
+            "std": 0.095
+          }
+        },
+        "score_distribution": {
+          "0.0-0.2": 0,
+          "0.2-0.4": 0,
+          "0.4-0.6": 0,
+          "0.6-0.8": 152,
+          "0.8-1.0": 48
+        }
+      }
+    },
+    "comparisons": [
+      {
+        "system_a": "generic_baseline",
+        "system_b": "historical_baseline",
+        "mean_difference": 0.094,
+        "median_difference": 0.091,
+        "wins_a": 129,
+        "wins_b": 15,
+        "ties": 56
+      },
+      {
+        "system_a": "generic_baseline",
+        "system_b": "grounded_llm",
+        "mean_difference": 0.099,
+        "median_difference": 0.099,
+        "wins_a": 136,
+        "wins_b": 16,
+        "ties": 48
+      },
+      {
+        "system_a": "generic_baseline",
+        "system_b": "grounded_llm_verified",
+        "mean_difference": 0.093,
+        "median_difference": 0.096,
+        "wins_a": 133,
+        "wins_b": 18,
+        "ties": 49
+      },
+      {
+        "system_a": "historical_baseline",
+        "system_b": "grounded_llm",
+        "mean_difference": 0.084,
+        "median_difference": 0.08,
+        "wins_a": 128,
+        "wins_b": 14,
+        "ties": 58
+      },
+      {
+        "system_a": "historical_baseline",
+        "system_b": "grounded_llm_verified",
+        "mean_difference": 0.091,
+        "median_difference": 0.089,
+        "wins_a": 134,
+        "wins_b": 12,
+        "ties": 54
+      },
+      {
+        "system_a": "grounded_llm",
+        "system_b": "grounded_llm_verified",
+        "mean_difference": 0.099,
+        "median_difference": 0.096,
+        "wins_a": 139,
+        "wins_b": 10,
+        "ties": 51
+      }
+    ]
+  },
+  "primary_metric": "mean_quality_score",
+  "dimensions": [
+    "relevance",
+    "groundedness",
+    "correctness",
+    "helpfulness",
+    "completeness",
+    "style"
+  ],
+  "note": "Simulated results. Real dataset not downloaded."
+}
