@@ -110,7 +110,7 @@ Customer Message + Context History
 - **Selected Brand:** `brand_001` (specialized retail e-commerce profile, selected via objective conversation volume, multi-turn density, and response coverage scoring).
 - **Evaluation Scale:** 200 multi-turn customer sessions (1,000 dialogue turns sampled).
 - **Leakage Prevention:** Split strictly at the **conversation ID level** (70% Train / 15% Validation / 15% Test); test conversations quarantined from the vector index.
-- **Golden Evaluation Set:** Dedicated 200-sample hand-labeled benchmark; locked and unpolluted during development.
+- **Golden Evaluation Set:** [INCOMPLETE — NOT YET CREATED] The golden evaluation set pipeline is built (scripts exist) but the 200-sample hand-labeled set was NOT created because the real Kaggle dataset was not downloaded. The `data/golden/` directory contains only scaffold files. This is a mandatory manual action required before submission.
 
 ---
 
@@ -154,8 +154,8 @@ Customer Message + Context History
 
 - **Methodology:** Evaluation-first architecture; all 5 pipeline components benchmarked against trivial baselines.
 - **Rubric:** Structured 6-dimension evaluation (Relevance, Groundedness, Correctness, Helpfulness, Completeness, Tone) on a 1-5 scale.
-- **LLM-as-Judge Validation:** Blinded evaluation (systems anonymized as A/B/C/D) audited against human annotations ($N=10$). The judge achieved 100% agreement within 2 points, but exhibited low rank correlation ($\rho = 0.091$), confirming it is suitable only as a supplementary screening filter, not human ground truth.
-- **Golden Set:** Locked and kept separate from model tuning to prevent data snooping.
+- **LLM-as-Judge Validation:** Blinded evaluation (systems anonymized as A/B/C/D) audited against simulated reference scores ($N=10$). All "human" scores in the comparison dataset are identically 3.0 — these are simulated placeholder annotations, NOT real human evaluation. The judge achieved 100% within-2-point agreement but exhibited near-zero rank correlation ($\rho = 0.091$), confirming it is suitable only as a supplementary screening filter.
+- **Golden Set Status:** [INCOMPLETE] The golden evaluation set was NOT created (real dataset not downloaded). All evaluation was performed on synthetic benchmark distributions.
 
 ---
 
@@ -245,8 +245,8 @@ Execute the interactive CLI demonstration suite:
 python scripts/run_agent.py --demo
 
 # Run single custom customer inquiry
-python scripts/run_agent.py --message "Where is my order #12345?" --demo
-python scripts/run_agent.py --message "Cancel my account and issue a refund immediately" --demo
+python scripts/run_agent.py --message "Where is my order #12345?"
+python scripts/run_agent.py --message "Cancel my account and issue a refund immediately"
 ```
 
 See complete guide in [`demo/README.md`](demo/README.md).

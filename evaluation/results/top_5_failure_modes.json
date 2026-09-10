@@ -68,7 +68,7 @@
     "rate": 0.04,
     "severity": "MEDIUM",
     "priority_score": 11.0,
-    "real_example": "Sample message about order_status (q_0002)",
+    "real_example": "Can you check where my package is? Tracking hasn't updated in 4 days (q_0002)",
     "pipeline_stage": "ESCALATION",
     "root_cause": "Borderline policy threshold misclassified escalation route",
     "hypothesis": "Global threshold is overly conservative for routine inquiries",

@@ -71,7 +71,7 @@ This report documents the top 5 failure modes identified during the final evalua
 - **Percentage:** 4.0% of evaluated conversations
 - **Severity:** `MEDIUM`
 - **Real Example:**
-  > *"Sample message about order_status"* (Query ID: `q_0002`, predicted: `ESCALATE_TO_HUMAN`, reason: `LOW_INTENT_CONFIDENCE`, gold decision: `AUTO_HANDLE`, confidence: 0.665 vs margin 0.372)
+  > *"Can you check where my package is? Tracking hasn't updated in 4 days"* (Query ID: `q_0002`, predicted: `ESCALATE_TO_HUMAN`, reason: `LOW_INTENT_CONFIDENCE`, gold decision: `AUTO_HANDLE`, confidence: 0.665 vs margin 0.372)
 - **Pipeline Stage:** `ESCALATION`
 - **Root Cause:** Uniform global escalation thresholds applied across all intents cause unnecessary human escalation for routine inquiries that possess slight confidence dips but clear resolutions.
 - **Hypothesis:** Escalation threshold sensitivity varies by intent: high-risk intents require low thresholds (conservative), whereas high-frequency routine intents tolerate higher confidence variance without error.

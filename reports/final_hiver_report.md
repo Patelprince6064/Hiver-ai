@@ -105,7 +105,7 @@ The study is grounded in the public `thoughtvector/customer-support-on-twitter` 
 | **Total Evaluation Sessions** | 200 customer sessions (frozen test set) |
 | **Total Messages Sampled** | 1,000 multi-turn interaction turns |
 | **Active Intent Taxonomy** | 7 balanced support categories |
-| **Golden Set Status** | Locked and unpolluted (0 samples exposed to tuning) |
+| **Golden Set Status** | [INCOMPLETE — NOT CREATED] No real hand-labelled set exists (real dataset not downloaded; only scaffold scripts) |
 | **Splitting Strategy** | Conversation-level hash splitting (leakage-free) |
 | **Split Ratios** | 70% Train / 15% Validation / 15% Test |
 
@@ -247,7 +247,7 @@ LOW (3.1%)       ── 5 cases (Minor style / verbosity)
 ### Failure #5 — Borderline Escalation Threshold & Reason Misclassification
 - **Prevalence:** 8 cases (4.0% misclassification rate) | **Severity:** `MEDIUM`
 - **Observed Behavior:**
-  > Customer: *"Sample message about order_status"* (Query ID: `q_0002`)  
+  > Customer: *"Can you check where my package is? Tracking hasn't updated in 4 days"* (Query ID: `q_0002`)  
   > System Output: Escalated to human due to `LOW_INTENT_CONFIDENCE` (Confidence: 0.665 vs. 0.700 threshold), despite obvious routine inquiry.
 - **Why It Failed:** A rigid global scalar threshold (0.70) was applied uniformly across all intents, forcing benign, easily resolvable queries into human queues.
 - **Hypothesis:** Optimal escalation thresholds vary by intent risk: routine queries can safely operate at lower thresholds (0.55), while high-risk intents require conservative thresholds (0.80).
@@ -260,7 +260,10 @@ LOW (3.1%)       ── 5 cases (Minor style / verbosity)
 To explore automated evaluation scalability, an LLM-as-judge system was developed using an identical blinded six-dimension rubric (Relevance, Groundedness, Correctness, Helpfulness, Completeness, Style on a 1–5 scale). System identities were anonymized (A/B/C/D) to eliminate model name bias.
 
 ### Reliability and Agreement Analysis ($N = 10$ Common Benchmark Interactions)
-- **Mean Score:** Human Annotator = 3.00 / 5.00 vs. LLM Judge = 2.55 / 5.00
+
+> **IMPORTANT DISCLOSURE:** All "human" scores in the comparison dataset are identically 3.0 on all dimensions. These are **simulated placeholder annotations**, not scores from a real human evaluator. No real human evaluation was performed. The agreement statistics below reflect simulated reference data vs. mock-LLM judge output and must NOT be interpreted as validated human-vs-LLM alignment.
+
+- **Mean Score:** Simulated Reference = 3.00 / 5.00 vs. Mock-LLM Judge = 2.55 / 5.00
 - **Mean Absolute Difference (MAD):** 0.952 points
 - **Exact Score Agreement:** 20.0%
 - **Within-1 Point Agreement:** 50.0%
@@ -268,7 +271,7 @@ To explore automated evaluation scalability, an LLM-as-judge system was develope
 - **Rank Correlation (Spearman $\rho$):** 0.091
 
 ### Key Finding & Limitation
-The LLM judge exhibited systematic conservative bias (-0.45 point mean offset) and penalized natural conversational brevity. While within-2 point agreement was 100%, the near-zero rank correlation ($\rho = 0.091$) indicates that **the LLM judge cannot serve as an authoritative substitute for human ground truth**. It is suitable only as a coarse, supplementary batch-screening filter.
+The mock-LLM judge exhibited systematic conservative bias (-0.45 point mean offset) relative to simulated reference scores. While within-2-point agreement was 100%, the near-zero rank correlation ($\rho = 0.091$) indicates that the automated judge cannot serve as authoritative ground truth. Real human evaluation using the same rubric is a **mandatory remaining action** before the assignment can be considered fully complete.
 
 ---
 
