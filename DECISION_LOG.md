@@ -186,3 +186,49 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Use chunked pandas reading (`chunksize` parameter) when inspecting or processing the full dataset.
 
 **Rationale:** The main dataset file may contain millions of rows. Loading it entirely into memory could cause out-of-memory errors on machines with limited RAM. Chunked reading allows processing the data in manageable pieces while still computing aggregate statistics.
+
+---
+
+## Phase 3 Decisions
+
+### Decision 22: Perform EDA Before Brand Selection
+
+**Date:** Phase 3
+**Decision:** Conduct comprehensive exploratory data analysis before selecting the final brand.
+
+**Rationale:** The assignment requires selecting one brand and building an agent around it. Selecting a brand without understanding the dataset would risk choosing a brand with insufficient data, poor response coverage, or other quality issues. EDA first ensures the selection is informed by actual data characteristics.
+
+### Decision 23: Treat Resolution as Inferred Signal
+
+**Date:** Phase 3
+**Decision:** Treat conversation resolution as a heuristic/inferred signal rather than a ground-truth label.
+
+**Rationale:** The dataset does not contain explicit resolution labels. Any resolution metric must be derived from heuristics (thank-you detection, resolution keywords, conversation termination). These heuristics are noisy and should not be confused with actual resolution status. Clearly distinguishing inferred signals from actual labels prevents misleading evaluation later.
+
+### Decision 24: Preserve Noisy Social-Media Text
+
+**Date:** Phase 3
+**Decision:** Analyze but do not aggressively clean noisy social-media text during EDA.
+
+**Rationale:** The goal of Phase 3 is to understand the data, not to produce a clean dataset. Removing URLs, mentions, hashtags, or emojis would destroy information that might be useful for intent classification or escalation decisions. Aggressive cleaning should happen only after understanding what is being removed and why.
+
+### Decision 25: Use Conversation-Level Analysis
+
+**Date:** Phase 3
+**Decision:** Perform analysis at the conversation level where possible, not just the message level.
+
+**Rationale:** The assignment requires a support agent that handles multi-turn conversations. Message-level analysis alone would miss conversation-level patterns such as thread length, response coverage, and resolution signals. Conversation-level analysis provides the insights needed for later phases.
+
+### Decision 26: Avoid Interpreting Response Time as SLA
+
+**Date:** Phase 3
+**Decision:** Report response time statistics as exploratory findings only, not as performance guarantees.
+
+**Rationale:** Historical response times reflect past behavior under specific conditions. They should not be treated as current SLAs or as targets for the AI agent. Presenting them as exploratory findings prevents misinterpretation.
+
+### Decision 27: Separate Dataset Labels from Heuristic Metrics
+
+**Date:** Phase 3
+**Decision:** Clearly distinguish between actual data fields and heuristic-derived metrics in all reports and statistics.
+
+**Rationale:** Confusing actual labels with inferred signals would undermine evaluation validity. For example, if we later evaluate "resolution rate," we must be clear whether we are measuring actual resolution (not available) or heuristic resolution signals (noisy). This distinction is critical for honest evaluation.

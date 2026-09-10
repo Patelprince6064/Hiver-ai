@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 2 — Dataset acquisition & inspection: IN PROGRESS
-> Phase 1 (project foundation) is complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
+> **Current Status:** Phase 3 — Exploratory Data Analysis: IN PROGRESS
+> Phases 1-2 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
 
 ---
 
@@ -95,6 +95,48 @@ Run validation checks on the dataset:
 ```bash
 python scripts/validate_dataset.py
 ```
+
+---
+
+## Phase 3 — Exploratory Data Analysis
+
+### Run the EDA notebook
+
+```bash
+# From the project root
+jupyter notebook notebooks/02_exploratory_data_analysis.ipynb
+```
+
+Or execute non-interactively:
+
+```bash
+jupyter nbconvert --to notebook --execute notebooks/02_exploratory_data_analysis.ipynb
+```
+
+### Run conversation integrity analysis
+
+```bash
+python scripts/analyze_conversation_integrity.py
+```
+
+### Generated outputs
+
+- `data/interim/eda_statistics.json` — EDA statistics
+- `reports/phase_3_eda.md` — EDA report
+- `data/interim/conversation_integrity.json` — Integrity check results
+
+### Important findings
+
+- EDA is performed before brand selection to ensure informed decisions.
+- Resolution signals are heuristics, not ground-truth labels.
+- Noisy social-media text is preserved for analysis, not aggressively cleaned.
+- Response times are exploratory, not SLAs.
+
+### Limitations
+
+- No explicit resolution labels in the dataset.
+- Language distribution may not be directly available.
+- Historical response times should not be interpreted as current performance.
 
 ---
 
