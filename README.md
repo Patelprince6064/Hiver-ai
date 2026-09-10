@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 14 — Reply Quality Evaluation: COMPLETE
-> Phases 1-13 are complete. Phase 14 adds a blinded, human-centered reply quality evaluation framework. No escalation, auto-handle, or frontend has been implemented yet.
+> **Current Status:** Phase 15 — Auto-Handle vs Human Escalation: COMPLETE
+> Phases 1-15 are complete. Phase 15 adds a conservative escalation policy with 20 reason codes, configurable thresholds, and false-auto-handle-rate safety metrics. No frontend has been implemented yet.
 
 ---
 

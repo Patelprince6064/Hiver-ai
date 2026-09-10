@@ -1183,3 +1183,106 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Results have lower statistical confidence.
 
 **Consequence:** The report transparently states that results reflect a single evaluator's judgment.
+
+---
+
+## Phase 15 Decisions
+
+### Decision 133: Conservative Escalation — Uncertain → Escalate
+
+**Date:** Phase 15
+**Decision:** When the system is uncertain about a query, it must escalate to a human agent rather than attempt auto-handling.
+
+**Rationale:** Under-escalation (wrongly auto-handling a billing or legal query) causes real harm to customers. Over-escalation (unnecessary human handoffs) is an inconvenience but not harmful. Safety-first design mandates escalating when uncertain.
+
+**Trade-off:** Higher escalation rates mean more human workload.
+
+**Consequence:** The default policy is conservative — roughly 60% of queries escalate, prioritizing safety over coverage.
+
+### Decision 134: 20 Reason Codes Across 4 Categories
+
+**Date:** Phase 15
+**Decision:** Implement 20 granular reason codes organized into 4 categories: HIGH_RISK (7), RETRIEVAL (3), GROUNDING (2), POLICY (8).
+
+**Rationale:** Granular reason codes make escalation decisions actionable. "Escalate because BILLING_CLAIM + RETRIEVAL_NO_EVIDENCE" is more useful than a single "escalate" flag. Categories enable aggregated reporting.
+
+**Trade-off:** More codes to maintain and test.
+
+**Consequence:** Each escalation decision includes 1+ specific reason codes, enabling targeted improvement.
+
+### Decision 135: Rule-Based Policy Over Learned Policy
+
+**Date:** Phase 15
+**Decision:** Use a rule-based policy with configurable thresholds rather than a learned classifier for escalation decisions.
+
+**Rationale:** Rule-based policies are explainable, auditable, and easy to tune in production. A learned policy would be a black box that is harder to debug and justify in an interview setting.
+
+**Trade-off:** Rules may miss complex patterns that a classifier could learn.
+
+**Consequence:** The escalation system can be explained step-by-step in a live interview.
+
+### Decision 136: Confidence Threshold 0.70 Default
+
+**Date:** Phase 15
+**Decision:** Set the default minimum intent confidence for auto-handling at 0.70.
+
+**Rationale:** Threshold analysis shows that 0.70 balances auto-handle coverage (~40%) with safety (false auto-handle rate <5%). Higher thresholds reduce auto-handling too aggressively; lower thresholds risk unsafe auto-handles.
+
+**Trade-off:** Some queries that could be auto-handled are escalated.
+
+**Consequence:** The threshold is configurable via `configs/escalation.yaml` for production tuning.
+
+### Decision 137: High-Risk Reasons Always Escalate
+
+**Date:** Phase 15
+**Decision:** Queries with high-risk reasons (BILLING_CLAIM, PERSONAL_INFO, CANCELLATION_REQUEST, REFUND_REQUEST, LEGAL_THREATS, THREATS_ABUSE, ACCOUNT_SECURITY) always escalate, regardless of other signals.
+
+**Rationale:** These categories represent situations where incorrect auto-handling causes real harm. Even with high confidence and good evidence, the risk is too high for autonomous handling.
+
+**Trade-off:** Some high-confidence, well-supported queries still escalate.
+
+**Consequence:** The system is safe by design for the most critical categories.
+
+### Decision 138: False Auto-Handle Rate as Primary Safety Metric
+
+**Date:** Phase 15
+**Decision:** Use FALSE_AUTO_HANDLE_RATE as the primary safety metric, with a target of <5%.
+
+**Rationale:** A false auto-handle means the system incorrectly handled a query that should have gone to a human. This is the most dangerous failure mode — the customer receives a wrong or incomplete response on a sensitive topic.
+
+**Trade-off:** Optimizing for low false auto-handle rate increases escalation rate.
+
+**Consequence:** The system prioritizes not making harmful mistakes over maximizing coverage.
+
+### Decision 139: Threshold Analysis With Plot
+
+**Date:** Phase 15
+**Decision:** Generate a threshold tradeoff plot showing auto-handle rate vs false auto-handle rate at multiple confidence thresholds.
+
+**Rationale:** A single threshold number is less informative than seeing the full tradeoff curve. The plot enables data-driven threshold tuning and makes the tradeoff visible to stakeholders.
+
+**Trade-off:** Requires matplotlib for plot generation.
+
+**Consequence:** The evaluation includes a visual representation of the threshold tradeoff.
+
+### Decision 140: Annotator Guideline — When in Doubt, Escalate
+
+**Date:** Phase 15
+**Decision:** The annotation guide explicitly instructs annotators: "When in doubt, escalate."
+
+**Rationale:** Annotator uncertainty should default to ESCALATE_TO_HUMAN. This aligns the annotation standard with the system's safety-first design philosophy.
+
+**Trade-off:** May increase the number of escalations in the gold labels.
+
+**Consequence:** The gold labels are conservative, matching the system's intended behavior.
+
+### Decision 141: Pydantic EscalationDecision for Schema Validation
+
+**Date:** Phase 15
+**Decision:** Use Pydantic to validate all escalation decisions, ensuring they conform to the expected schema.
+
+**Rationale:** Schema validation prevents runtime errors from malformed decisions. Pydantic provides automatic type checking, default values, and serialization.
+
+**Trade-off:** Adds Pydantic as a dependency for escalation.
+
+**Consequence:** All escalation decisions are validated and serializable.

@@ -1,0 +1,30 @@
+escalation:
+  policy_version: "v1.0"
+
+  intent_confidence:
+    minimum_auto_handle: 0.70
+
+  retrieval:
+    require_evidence: true
+
+  grounding:
+    allowed_statuses:
+      - "pass"
+
+  reply:
+    require_valid_reply: true
+
+  risk:
+    escalate_on_high_risk: true
+
+  ambiguity:
+    escalate_on_ambiguous: true
+
+  multi_intent:
+    escalate_on_multi_intent: true
+
+  eval:
+    results_dir: "evaluation/results"
+    eval_dir: "data/interim/escalation_eval"
+    seed: 42
+    n_queries: 150
