@@ -1,0 +1,36 @@
+retrieval:
+  enabled: true
+
+  embedding_model:
+    name: "sentence-transformers/all-MiniLM-L6-v2"
+    normalize_embeddings: true
+    batch_size: 32
+
+  index:
+    type: "IndexFlatIP"
+    metric: "cosine"
+    save_dir: "data/processed/retrieval_index"
+
+  retrieval:
+    default_top_k: 5
+    candidate_k: 20
+    min_similarity: null
+
+  intent_reranking:
+    enabled: false
+    boost: 0.0
+    confidence_threshold: 0.80
+
+  quality_filter:
+    enabled: true
+    exclude:
+      - empty_customer_message
+      - empty_support_response
+      - uncertain_pairing
+
+  data_source:
+    knowledge_base_path: "data/processed/knowledge_base.jsonl"
+    exclude_low_quality: true
+    exclude_golden: true
+
+  seed: 42

@@ -606,3 +606,91 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** The vector index/RAG system is not implemented in this phase.
 
 **Rationale:** Phase 9 focuses on creating a clean, auditable corpus. The vector index requires embedding generation and semantic search, which belong to the retrieval phase.
+
+---
+
+## Phase 10 Decisions
+
+### Decision 78: Use Semantic Embeddings for Retrieval
+
+**Date:** Phase 10
+**Decision:** Use sentence-transformer embeddings for semantic retrieval.
+
+**Rationale:** Semantic embeddings capture meaning, not just word overlap. This allows retrieving historically similar support interactions even when the wording differs.
+
+### Decision 79: Reuse Phase 8 Embedding Model
+
+**Date:** Phase 10
+**Decision:** Use the same `all-MiniLM-L6-v2` embedding model from Phase 8.
+
+**Rationale:** Reusing the model simplifies the architecture and reduces unnecessary model diversity. The model is already proven effective for this domain.
+
+### Decision 80: Use FAISS for Vector Index
+
+**Date:** Phase 10
+**Decision:** Use FAISS (IndexFlatIP) for vector indexing and search.
+
+**Rationale:** FAISS is efficient, well-tested, and appropriate for the selected-brand corpus size. IndexFlatIP with normalized embeddings provides exact cosine similarity search.
+
+### Decision 81: Use Normalized Embeddings + Inner Product
+
+**Date:** Phase 10
+**Decision:** Use L2-normalized embeddings with inner product for cosine similarity.
+
+**Rationale:** When embeddings are normalized, inner product equals cosine similarity. This is more efficient than computing full cosine similarity.
+
+### Decision 82: Implement TF-IDF Baseline
+
+**Date:** Phase 10
+**Decision:** Implement TF-IDF retrieval as a baseline for comparison.
+
+**Rationale:** A lexical baseline provides an important comparison point. Do not assume semantic retrieval is better without measurement.
+
+### Decision 83: Evaluate Retrieval Separately
+
+**Date:** Phase 10
+**Decision:** Evaluate retrieval independently from intent classification.
+
+**Rationale:** Retrieval and classification are different tasks with different metrics. Separate evaluation provides clearer signals about each component's performance.
+
+### Decision 84: Make Intent-Aware Reranking Optional
+
+**Date:** Phase 10
+**Decision:** Intent-aware reranking is optional and disabled by default.
+
+**Rationale:** Low-confidence intent predictions should not eliminate candidates. Semantic retrieval first, then optional intent reranking, reduces the risk of incorrect predictions destroying recall.
+
+### Decision 85: Don't Let Low-Confidence Intent Eliminate Candidates
+
+**Date:** Phase 10
+**Decision:** Low-confidence intent predictions do not completely filter candidates.
+
+**Rationale:** Intent predictions are not ground truth. Aggressive filtering based on uncertain predictions would reduce retrieval recall.
+
+### Decision 86: Exclude Golden Examples from Index
+
+**Date:** Phase 10
+**Decision:** Golden set conversations are excluded from the retrieval index.
+
+**Rationale:** The golden set is the evaluation standard. Including golden conversations would cause retrieval leakage, producing overly optimistic results.
+
+### Decision 87: Similarity Score is Not Relevance
+
+**Date:** Phase 10
+**Decision:** Treat similarity score as a model score, not a guarantee of relevance.
+
+**Rationale:** High semantic similarity does not guarantee that a historical example is relevant for the current query. Similarity is one signal among many.
+
+### Decision 88: Support Insufficient-Evidence Results
+
+**Date:** Phase 10
+**Decision:** The system supports returning no results when evidence is insufficient.
+
+**Rationale:** Forcing the system to return a historical example when none is relevant would produce poor downstream replies. Supporting empty results enables proper escalation.
+
+### Decision 89: Historical Responses Are Evidence, Not Policy
+
+**Date:** Phase 10
+**Decision:** Retrieved historical responses are treated as evidence, not official policy.
+
+**Rationale:** Historical responses may contain incorrect advice, outdated policies, or inconsistent support. Treating them as policy would be misleading.

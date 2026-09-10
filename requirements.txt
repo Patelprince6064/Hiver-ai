@@ -9,3 +9,4 @@ pydantic
 pyyaml
 sentence-transformers
 joblib
+faiss-cpu

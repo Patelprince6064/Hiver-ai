@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 9 — Historical Support Knowledge Base: IN PROGRESS
-> Phases 1-8 are complete. No RAG, vector database, reply generation, or escalation has been implemented yet.
+> **Current Status:** Phase 10 — Semantic Retrieval: IN PROGRESS
+> Phases 1-9 are complete. No reply generation, escalation, or frontend has been implemented yet.
 
 ---
 
@@ -417,6 +417,48 @@ Golden set conversations are excluded from the knowledge base.
 - Responses may be inconsistent
 - Some threads are incomplete
 - Twitter conversations are noisy
+
+---
+
+## Phase 10 — Semantic Retrieval
+
+### Architecture
+
+Customer Message → Preprocessing → Query Embedding → FAISS Search → Quality Filter → Top-K Historical Evidence
+
+### Embedding Model
+
+`sentence-transformers/all-MiniLM-L6-v2` (same as Phase 8)
+
+### Run
+
+```bash
+python scripts/build_retrieval_index.py
+python scripts/validate_retrieval_index.py
+python scripts/check_retrieval_index_leakage.py
+python scripts/test_retrieval.py --query "My order has not arrived yet"
+python scripts/evaluate_retrieval.py
+python scripts/analyze_retrieval_errors.py
+```
+
+### Output Locations
+
+- Index: `data/processed/retrieval_index/`
+- Results: `evaluation/results/`
+
+### TF-IDF Baseline
+
+TF-IDF retrieval is implemented for comparison.
+
+### Golden Leakage Prevention
+
+Golden set conversations are excluded from the retrieval index.
+
+### Limitations
+
+- Semantic similarity does not guarantee relevance
+- Historical responses may be outdated
+- Similarity score is not correctness
 
 ---
 
