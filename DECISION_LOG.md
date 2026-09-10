@@ -458,3 +458,77 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Use reasonable default hyperparameters without extensive tuning.
 
 **Rationale:** These are baselines, not optimized models. Extensive tuning would defeat the purpose of establishing a comparison point. Tuning belongs to the next phase.
+
+---
+
+## Phase 8 Decisions
+
+### Decision 58: Introduce Sentence-Transformer Embeddings
+
+**Date:** Phase 8
+**Decision:** Use sentence-transformer embeddings instead of TF-IDF for the stronger intent classifier.
+
+**Rationale:** TF-IDF captures lexical overlap but misses semantic similarity. Sentence-transformers encode meaning, allowing the model to understand paraphrases, synonyms, and semantic equivalence. This is essential for a production-quality intent classifier.
+
+### Decision 59: Use all-MiniLM-L6-v2 as Default Embedding Model
+
+**Date:** Phase 8
+**Decision:** Use `sentence-transformers/all-MiniLM-L6-v2` as the default embedding model.
+
+**Trade-off:** This model offers a good balance between quality (384 dimensions, trained on semantic similarity) and efficiency (runs on CPU, fast inference). Larger models may offer marginal quality improvements but at higher computational cost.
+
+### Decision 60: Use Logistic Regression on Embeddings
+
+**Date:** Phase 8
+**Decision:** Use Logistic Regression as the classifier on top of embeddings.
+
+**Rationale:** Logistic Regression is simple, fast, interpretable, and competitive for text classification. More complex classifiers (SVM, neural networks) would add complexity without guaranteed improvement for this task size.
+
+### Decision 61: Limit Configuration Comparison
+
+**Date:** Phase 8
+**Decision:** Compare only a small number of reasonable configurations (2-3 models).
+
+**Rationale:** This is a take-home assignment, not a Kaggle competition. Extensive hyperparameter search would be time-consuming and unlikely to produce meaningful improvements. The goal is a reliable, explainable system.
+
+### Decision 62: Use DEV for Model Selection
+
+**Date:** Phase 8
+**Decision:** Use the DEV split for all model selection decisions.
+
+**Rationale:** DEV provides a reliable signal for comparing configurations without contaminating the golden evaluation set. Using golden for model selection would produce overly optimistic results.
+
+### Decision 63: Keep TEST Untouched Until Model Freeze
+
+**Date:** Phase 8
+**Decision:** TEST is used only for final non-golden evaluation after model selection is complete.
+
+**Rationale:** Repeated evaluation on TEST would lead to implicit tuning. Keeping TEST frozen until the end provides an unbiased internal evaluation.
+
+### Decision 64: Keep GOLDEN Strictly Locked
+
+**Date:** Phase 8
+**Decision:** Golden set is used ONLY for final evaluation reporting, never for tuning or model selection.
+
+**Rationale:** The golden set is the locked evaluation standard. Using it for any development purpose would invalidate evaluation results.
+
+### Decision 65: Treat Confidence as Model Score
+
+**Date:** Phase 8
+**Decision:** Treat classifier probabilities as model scores, not calibrated probabilities.
+
+**Rationale:** Logistic Regression probabilities are not automatically calibrated. A 90% confidence does not mean 90% chance of being correct. Calibration analysis is deferred to a later phase.
+
+### Decision 66: Implement Embedding Caching
+
+**Date:** Phase 8
+**Decision:** Cache embeddings to avoid redundant computation.
+
+**Rationale:** Sentence-transformer encoding is computationally expensive. Caching ensures that embeddings are computed once and reused across experiments. The cache is invalidated if the dataset, preprocessing, or embedding model changes.
+
+### Decision 67: Preserve Social-Media Language
+
+**Date:** Phase 8
+**Decision:** Avoid aggressive text cleaning. Preserve punctuation, emojis, product names, and conversational wording.
+
+**Rationale:** Social-media language contains useful signals for intent classification. Removing emojis, slang, or punctuation could remove discriminative features. The same preprocessing as Phase 7 is used for consistency.

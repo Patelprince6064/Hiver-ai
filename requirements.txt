@@ -7,3 +7,5 @@ pytest
 python-dotenv
 pydantic
 pyyaml
+sentence-transformers
+joblib

@@ -1,0 +1,17 @@
+semantic_classifier:
+  enabled: true
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  normalize_embeddings: true
+  batch_size: 32
+
+  classifier:
+    type: "logistic_regression"
+    max_iter: 1000
+    class_weight: "balanced"
+    random_state: 42
+
+  embedding_cache:
+    enabled: true
+    cache_dir: "data/interim/embeddings"
+
+  save_dir: "models/semantic_classifier"

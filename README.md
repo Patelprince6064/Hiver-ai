@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 7 — Intent Classification Baselines: IN PROGRESS
-> Phases 1-6 are complete. No LLM, RAG, vector database, reply generation, or escalation has been implemented yet.
+> **Current Status:** Phase 8 — Semantic Intent Classifier: IN PROGRESS
+> Phases 1-7 are complete. No RAG, vector database, reply generation, or escalation has been implemented yet.
 
 ---
 
@@ -334,6 +334,45 @@ Results are stored in `evaluation/results/`.
 ### Golden-Set Protection
 
 Golden data is evaluation-only. Do NOT use for training or tuning.
+
+---
+
+## Phase 8 — Semantic Intent Classification
+
+### Architecture
+
+Customer Message → Preprocessing → Sentence Transformer Embeddings → Logistic Regression → Intent + Confidence
+
+### Embedding Model
+
+`sentence-transformers/all-MiniLM-L6-v2` (configurable)
+
+### Run
+
+```bash
+python scripts/train_semantic_classifier.py
+python scripts/evaluate_semantic_classifier.py --dataset dev
+python scripts/evaluate_semantic_classifier.py --dataset test
+python scripts/analyze_semantic_errors.py
+```
+
+### Output Locations
+
+- Model: `models/semantic_classifier/`
+- Results: `evaluation/results/`
+- Embedding Cache: `data/interim/embeddings/`
+
+### Baseline Comparison
+
+Compare semantic classifier against:
+- Majority baseline (trivial)
+- TF-IDF + Logistic Regression (simple)
+
+### Limitations
+
+- Requires sentence-transformer model download (internet access)
+- Embedding computation is slower than TF-IDF
+- Performance depends on embedding model quality
 
 ---
 
