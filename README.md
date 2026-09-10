@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 4 — Brand Selection & Problem Framing: IN PROGRESS
-> Phases 1-3 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
+> **Current Status:** Phase 5 — Intent Discovery: IN PROGRESS
+> Phases 1-4 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
 
 ---
 
@@ -185,6 +185,42 @@ The agent will NOT:
 - Modify customer accounts
 - Integrate with real Twitter API
 - Process the full 3M-row dataset
+
+---
+
+## Phase 5 — Intent Discovery
+
+### Prepare intent discovery dataset
+
+```bash
+python scripts/prepare_intent_discovery.py --sample-size 5000
+```
+
+### Run intent discovery notebook
+
+```bash
+jupyter notebook notebooks/03_intent_discovery.ipynb
+```
+
+### Validate taxonomy
+
+```bash
+python scripts/validate_intent_taxonomy.py
+```
+
+### Key outputs
+
+- `data/interim/selected_brand/intent_discovery_messages.csv` — Customer messages for discovery
+- `data/interim/selected_brand/intent_taxonomy.json` — Intent taxonomy
+- `docs/INTENT_LABELING_GUIDE.md` — Labeling guide
+- `reports/phase_5_intent_analysis.md` — Intent analysis report
+
+### Labeling policy
+
+- **Primary Intent:** Select the customer's main support request
+- **Multi-Intent:** Select the blocking/root-cause issue
+- **Ambiguous:** Label as `ambiguous` if intent cannot be determined
+- **Out-of-Scope:** Use sparingly (< 5%) for non-support content
 
 ---
 

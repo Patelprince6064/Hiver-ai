@@ -278,3 +278,56 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Explicitly document what the agent will NOT do (refunds, account changes, Twitter API, etc.).
 
 **Rationale:** The assignment focuses on demonstrating a trustworthy support-agent pipeline. Documenting exclusions keeps scope aligned with the assignment and prevents scope creep during implementation.
+
+---
+
+## Phase 5 Decisions
+
+### Decision 34: Define Intents from Selected-Brand Data
+
+**Date:** Phase 5
+**Decision:** Derive the intent taxonomy from the selected brand's actual customer messages, rather than using an external or pre-defined taxonomy.
+
+**Rationale:** Different brands have different support patterns. An intent taxonomy derived from the actual data will capture the real distribution of customer issues specific to this brand, avoiding wasted effort on intents that never appear and missing intents that frequently appear.
+
+### Decision 35: Use Clustering as Discovery Tool
+
+**Date:** Phase 5
+**Decision:** Use TF-IDF + KMeans clustering as a discovery aid for identifying recurring themes, not as ground truth for the final taxonomy.
+
+**Rationale:** Clustering reveals natural groupings in the data, but clusters do not directly map to intents. The final taxonomy must be manually designed based on semantic understanding of customer support patterns. Clustering is a tool for exploration, not a source of labels.
+
+### Decision 36: Target a Small Taxonomy
+
+**Date:** Phase 5
+**Decision:** Target approximately 8-15 intents for the taxonomy.
+
+**Rationale:** The assignment requires a "small set of intents." A small taxonomy is easier to label consistently, easier to classify accurately, and more practical for a support agent. Too few intents would be too coarse; too many would be hard to distinguish.
+
+### Decision 37: Preserve Original Customer Text
+
+**Date:** Phase 5
+**Decision:** Preserve the original customer text without aggressive cleaning during intent discovery.
+
+**Rationale:** Aggressive cleaning (removing emojis, punctuation, slang) would destroy information that might be relevant for intent classification. Normalization is applied for analysis, but the original text is preserved for labeling and later use.
+
+### Decision 38: Create Explicit Inclusion/Exclusion Rules
+
+**Date:** Phase 5
+**Decision:** Define explicit inclusion and exclusion criteria for each intent.
+
+**Rationale:** Without clear boundaries, annotators will disagree on edge cases. Explicit rules ensure consistent labeling across annotators and make the taxonomy defensible during evaluation.
+
+### Decision 39: Establish Primary-Intent Policy
+
+**Date:** Phase 5
+**Decision:** Label each message with exactly one primary intent, selecting the root cause or blocking issue.
+
+**Rationale:** Single-label classification is simpler and more practical than multi-label. Selecting the root cause ensures the agent addresses the most important issue first. Multi-intent handling can be added later if needed.
+
+### Decision 40: Version the Taxonomy
+
+**Date:** Phase 5
+**Decision:** Use semantic versioning (1.0, 1.1, 2.0) for the intent taxonomy.
+
+**Rationale:** Versioning allows tracking changes to the taxonomy over time. If intents are added, merged, or split, the version number documents the change and prevents confusion about which taxonomy was used for which experiments.
