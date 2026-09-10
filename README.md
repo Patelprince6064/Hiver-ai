@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 5 — Intent Discovery: IN PROGRESS
-> Phases 1-4 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
+> **Current Status:** Phase 6 — Golden Evaluation Set: IN PROGRESS
+> Phases 1-5 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
 
 ---
 
@@ -221,6 +221,55 @@ python scripts/validate_intent_taxonomy.py
 - **Multi-Intent:** Select the blocking/root-cause issue
 - **Ambiguous:** Label as `ambiguous` if intent cannot be determined
 - **Out-of-Scope:** Use sparingly (< 5%) for non-support content
+
+---
+
+## Phase 6 — Golden Evaluation Set
+
+### Build candidate pool
+
+```bash
+python scripts/build_golden_candidates.py --pool-size 2000
+```
+
+### Annotate examples
+
+```bash
+python scripts/annotate_golden.py
+```
+
+### Audit golden set
+
+```bash
+python scripts/audit_golden_set.py
+```
+
+### Check for leakage
+
+```bash
+python scripts/check_golden_leakage.py
+```
+
+### Validate schema
+
+```bash
+python scripts/validate_golden_schema.py
+```
+
+### Key outputs
+
+- `data/golden/golden_candidates.csv` — Candidate pool for annotation
+- `data/golden/golden_set.jsonl` — Annotated golden set
+- `data/golden/golden_set_statistics.json` — Audit statistics
+- `data/golden/leakage_report.json` — Leakage check results
+- `data/golden/metadata.json` — Golden set metadata
+- `docs/GOLDEN_SET_ANNOTATION_GUIDE.md` — Annotation guide
+- `reports/golden_sampling_methodology.md` — Sampling methodology
+- `reports/golden_intent_coverage.md` — Intent coverage report
+
+### Golden set policy
+
+The golden evaluation set is **evaluation-only** and is NOT used for model training or tuning.
 
 ---
 

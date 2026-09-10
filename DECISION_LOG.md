@@ -331,3 +331,63 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Use semantic versioning (1.0, 1.1, 2.0) for the intent taxonomy.
 
 **Rationale:** Versioning allows tracking changes to the taxonomy over time. If intents are added, merged, or split, the version number documents the change and prevents confusion about which taxonomy was used for which experiments.
+
+---
+
+## Phase 6 Decisions
+
+### Decision 41: Target 200 Golden Examples
+
+**Date:** Phase 6
+**Decision:** Target 200 examples for the golden evaluation set, within the assignment's 150-250 range.
+
+**Rationale:** 200 examples provides enough data for meaningful evaluation while remaining manageable for hand-labeling. It allows approximately 20 examples per intent (with 10 intents), providing sufficient coverage for each category.
+
+### Decision 42: Use Stratified Sampling
+
+**Date:** Phase 6
+**Decision:** Use stratified sampling rather than purely random sampling for the golden set.
+
+**Rationale:** Purely random sampling might over-represent common intents and under-represent rare ones. Stratified sampling ensures representation across different message types (representative, short, difficult, noisy) and intent categories.
+
+### Decision 43: Include Difficult and Confusable Examples
+
+**Date:** Phase 6
+**Decision:** Deliberately include difficult examples (short, noisy, ambiguous) and confusable-intent examples in the golden set.
+
+**Rationale:** A realistic evaluation set should include challenging cases, not just easy ones. Including difficult examples ensures the evaluation measures real-world performance, not just performance on clean data.
+
+### Decision 44: Human Labels as Ground Truth
+
+**Date:** Phase 6
+**Decision:** Use human annotation as the gold standard for labels, not LLM-generated labels.
+
+**Rationale:** The assignment explicitly requires hand-labelled examples. Human labels capture nuanced understanding that LLMs may miss. If LLM assistance is used during annotation, it must be documented and the human label takes precedence.
+
+### Decision 45: Keep Golden Set Separate from Training Data
+
+**Date:** Phase 6
+**Decision:** Maintain strict separation between golden set and training/development data at the conversation level.
+
+**Rationale:** Data leakage would produce overly optimistic evaluation results. Conversation-level separation ensures no information from the golden set leaks into training, providing an honest estimate of generalization.
+
+### Decision 46: Conversation-Level Leakage Checks
+
+**Date:** Phase 6
+**Decision:** Check for data leakage at the conversation level, not just message level.
+
+**Rationale:** Messages within the same conversation are highly correlated. Even if individual messages don't overlap, having the same conversation in both training and golden set would cause leakage through contextual similarity.
+
+### Decision 47: Add Explicit Annotation Confidence
+
+**Date:** Phase 6
+**Decision:** Collect annotation confidence (HIGH/MEDIUM/LOW) for each golden example.
+
+**Rationale:** Confidence levels allow downstream analysis to distinguish between clear-cut cases and borderline cases. This enables more nuanced evaluation and helps identify areas where the taxonomy may need refinement.
+
+### Decision 48: Lock the Golden Set After Review
+
+**Date:** Phase 6
+**Decision:** Lock the golden set after annotation and review, preventing silent modifications.
+
+**Rationale:** The golden set is the evaluation standard. Silently changing labels based on model performance would invalidate evaluation results. If genuine errors are discovered, they must be documented and versioned.
