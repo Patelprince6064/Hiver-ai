@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 3 — Exploratory Data Analysis: IN PROGRESS
-> Phases 1-2 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
+> **Current Status:** Phase 4 — Brand Selection & Problem Framing: IN PROGRESS
+> Phases 1-3 are complete. No ML model, LLM, retrieval system, or evaluation results have been implemented yet.
 
 ---
 
@@ -137,6 +137,54 @@ python scripts/analyze_conversation_integrity.py
 - No explicit resolution labels in the dataset.
 - Language distribution may not be directly available.
 - Historical response times should not be interpreted as current performance.
+
+---
+
+## Phase 4 — Brand Selection & Problem Framing
+
+### Compute brand statistics and select brand
+
+```bash
+python scripts/compute_brand_statistics.py
+```
+
+### Extract selected brand data
+
+```bash
+python scripts/extract_selected_brand.py
+```
+
+### Key outputs
+
+- `data/interim/brand_scores.json` — All brand scores
+- `data/interim/brand_selection.json` — Selected brand details
+- `data/interim/selected_brand/` — Extracted brand data
+- `reports/phase_4_brand_selection.md` — Selection report
+- `reports/problem_framing.md` — Problem framing document
+
+### Selection methodology
+
+Brand selection uses a weighted data-suitability score based on:
+- Conversation volume (0.20)
+- Multi-turn coverage (0.20)
+- Support response coverage (0.20)
+- Conversation quality (0.15)
+- Customer-support density (0.10)
+- Issue diversity proxy (0.10)
+- Evaluation suitability (0.05)
+
+### Problem framing
+
+The agent will:
+1. Classify customer messages into intents
+2. Draft replies grounded in historical support behavior
+3. Decide whether to auto-handle or escalate to a human
+
+The agent will NOT:
+- Execute refunds or payment changes
+- Modify customer accounts
+- Integrate with real Twitter API
+- Process the full 3M-row dataset
 
 ---
 

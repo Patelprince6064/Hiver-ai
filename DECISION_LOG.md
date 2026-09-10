@@ -232,3 +232,49 @@ This log records non-obvious engineering decisions and their rationale.
 **Decision:** Clearly distinguish between actual data fields and heuristic-derived metrics in all reports and statistics.
 
 **Rationale:** Confusing actual labels with inferred signals would undermine evaluation validity. For example, if we later evaluate "resolution rate," we must be clear whether we are measuring actual resolution (not available) or heuristic resolution signals (noisy). This distinction is critical for honest evaluation.
+
+---
+
+## Phase 4 Decisions
+
+### Decision 28: Select One Brand for Deep Specialization
+
+**Date:** Phase 4
+**Decision:** Select a single brand and build the entire system around it, rather than building a multi-brand system.
+
+**Rationale:** The assignment explicitly requires a single-brand support agent. A single-brand system allows deeper specialization: the intent taxonomy is derived from that brand's actual issues, the retrieval corpus is focused on that brand's historical responses, and the escalation logic can account for brand-specific policies. Multi-brand dilution would increase complexity without corresponding benefit.
+
+### Decision 29: Use Data Suitability Instead of Model Performance
+
+**Date:** Phase 4
+**Decision:** Select the brand based on data suitability metrics (conversation volume, multi-turn coverage, response coverage) rather than model performance.
+
+**Rationale:** Using model performance would create circular selection — we would be choosing the brand that works best with a model that hasn't been built yet. Data suitability metrics are available before any model development and provide an objective, reproducible basis for selection.
+
+### Decision 30: Use Weighted Brand Scoring
+
+**Date:** Phase 4
+**Decision:** Use a transparent weighted scoring methodology for brand selection.
+
+**Rationale:** A weighted score makes the selection reproducible and defensible. The weights are documented and can be adjusted if needed. This is more principled than ad-hoc selection or picking the brand with the most tweets.
+
+### Decision 31: Prioritize Multi-turn Conversations
+
+**Date:** Phase 4
+**Decision:** Give significant weight (0.20) to multi-turn conversation coverage in brand selection.
+
+**Rationale:** The assignment requires a support agent that handles multi-turn conversations. Brands with mostly single-message conversations would not provide the threading context needed for intent classification and historically grounded reply generation. Multi-turn conversations are essential for the retrieval and generation components.
+
+### Decision 32: Preserve Conversation Boundaries
+
+**Date:** Phase 4
+**Decision:** Preserve conversation boundaries when extracting selected-brand data.
+
+**Rationale:** Conversation boundaries are required for later train/test separation (to prevent leakage) and for historical context retrieval. Splitting conversations would break the threading that the agent depends on.
+
+### Decision 33: Explicitly Document Excluded Functionality
+
+**Date:** Phase 4
+**Decision:** Explicitly document what the agent will NOT do (refunds, account changes, Twitter API, etc.).
+
+**Rationale:** The assignment focuses on demonstrating a trustworthy support-agent pipeline. Documenting exclusions keeps scope aligned with the assignment and prevents scope creep during implementation.

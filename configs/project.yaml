@@ -1,6 +1,6 @@
 project:
   name: "Hiver AI Support Agent"
-  version: "0.2.0"
+  version: "0.3.0"
 
 dataset:
   name: "Customer Support on Twitter"
@@ -9,8 +9,24 @@ dataset:
   interim_dir: "data/interim"
   processed_dir: "data/processed"
   golden_dir: "data/golden"
-  selected_brand: null  # To be chosen in Phase 4
+  selected_brand: null  # To be set after running compute_brand_statistics.py
   development_sample: "data/interim/development_sample.csv"
+  selected_brand_dir: "data/interim/selected_brand"
+  min_conversations: 50
+
+brand_selection:
+  method: "weighted_data_suitability_score"
+  report: "reports/phase_4_brand_selection.md"
+  scores_file: "data/interim/brand_scores.json"
+  selection_file: "data/interim/brand_selection.json"
+  weights:
+    conversation_volume: 0.20
+    multi_turn_coverage: 0.20
+    support_response_coverage: 0.20
+    conversation_quality: 0.15
+    customer_support_density: 0.10
+    issue_diversity_proxy: 0.10
+    evaluation_suitability: 0.05
 
 sampling:
   seed: 42
