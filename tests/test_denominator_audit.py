@@ -1,6 +1,5 @@
 """Tests for denominator audit and rate calculation integrity."""
 
-import pytest
 import json
 import sys
 from pathlib import Path
