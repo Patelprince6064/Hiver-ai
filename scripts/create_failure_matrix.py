@@ -91,9 +91,9 @@ def save_matrix_csv(matrix_rows: list[dict], output_path: str) -> None:
 def create_failure_matrix_plot(matrix_rows: list[dict], output_path: str) -> None:
     """Create failure matrix visualization."""
     try:
-        import matplotlib
+        import matplotlib  # type: ignore
         matplotlib.use('Agg')
-        import matplotlib.pyplot as plt
+        import matplotlib.pyplot as plt  # type: ignore
         import numpy as np
         
         if not matrix_rows:
@@ -148,9 +148,6 @@ def create_failure_matrix_plot(matrix_rows: list[dict], output_path: str) -> Non
         
     except ImportError:
         print("  Matplotlib not available, skipping plot generation")
-
-
-from collections import defaultdict
 
 
 def main():
