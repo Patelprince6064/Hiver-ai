@@ -1,0 +1,105 @@
+# Judge Agreement Evaluation Configuration
+# Phase 20 — Human vs LLM Judge Agreement & Validation
+#
+# This configuration is FROZEN for the agreement evaluation.
+# Do NOT modify human or judge scores after this point.
+
+agreement_evaluation:
+  name: "Phase 20 Human vs LLM Judge Agreement"
+  version: "1.0.0"
+  status: "FROZEN"
+  seed: 42
+  
+  # Human evaluation reference
+  human_evaluation:
+    source: "Phase 14 simulated human evaluation"
+    version: "1.0.0"
+    annotators: 1
+    inter_annotator_agreement: "Not available - single annotator"
+    rubric: "Six dimensions (relevance, groundedness, correctness, helpfulness, completeness, style)"
+    score_range: "1-5"
+    note: "Human scores are simulated for demonstration. No real human annotations exist."
+  
+  # LLM judge reference
+  llm_judge:
+    source: "Phase 19 LLM judge"
+    version: "1.0.0"
+    model: "mock-judge"
+    provider: "mock"
+    temperature: 0
+    rubric: "Same six dimensions as human evaluation"
+    score_range: "1-5"
+    blind_evaluation: true
+    note: "Using mock judge for demonstration. No real LLM API calls."
+  
+  # Evaluation dataset
+  dataset:
+    human_scores_file: "evaluation/results/human_llm_comparison.jsonl"
+    llm_scores_file: "evaluation/results/llm_judge_scores.jsonl"
+    llm_input_file: "evaluation/results/llm_judge_input.jsonl"
+    agent_outputs_file: "evaluation/results/final_agent_outputs.jsonl"
+    reply_comparison_file: "evaluation/results/final_reply_comparison.json"
+    output_file: "evaluation/results/judge_agreement_dataset.jsonl"
+  
+  # Systems evaluated
+  systems:
+    - "generic_baseline"
+    - "historical_baseline"
+    - "grounded_llm"
+    - "grounded_llm_verified"
+  
+  # Candidate labels for blind evaluation
+  candidate_labels:
+    - "A"
+    - "B"
+    - "C"
+    - "D"
+  
+  # Agreement metrics to calculate
+  metrics:
+    - "mean_absolute_error"
+    - "exact_agreement"
+    - "within_1_agreement"
+    - "spearman_correlation"
+    - "pearson_correlation"
+    - "weighted_cohens_kappa"
+  
+  # Analysis dimensions
+  dimensions:
+    - "relevance"
+    - "groundedness"
+    - "correctness"
+    - "helpfulness"
+    - "completeness"
+    - "style"
+    - "overall"
+  
+  # Bias tests
+  bias_tests:
+    - "reply_length"
+    - "sentence_count"
+    - "apology_presence"
+    - "greeting_presence"
+    - "confidence_wording"
+    - "detail_level"
+  
+  # Output configuration
+  output:
+    results_dir: "evaluation/results"
+    plots_dir: "evaluation/results"
+    report_file: "reports/phase_20_human_llm_agreement.md"
+    summary_csv: "evaluation/results/final_judge_agreement.csv"
+    interviewer_csv: "evaluation/results/interviewer_judge_summary.csv"
+  
+  # Validation
+  validation:
+    check_duplicates: true
+    check_missing_scores: true
+    check_score_range: true
+    check_system_ids: true
+    min_sample_size: 10
+  
+  # Important: No post-hoc tuning allowed
+  tuning_policy:
+    allowed: false
+    reason: "Phase 20 measures agreement honestly without tuning the judge to maximize agreement"

@@ -1,0 +1,258 @@
+{
+  "dimensions": {
+    "relevance": {
+      "human": {
+        "n": 10,
+        "mean": 3.0,
+        "median": 3.0,
+        "std": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "frequencies": {
+          "1": 0,
+          "2": 0,
+          "3": 10,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "llm": {
+        "n": 10,
+        "mean": 2.5,
+        "median": 2.5,
+        "std": 1.2845,
+        "min": 1.0,
+        "max": 5.0,
+        "frequencies": {
+          "1": 3,
+          "2": 2,
+          "3": 3,
+          "4": 1,
+          "5": 1
+        }
+      },
+      "mean_difference": -0.5,
+      "abs_mean_difference": 0.5
+    },
+    "groundedness": {
+      "human": {
+        "n": 10,
+        "mean": 3.0,
+        "median": 3.0,
+        "std": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "frequencies": {
+          "1": 0,
+          "2": 0,
+          "3": 10,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "llm": {
+        "n": 10,
+        "mean": 2.7,
+        "median": 3.0,
+        "std": 1.1,
+        "min": 1.0,
+        "max": 4.0,
+        "frequencies": {
+          "1": 2,
+          "2": 2,
+          "3": 3,
+          "4": 3,
+          "5": 0
+        }
+      },
+      "mean_difference": -0.3,
+      "abs_mean_difference": 0.3
+    },
+    "correctness": {
+      "human": {
+        "n": 10,
+        "mean": 3.0,
+        "median": 3.0,
+        "std": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "frequencies": {
+          "1": 0,
+          "2": 0,
+          "3": 10,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "llm": {
+        "n": 10,
+        "mean": 2.7,
+        "median": 2.5,
+        "std": 1.4866,
+        "min": 1.0,
+        "max": 5.0,
+        "frequencies": {
+          "1": 3,
+          "2": 2,
+          "3": 2,
+          "4": 1,
+          "5": 2
+        }
+      },
+      "mean_difference": -0.3,
+      "abs_mean_difference": 0.3
+    },
+    "helpfulness": {
+      "human": {
+        "n": 10,
+        "mean": 3.0,
+        "median": 3.0,
+        "std": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "frequencies": {
+          "1": 0,
+          "2": 0,
+          "3": 10,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "llm": {
+        "n": 10,
+        "mean": 2.4,
+        "median": 2.5,
+        "std": 0.9165,
+        "min": 1.0,
+        "max": 4.0,
+        "frequencies": {
+          "1": 2,
+          "2": 3,
+          "3": 4,
+          "4": 1,
+          "5": 0
+        }
+      },
+      "mean_difference": -0.6,
+      "abs_mean_difference": 0.6
+    },
+    "completeness": {
+      "human": {
+        "n": 10,
+        "mean": 3.0,
+        "median": 3.0,
+        "std": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "frequencies": {
+          "1": 0,
+          "2": 0,
+          "3": 10,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "llm": {
+        "n": 10,
+        "mean": 2.5,
+        "median": 2.5,
+        "std": 1.0247,
+        "min": 1.0,
+        "max": 4.0,
+        "frequencies": {
+          "1": 2,
+          "2": 3,
+          "3": 3,
+          "4": 2,
+          "5": 0
+        }
+      },
+      "mean_difference": -0.5,
+      "abs_mean_difference": 0.5
+    },
+    "style": {
+      "human": {
+        "n": 10,
+        "mean": 3.0,
+        "median": 3.0,
+        "std": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "frequencies": {
+          "1": 0,
+          "2": 0,
+          "3": 10,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "llm": {
+        "n": 10,
+        "mean": 2.5,
+        "median": 2.0,
+        "std": 1.3601,
+        "min": 1.0,
+        "max": 5.0,
+        "frequencies": {
+          "1": 3,
+          "2": 3,
+          "3": 1,
+          "4": 2,
+          "5": 1
+        }
+      },
+      "mean_difference": -0.5,
+      "abs_mean_difference": 0.5
+    },
+    "overall": {
+      "human": {
+        "n": 10,
+        "mean": 3.0,
+        "median": 3.0,
+        "std": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "frequencies": {
+          "1": 0,
+          "2": 0,
+          "3": 10,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "llm": {
+        "n": 10,
+        "mean": 2.55,
+        "median": 2.665,
+        "std": 1.0405,
+        "min": 1.33,
+        "max": 4.17,
+        "frequencies": {
+          "1": 3,
+          "2": 2,
+          "3": 2,
+          "4": 3,
+          "5": 0
+        }
+      },
+      "mean_difference": -0.45,
+      "abs_mean_difference": 0.45
+    }
+  },
+  "summary": {
+    "systematic_differences": [
+      {
+        "dimension": "helpfulness",
+        "direction": "under-scores",
+        "magnitude": 0.6
+      }
+    ],
+    "potential_biases": [
+      {
+        "type": "under_scoring",
+        "description": "LLM judge tends to score lower than human",
+        "magnitude": 0.45
+      }
+    ]
+  }
+}

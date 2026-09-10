@@ -1,0 +1,52 @@
+{
+  "intent_agreement": {
+    "return": {
+      "n": 8,
+      "mae": 1.1062,
+      "exact_agreement": 0.125,
+      "within_1_agreement": 0.375,
+      "spearman": 0.1429,
+      "spearman_p_value": 1.0,
+      "pearson": 0.0,
+      "pearson_p_value": 1.0,
+      "weighted_kappa": 0.0,
+      "human_mean": 3.0,
+      "llm_mean": 2.3537,
+      "mean_difference": -0.6463,
+      "sample_size": 8,
+      "low_sample": false
+    },
+    "order_status": {
+      "n": 2,
+      "mae": 0.335,
+      "exact_agreement": 0.5,
+      "within_1_agreement": 1.0,
+      "spearman": 0.0,
+      "spearman_p_value": 1.0,
+      "pearson": 0.0,
+      "pearson_p_value": 1.0,
+      "weighted_kappa": 0.0,
+      "human_mean": 3.0,
+      "llm_mean": 3.335,
+      "mean_difference": 0.335,
+      "sample_size": 2,
+      "low_sample": true
+    }
+  },
+  "ranking_by_spearman": [
+    "return",
+    "order_status"
+  ],
+  "top_5_strongest": [
+    "return",
+    "order_status"
+  ],
+  "top_5_weakest": [
+    "return",
+    "order_status"
+  ],
+  "min_sample_size": 5,
+  "intents_with_low_sample": [
+    "order_status"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "dataset_file": "C:\\Alpha\\hiver ai\\hiver-ai-support-agent\\evaluation\\results\\judge_agreement_dataset.jsonl",
+  "total_records": 10,
+  "checks": {
+    "duplicates": {
+      "count": 0,
+      "passed": true
+    },
+    "missing_human_scores": {
+      "count": 0,
+      "passed": true
+    },
+    "missing_llm_scores": {
+      "count": 0,
+      "passed": true
+    },
+    "invalid_scores": {
+      "count": 0,
+      "passed": true
+    },
+    "system_ids": {
+      "unique_systems": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "count": 4,
+      "passed": true
+    },
+    "empty_messages": {
+      "count": 0,
+      "passed": true
+    },
+    "empty_replies": {
+      "count": 0,
+      "passed": true
+    }
+  },
+  "issues": [],
+  "is_valid": true
+}

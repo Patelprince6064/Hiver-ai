@@ -1,0 +1,50 @@
+[
+  {
+    "pair": "A vs B",
+    "system_a": "A",
+    "system_b": "B",
+    "n": 200,
+    "agreement_rate": 0.58,
+    "mae": 1.1997499999999994
+  },
+  {
+    "pair": "C vs D",
+    "system_a": "C",
+    "system_b": "D",
+    "n": 200,
+    "agreement_rate": 0.53,
+    "mae": 1.19885
+  },
+  {
+    "pair": "A vs C",
+    "system_a": "A",
+    "system_b": "C",
+    "n": 200,
+    "agreement_rate": 0.515,
+    "mae": 1.2451499999999993
+  },
+  {
+    "pair": "A vs D",
+    "system_a": "A",
+    "system_b": "D",
+    "n": 200,
+    "agreement_rate": 0.51,
+    "mae": 1.2010999999999996
+  },
+  {
+    "pair": "B vs C",
+    "system_a": "B",
+    "system_b": "C",
+    "n": 200,
+    "agreement_rate": 0.485,
+    "mae": 1.2550999999999997
+  },
+  {
+    "pair": "B vs D",
+    "system_a": "B",
+    "system_b": "D",
+    "n": 200,
+    "agreement_rate": 0.47,
+    "mae": 1.2605500000000003
+  }
+]

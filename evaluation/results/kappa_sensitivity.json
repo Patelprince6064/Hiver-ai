@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Perfect Agreement",
+    "kappa_linear": 1.0,
+    "kappa_quadratic": 1.0
+  },
+  {
+    "name": "Slight Disagreement (\u00b11)",
+    "kappa_linear": 0.8648648648648649,
+    "kappa_quadratic": 0.9411764705882353
+  },
+  {
+    "name": "Moderate Disagreement (\u00b12)",
+    "kappa_linear": 0.5714285714285714,
+    "kappa_quadratic": 0.6666666666666667
+  },
+  {
+    "name": "Large Disagreement (\u00b13)",
+    "kappa_linear": 0.6000000000000001,
+    "kappa_quadratic": 0.8
+  },
+  {
+    "name": "Complete Disagreement",
+    "kappa_linear": 0.0,
+    "kappa_quadratic": 0.0
+  },
+  {
+    "name": "Random Noise (small)",
+    "kappa_linear": 0.0,
+    "kappa_quadratic": 0.0
+  },
+  {
+    "name": "Random Noise (medium)",
+    "kappa_linear": 0.0,
+    "kappa_quadratic": 0.0
+  }
+]
