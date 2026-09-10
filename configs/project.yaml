@@ -1,0 +1,16 @@
+project:
+  name: "Hiver AI Support Agent"
+  version: "0.1.0"
+
+dataset:
+  name: "Customer Support on Twitter"
+  source: "thoughtvector/customer-support-on-twitter"
+  selected_brand: null  # To be chosen in Phase 2
+
+evaluation:
+  golden_set_size: 200
+  target_runtime_minutes: 15
+
+agent:
+  auto_handle_threshold: null  # To be determined in Phase 2
+  retrieval_top_k: 5

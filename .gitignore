@@ -1,0 +1,17 @@
+.env
+**/__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ipython_checkpoints/
+.DS_Store
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+data/raw/*.csv
+data/raw/*.json
+data/raw/*.jsonl
+data/interim/*.csv
+data/processed/*.csv
