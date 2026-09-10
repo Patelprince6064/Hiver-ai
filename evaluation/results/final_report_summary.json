@@ -1,0 +1,156 @@
+{
+  "headline_metric": {
+    "metric_name": "Verified Grounded Reply Quality Score",
+    "value": 0.767,
+    "unit": "normalized score [0.0 - 1.0]",
+    "raw_rubric_scale": "3.835 / 5.000",
+    "evaluation_set": "Phase 18 Frozen Test Set",
+    "sample_size": 200,
+    "confidence_interval": {
+      "confidence_level": 0.95,
+      "method": "bootstrap (1000 resamples)",
+      "lower": 0.7612,
+      "upper": 0.7728,
+      "standard_error": 0.0030
+    },
+    "strongest_baseline": "Historical Human Response Baseline",
+    "baseline_value": 0.500,
+    "absolute_delta": 0.267,
+    "relative_delta": "53.4%",
+    "secondary_baseline": "Generic Template Baseline",
+    "secondary_baseline_value": 0.265,
+    "secondary_delta": 0.502,
+    "primary_limitation": "Measures structured adherence to an offline evaluation rubric on synthetic conversations; does not measure backend operational execution or customer satisfaction."
+  },
+  "intent_results": {
+    "model": "Semantic Bi-Encoder + Multi-Class Classifier",
+    "classes": 7,
+    "evaluation_set": "Phase 18 Frozen Test Set",
+    "sample_size": 200,
+    "macro_f1": 0.857,
+    "accuracy": 0.855,
+    "baseline_majority_accuracy": 0.105,
+    "baseline_majority_macro_f1": 0.020,
+    "baseline_tfidf_macro_f1": 0.580,
+    "baseline_tfidf_accuracy": 0.650,
+    "macro_f1_improvement": "+0.277 (+47.8%)",
+    "accuracy_improvement": "+0.750"
+  },
+  "retrieval_results": {
+    "method": "Dense Bi-Encoder (sentence-transformers) + FAISS FlatIP",
+    "evaluation_set": "Phase 18 Frozen Test Set",
+    "sample_size": 200,
+    "recall_at_5": 0.750,
+    "baseline_lexical_bm25_recall_at_5": 0.300,
+    "recall_improvement": "+0.450 (+150.0%)",
+    "zero_retrieval_rate": 0.145,
+    "zero_retrieval_cases": 29
+  },
+  "reply_results": {
+    "generation_model": "Evidence-Constrained Grounded Generator",
+    "evaluation_set": "Phase 18 Frozen Test Set",
+    "sample_size": 200,
+    "rubric_dimensions": ["relevance", "groundedness", "correctness", "helpfulness", "completeness", "style"],
+    "system_scores": {
+      "generic_baseline": 0.265,
+      "historical_human_baseline": 0.500,
+      "ungrounded_llm": 0.700,
+      "verified_grounded_llm": 0.767
+    },
+    "dimension_means": {
+      "relevance": 0.785,
+      "groundedness": 0.760,
+      "correctness": 0.770,
+      "helpfulness": 0.765,
+      "completeness": 0.745,
+      "style": 0.775
+    }
+  },
+  "grounding_results": {
+    "evaluation_set": "Phase 18 Frozen Test Set",
+    "sample_size": 200,
+    "verification_pass_rate": 0.560,
+    "pass_count": 112,
+    "fail_count": 88,
+    "fail_rate": 0.440,
+    "unsupported_claim_rate": 0.115,
+    "unsupported_claim_cases": 23,
+    "high_risk_claim_rate": 0.050,
+    "repair_success_rate": 0.500
+  },
+  "escalation_results": {
+    "policy_name": "V1.1 Risk-Aware Escalation Policy",
+    "evaluation_set": "Phase 18 Frozen Test Set",
+    "sample_size": 200,
+    "auto_handle_count": 140,
+    "auto_handle_rate": 0.700,
+    "escalate_count": 60,
+    "escalate_rate": 0.300,
+    "policy_accuracy": 0.690,
+    "expected_cost": 2.14,
+    "baseline_always_auto_expected_cost": 6.10,
+    "baseline_always_escalate_expected_cost": 1.00,
+    "baseline_always_escalate_accuracy": 0.610,
+    "cost_reduction_vs_always_auto": "-64.9%",
+    "safe_auto_handle_rate": 0.680,
+    "unsafe_auto_handle_rate": 0.020,
+    "unsafe_auto_handle_cases": 4
+  },
+  "judge_results": {
+    "sample_size_human_subsample": 10,
+    "human_mean": 3.00,
+    "llm_mean": 2.55,
+    "mean_absolute_difference": 0.952,
+    "exact_agreement": 0.200,
+    "within_1_agreement": 0.500,
+    "within_2_agreement": 1.000,
+    "spearman_rank_correlation": 0.091,
+    "verdict": "Supplementary screening judge; not equivalent to human ground truth."
+  },
+  "failure_analysis": {
+    "total_evaluated": 200,
+    "total_failure_candidates": 160,
+    "top_5_failure_modes": [
+      {
+        "rank": 1,
+        "name": "Unsafe Auto-Handle of High-Risk Inquiries",
+        "severity": "CRITICAL",
+        "frequency": 4,
+        "rate": 0.020,
+        "pipeline_stage": "ESCALATION"
+      },
+      {
+        "rank": 2,
+        "name": "Grounding Verification Failures & Unsupported Claims",
+        "severity": "HIGH",
+        "frequency": 88,
+        "rate": 0.440,
+        "pipeline_stage": "GROUNDING"
+      },
+      {
+        "rank": 3,
+        "name": "Retrieval Misses & Zero Evidence Retrieved",
+        "severity": "MEDIUM",
+        "frequency": 29,
+        "rate": 0.145,
+        "pipeline_stage": "RETRIEVAL"
+      },
+      {
+        "rank": 4,
+        "name": "Intent Classification Uncertainty on Short/Ambiguous Inputs",
+        "severity": "MEDIUM",
+        "frequency": 28,
+        "rate": 0.140,
+        "pipeline_stage": "INTENT"
+      },
+      {
+        "rank": 5,
+        "name": "Borderline Policy Escalation & Reason Misclassification",
+        "severity": "MEDIUM",
+        "frequency": 8,
+        "rate": 0.040,
+        "pipeline_stage": "ESCALATION"
+      }
+    ]
+  }
+}
