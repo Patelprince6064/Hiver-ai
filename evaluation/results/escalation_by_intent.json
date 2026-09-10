@@ -1,0 +1,120 @@
+{
+  "per_intent": {
+    "account_help": {
+      "total": 11,
+      "auto_handle_rate": 0.3636,
+      "escalate_rate": 0.6364,
+      "false_auto_handle_rate": 0.3636,
+      "false_escalation_rate": 0,
+      "true_auto": 0,
+      "true_escalate": 11
+    },
+    "billing_issue": {
+      "total": 15,
+      "auto_handle_rate": 0.2667,
+      "escalate_rate": 0.7333,
+      "false_auto_handle_rate": 0.2667,
+      "false_escalation_rate": 0,
+      "true_auto": 0,
+      "true_escalate": 15
+    },
+    "complaint": {
+      "total": 11,
+      "auto_handle_rate": 0.2727,
+      "escalate_rate": 0.7273,
+      "false_auto_handle_rate": 0.0,
+      "false_escalation_rate": 0.5,
+      "true_auto": 6,
+      "true_escalate": 5
+    },
+    "order_status": {
+      "total": 12,
+      "auto_handle_rate": 0.3333,
+      "escalate_rate": 0.6667,
+      "false_auto_handle_rate": 0.0,
+      "false_escalation_rate": 0.6,
+      "true_auto": 10,
+      "true_escalate": 2
+    },
+    "product_question": {
+      "total": 19,
+      "auto_handle_rate": 0.2105,
+      "escalate_rate": 0.7895,
+      "false_auto_handle_rate": 0.0,
+      "false_escalation_rate": 0.5556,
+      "true_auto": 9,
+      "true_escalate": 10
+    },
+    "refund_request": {
+      "total": 8,
+      "auto_handle_rate": 0.25,
+      "escalate_rate": 0.75,
+      "false_auto_handle_rate": 0.25,
+      "false_escalation_rate": 0,
+      "true_auto": 0,
+      "true_escalate": 8
+    },
+    "shipping_info": {
+      "total": 15,
+      "auto_handle_rate": 0.3333,
+      "escalate_rate": 0.6667,
+      "false_auto_handle_rate": 0.0,
+      "false_escalation_rate": 0.4444,
+      "true_auto": 9,
+      "true_escalate": 6
+    },
+    "technical_support": {
+      "total": 9,
+      "auto_handle_rate": 0.2222,
+      "escalate_rate": 0.7778,
+      "false_auto_handle_rate": 0.0,
+      "false_escalation_rate": 0.6,
+      "true_auto": 5,
+      "true_escalate": 4
+    }
+  },
+  "top_escalation_rate": [
+    {
+      "intent": "product_question",
+      "escalate_rate": 0.7895
+    },
+    {
+      "intent": "technical_support",
+      "escalate_rate": 0.7778
+    },
+    {
+      "intent": "refund_request",
+      "escalate_rate": 0.75
+    },
+    {
+      "intent": "billing_issue",
+      "escalate_rate": 0.7333
+    },
+    {
+      "intent": "complaint",
+      "escalate_rate": 0.7273
+    }
+  ],
+  "top_false_auto_rate": [
+    {
+      "intent": "account_help",
+      "false_auto_handle_rate": 0.3636
+    },
+    {
+      "intent": "billing_issue",
+      "false_auto_handle_rate": 0.2667
+    },
+    {
+      "intent": "refund_request",
+      "false_auto_handle_rate": 0.25
+    },
+    {
+      "intent": "complaint",
+      "false_auto_handle_rate": 0.0
+    },
+    {
+      "intent": "order_status",
+      "false_auto_handle_rate": 0.0
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "base_threshold": 0.7,
+  "perturbations": [
+    -0.02,
+    -0.01,
+    -0.005,
+    0.0,
+    0.005,
+    0.01,
+    0.02
+  ],
+  "stability_analysis": [
+    {
+      "perturbation": -0.02,
+      "threshold": 0.68,
+      "auto_handle_rate": 0.47,
+      "n_changed": 8,
+      "pct_changed": 8.0,
+      "auto_to_escalate": 0,
+      "escalate_to_auto": 8
+    },
+    {
+      "perturbation": -0.01,
+      "threshold": 0.69,
+      "auto_handle_rate": 0.43,
+      "n_changed": 4,
+      "pct_changed": 4.0,
+      "auto_to_escalate": 0,
+      "escalate_to_auto": 4
+    },
+    {
+      "perturbation": -0.005,
+      "threshold": 0.695,
+      "auto_handle_rate": 0.41,
+      "n_changed": 2,
+      "pct_changed": 2.0,
+      "auto_to_escalate": 0,
+      "escalate_to_auto": 2
+    },
+    {
+      "perturbation": 0.0,
+      "threshold": 0.7,
+      "auto_handle_rate": 0.39,
+      "n_changed": 0,
+      "pct_changed": 0.0,
+      "auto_to_escalate": 0,
+      "escalate_to_auto": 0
+    },
+    {
+      "perturbation": 0.005,
+      "threshold": 0.705,
+      "auto_handle_rate": 0.39,
+      "n_changed": 0,
+      "pct_changed": 0.0,
+      "auto_to_escalate": 0,
+      "escalate_to_auto": 0
+    },
+    {
+      "perturbation": 0.01,
+      "threshold": 0.71,
+      "auto_handle_rate": 0.39,
+      "n_changed": 0,
+      "pct_changed": 0.0,
+      "auto_to_escalate": 0,
+      "escalate_to_auto": 0
+    },
+    {
+      "perturbation": 0.02,
+      "threshold": 0.72,
+      "auto_handle_rate": 0.39,
+      "n_changed": 0,
+      "pct_changed": 0.0,
+      "auto_to_escalate": 0,
+      "escalate_to_auto": 0
+    }
+  ],
+  "summary": {
+    "avg_changes_per_perturbation": 2.0,
+    "avg_pct_changed": 2.0,
+    "total_auto_to_escalate": 0,
+    "total_escalate_to_auto": 14,
+    "stability_assessment": "MODERATE (small but noticeable changes)"
+  }
+}

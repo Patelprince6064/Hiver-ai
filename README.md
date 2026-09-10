@@ -2,8 +2,8 @@
 
 An evaluation-first AI customer-support agent grounded in historical support conversations.
 
-> **Current Status:** Phase 15 — Auto-Handle vs Human Escalation: COMPLETE
-> Phases 1-15 are complete. Phase 15 adds a conservative escalation policy with 20 reason codes, configurable thresholds, and false-auto-handle-rate safety metrics. No frontend has been implemented yet.
+> **Current Status:** Phase 16 — Escalation Policy Optimization: COMPLETE
+> Phases 1-16 are complete. Phase 16 adds risk-aware escalation policy optimization with confidence margin, retrieval quality, high-risk detection, conversation complexity, and policy versioning. No frontend has been implemented yet.
 
 ---
 
@@ -741,6 +741,72 @@ python scripts/analyze_reply_quality.py
 
 ---
 
+## Phase 16 — Escalation Policy Optimization
+
+### Objective
+
+Improve the Phase 15 conservative escalation policy by determining whether the escalation policy can safely increase useful AUTO_HANDLE coverage without causing unacceptable unsafe AUTO_HANDLE decisions.
+
+### Policy Versions
+
+| Version | Description |
+|---------|-------------|
+| v1.0 | Phase 15 conservative policy (unchanged) |
+| v1.1 | Phase 16 risk-aware policy with new signals |
+
+### New Signals
+
+- **Confidence margin** — Gap between top-1 and top-2 intent probabilities
+- **Retrieval quality** — Normalized score combining evidence count and similarity
+- **High-risk request detection** — Pattern-based detection for account/order/financial actions
+- **Conversation complexity** — Heuristic signals for conversation difficulty
+- **Repeated unresolved issue** — Detection of repeated customer requests
+
+### Safety Priority
+
+**Minimize unsafe auto-handling.** The most dangerous failure is:
+- System says: AUTO_HANDLE
+- Should have: ESCALATE_TO_HUMAN
+
+### Run
+
+```bash
+# Optimize thresholds on DEV data
+python scripts/optimize_escalation_thresholds.py
+
+# Compare policies
+python scripts/compare_escalation_policies.py
+
+# Plot risk-coverage curve
+python scripts/plot_escalation_risk_coverage.py
+
+# Analyze policy stability
+python scripts/analyze_policy_stability.py
+
+# Analyze per-intent escalation
+python scripts/analyze_escalation_by_intent.py
+
+# Analyze escalation errors
+python scripts/analyze_escalation_errors.py
+```
+
+### Output Locations
+
+- Threshold optimization: `evaluation/results/escalation_threshold_optimization.json`
+- Policy comparison: `evaluation/results/escalation_policy_comparison.json`
+- Risk-coverage curve: `evaluation/results/escalation_risk_coverage.png`
+- Policy stability: `evaluation/results/escalation_policy_stability.json`
+- Per-intent analysis: `evaluation/results/escalation_by_intent.json`
+- Error analysis: `evaluation/results/escalation_error_analysis.json`
+
+### Limitations
+
+- Synthetic data only — no real dataset downloaded
+- v1.1 did not significantly outperform v1.0 on synthetic data
+- No golden-set evaluation — golden data remains locked
+
+---
+
 ## Assignment Objectives
 
 ### Core Agent Capabilities
@@ -797,7 +863,8 @@ flowchart TD
 | Grounded LLM Reply Generator | COMPLETE (Phase 12) |
 | Grounding Verification | COMPLETE (Phase 13) |
 | Reply Quality Evaluation | COMPLETE (Phase 14) |
-| Escalation Decision | PLANNED |
+| Escalation Decision | COMPLETE (Phase 15) |
+| Escalation Policy Optimization | COMPLETE (Phase 16) |
 | Full Agent Orchestration | PLANNED |
 
 ---

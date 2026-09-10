@@ -1286,3 +1286,117 @@ This log records non-obvious engineering decisions and their rationale.
 **Trade-off:** Adds Pydantic as a dependency for escalation.
 
 **Consequence:** All escalation decisions are validated and serializable.
+
+---
+
+## Phase 16 Decisions
+
+### Decision 142: Unsafe Auto-Handle Weighted More Heavily
+
+**Date:** Phase 16
+**Decision:** Weight false auto-handle cost 10x higher than false escalation cost in policy analysis.
+
+**Rationale:** False auto-handle causes real customer harm (incorrect response on sensitive topic). False escalation causes inconvenience (unnecessary human workload). The 10:1 ratio reflects that unsafe automation is more serious than unnecessary human review.
+
+**Trade-off:** May over-prioritize safety at the expense of coverage.
+
+**Consequence:** Policy optimization favors conservative decisions.
+
+### Decision 143: Thresholds Tuned Only on DEV
+
+**Date:** Phase 16
+**Decision:** All threshold optimization uses DEV data only. Golden set remains locked.
+
+**Rationale:** Tuning on golden data would produce overly optimistic results. DEV provides a reliable signal for development without contaminating the evaluation standard.
+
+**Trade-off:** Less data available for optimization.
+
+**Consequence:** Golden-set results are trustworthy estimates of real-world performance.
+
+### Decision 144: Golden Remains Locked
+
+**Date:** Phase 16
+**Decision:** Golden evaluation set is used only for final reporting, never for tuning.
+
+**Rationale:** The golden set is the locked evaluation standard. Using it for any development purpose would invalidate evaluation results.
+
+**Trade-off:** Cannot validate policy improvements against golden until final evaluation.
+
+**Consequence:** All policy decisions are made on DEV data.
+
+### Decision 145: Confidence Margin Introduced
+
+**Date:** Phase 16
+**Decision:** Add confidence margin signal (gap between top-1 and top-2 intent probabilities).
+
+**Rationale:** A high top-1 probability with a tiny margin may indicate ambiguity. This signal helps detect cases where the model is "unsure but lucky."
+
+**Trade-off:** Adds complexity to signal extraction.
+
+**Consequence:** Policy can detect borderline intent classifications.
+
+### Decision 146: Grounding Remains Hard Safety Gate
+
+**Date:** Phase 16
+**Decision:** Grounding failure remains a hard escalation gate in v1.1.
+
+**Rationale:** Weakening grounding safety checks just to increase automation would be dangerous. Grounding failure means the reply is not supported by evidence.
+
+**Trade-off:** May escalate cases that could be safely handled.
+
+**Consequence:** Safety is prioritized over coverage for grounding-related decisions.
+
+### Decision 147: High-Risk Actions Default to Escalation
+
+**Date:** Phase 16
+**Decision:** High-risk request detection (account actions, order status, financial claims) defaults to escalation.
+
+**Rationale:** The current system may not have enough capability/evidence to safely resolve these automatically. Escalation is the safe default.
+
+**Trade-off:** May escalate cases that could be handled automatically with sufficient evidence.
+
+**Consequence:** High-risk intents are handled by humans.
+
+### Decision 148: Conversation Complexity Is Heuristic
+
+**Date:** Phase 16
+**Decision:** Conversation complexity is computed using heuristics (turn count, repeated requests, contradictions), not ML.
+
+**Rationale:** Heuristic complexity is interpretable, fast, and sufficient for the current evaluation setup. ML-based complexity would add complexity without demonstrated benefit.
+
+**Trade-off:** May miss some complexity patterns.
+
+**Consequence:** Complexity signals are transparent and explainable.
+
+### Decision 149: Policy Versions Are Preserved
+
+**Date:** Phase 16
+**Decision:** Both v1.0 and v1.1 policies are preserved. v1.0 is not overwritten.
+
+**Rationale:** Preserving historical policies enables comparison and debugging. The interviewer can see exactly which policy produced which result.
+
+**Trade-off:** More code to maintain.
+
+**Consequence:** Policy versions are tracked and reproducible.
+
+### Decision 150: Cost Values Are Assumptions
+
+**Date:** Phase 16
+**Decision:** Cost values (false_auto_handle: 10, false_escalation: 1) are modeling assumptions, not actual business costs.
+
+**Rationale:** Actual business costs are unknown without production data. Using reasonable assumptions enables cost-sensitive analysis while being transparent about limitations.
+
+**Trade-off:** Cost analysis is approximate.
+
+**Consequence:** Policy comparison includes cost as one of many metrics.
+
+### Decision 151: Excessive Rule Specialization Avoided
+
+**Date:** Phase 16
+**Decision:** Do not create separate special-case rules for every failed example.
+
+**Rationale:** Over-specialization creates brittle policies that are hard to explain. General signals (low confidence, low evidence, grounding failure) are more robust and interpretable.
+
+**Trade-off:** May miss some edge cases.
+
+**Consequence:** The policy remains explainable and generalizable.

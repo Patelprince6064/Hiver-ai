@@ -1,8 +1,11 @@
 escalation:
-  policy_version: "v1.0"
+  policy_version: "v1.1"
 
   intent_confidence:
     minimum_auto_handle: 0.70
+
+  confidence_margin:
+    minimum_margin: 0.15
 
   retrieval:
     require_evidence: true
@@ -23,8 +26,21 @@ escalation:
   multi_intent:
     escalate_on_multi_intent: true
 
+  high_risk_detection:
+    default_escalate: true
+
+  conversation_complexity:
+    escalate_on_complex: true
+
+  repeated_unresolved:
+    escalate_on_repeated: true
+
   eval:
     results_dir: "evaluation/results"
     eval_dir: "data/interim/escalation_eval"
     seed: 42
     n_queries: 150
+
+  costs:
+    false_auto_handle: 10.0
+    false_escalation: 1.0

@@ -12,10 +12,13 @@ class RiskSignals:
     """Container for all extracted risk signals."""
 
     intent_confidence: float | None = None
+    intent_top2_confidence: float | None = None
+    confidence_margin: float | None = None
     retrieval_available: bool = False
     retrieval_status: str = "unknown"
     top_similarity: float | None = None
     evidence_count: int = 0
+    retrieval_quality_score: float | None = None
     grounding_status: str = "unknown"
     grounding_score: float | None = None
     has_high_risk_claims: bool = False
@@ -35,6 +38,11 @@ class RiskSignals:
     has_financial_claim: bool = False
     grounding_repair_attempted: bool = False
     grounding_repair_succeeded: bool = False
+    is_high_risk_request: bool = False
+    high_risk_request_categories: list[str] = field(default_factory=list)
+    conversation_complexity_score: float | None = None
+    conversation_complexity_level: str = "low"
+    has_repeated_unresolved_issue: bool = False
 
 
 def extract_signals(
@@ -65,8 +73,9 @@ def extract_signals(
         if probabilities:
             sorted_probs = sorted(probabilities.values(), reverse=True)
             if len(sorted_probs) >= 2:
-                gap = sorted_probs[0] - sorted_probs[1]
-                if gap < 0.15 and sorted_probs[1] > 0.25:
+                signals.intent_top2_confidence = sorted_probs[1]
+                signals.confidence_margin = sorted_probs[0] - sorted_probs[1]
+                if signals.confidence_margin < 0.15 and sorted_probs[1] > 0.25:
                     signals.is_multi_intent = True
                 if sorted_probs[0] < 0.4:
                     signals.is_ambiguous = True
@@ -80,6 +89,21 @@ def extract_signals(
 
         if results:
             signals.top_similarity = results[0].get("similarity_score")
+
+        # Compute retrieval quality score (0.0 to 1.0)
+        quality_score = 0.0
+        if signals.retrieval_available:
+            # Base score for having evidence
+            quality_score += 0.3
+
+            # Top similarity contribution
+            if signals.top_similarity is not None:
+                quality_score += min(signals.top_similarity * 0.4, 0.4)
+
+            # Evidence count contribution
+            quality_score += min(signals.evidence_count / 5.0, 0.3)
+
+        signals.retrieval_quality_score = min(quality_score, 1.0)
 
     if reply_result:
         reply_status = reply_result.get("status", "success")
@@ -142,10 +166,13 @@ def signals_to_dict(signals: RiskSignals) -> dict[str, Any]:
     """Convert RiskSignals to a plain dict for serialization."""
     return {
         "intent_confidence": signals.intent_confidence,
+        "intent_top2_confidence": signals.intent_top2_confidence,
+        "confidence_margin": signals.confidence_margin,
         "retrieval_available": signals.retrieval_available,
         "retrieval_status": signals.retrieval_status,
         "top_similarity": signals.top_similarity,
         "evidence_count": signals.evidence_count,
+        "retrieval_quality_score": signals.retrieval_quality_score,
         "grounding_status": signals.grounding_status,
         "grounding_score": signals.grounding_score,
         "has_high_risk_claims": signals.has_high_risk_claims,
@@ -165,4 +192,9 @@ def signals_to_dict(signals: RiskSignals) -> dict[str, Any]:
         "has_financial_claim": signals.has_financial_claim,
         "grounding_repair_attempted": signals.grounding_repair_attempted,
         "grounding_repair_succeeded": signals.grounding_repair_succeeded,
+        "is_high_risk_request": signals.is_high_risk_request,
+        "high_risk_request_categories": signals.high_risk_request_categories,
+        "conversation_complexity_score": signals.conversation_complexity_score,
+        "conversation_complexity_level": signals.conversation_complexity_level,
+        "has_repeated_unresolved_issue": signals.has_repeated_unresolved_issue,
     }

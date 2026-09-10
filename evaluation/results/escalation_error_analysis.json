@@ -1,0 +1,211 @@
+{
+  "n_total": 100,
+  "n_errors": 29,
+  "error_rate": 0.29,
+  "error_categories": {
+    "A_detection_failure": "Detection failure - system failed to detect risk signals",
+    "B_evidence_failure": "Evidence failure - retrieval or evidence quality issues",
+    "C_intent_uncertainty": "Intent uncertainty - low confidence or ambiguous intent",
+    "D_grounding_failure": "Grounding failure - reply not supported by evidence",
+    "E_high_risk_detection_failure": "High-risk detection failure - risky request not detected",
+    "F_complexity_failure": "Conversation complexity failure - complex case not escalated",
+    "G_policy_threshold": "Policy threshold failure - borderline case misclassified",
+    "H_data_ambiguity": "Data/label ambiguity - unclear gold label",
+    "I_other": "Other - uncategorized error"
+  },
+  "error_category_counts": {
+    "A_detection_failure": 0,
+    "B_evidence_failure": 0,
+    "C_intent_uncertainty": 10,
+    "D_grounding_failure": 0,
+    "E_high_risk_detection_failure": 13,
+    "F_complexity_failure": 1,
+    "G_policy_threshold": 5,
+    "H_data_ambiguity": 0,
+    "I_other": 0
+  },
+  "error_examples": {
+    "C_intent_uncertainty": [
+      {
+        "query_id": "q_0002",
+        "customer_message": "Sample message about order_status",
+        "intent": "order_status",
+        "gold_decision": "AUTO_HANDLE",
+        "predicted_decision": "ESCALATE_TO_HUMAN",
+        "reason_codes": [
+          "LOW_INTENT_CONFIDENCE"
+        ],
+        "signals": {
+          "intent_confidence": 0.6648092909100984,
+          "confidence_margin": 0.3722088258150816,
+          "retrieval_quality_score": 0.7207949841541417,
+          "grounding_status": "pass",
+          "is_high_risk_request": false,
+          "conversation_complexity_level": "medium"
+        }
+      },
+      {
+        "query_id": "q_0017",
+        "customer_message": "Sample message about shipping_info",
+        "intent": "shipping_info",
+        "gold_decision": "AUTO_HANDLE",
+        "predicted_decision": "ESCALATE_TO_HUMAN",
+        "reason_codes": [
+          "LOW_INTENT_CONFIDENCE"
+        ],
+        "signals": {
+          "intent_confidence": 0.6873274784347332,
+          "confidence_margin": 0.26062244950310476,
+          "retrieval_quality_score": 0.45084847198908795,
+          "grounding_status": "pass",
+          "is_high_risk_request": false,
+          "conversation_complexity_level": "low"
+        }
+      },
+      {
+        "query_id": "q_0022",
+        "customer_message": "Sample message about order_status",
+        "intent": "order_status",
+        "gold_decision": "AUTO_HANDLE",
+        "predicted_decision": "ESCALATE_TO_HUMAN",
+        "reason_codes": [
+          "LOW_INTENT_CONFIDENCE"
+        ],
+        "signals": {
+          "intent_confidence": 0.6893139798991488,
+          "confidence_margin": 0.26987256861302655,
+          "retrieval_quality_score": 0.367120635192537,
+          "grounding_status": "pass",
+          "is_high_risk_request": false,
+          "conversation_complexity_level": "medium"
+        }
+      }
+    ],
+    "E_high_risk_detection_failure": [
+      {
+        "query_id": "q_0005",
+        "customer_message": "Sample message about account_help",
+        "intent": "account_help",
+        "gold_decision": "ESCALATE_TO_HUMAN",
+        "predicted_decision": "AUTO_HANDLE",
+        "reason_codes": [],
+        "signals": {
+          "intent_confidence": 0.8508713381258488,
+          "confidence_margin": 0.32167671411510096,
+          "retrieval_quality_score": 0.7842769639646281,
+          "grounding_status": "pass",
+          "is_high_risk_request": true,
+          "conversation_complexity_level": "high"
+        }
+      },
+      {
+        "query_id": "q_0006",
+        "customer_message": "Sample message about billing_issue",
+        "intent": "billing_issue",
+        "gold_decision": "ESCALATE_TO_HUMAN",
+        "predicted_decision": "AUTO_HANDLE",
+        "reason_codes": [],
+        "signals": {
+          "intent_confidence": 0.9325252465865908,
+          "confidence_margin": 0.2203404697437591,
+          "retrieval_quality_score": 0.6312243787639362,
+          "grounding_status": "pass",
+          "is_high_risk_request": true,
+          "conversation_complexity_level": "high"
+        }
+      },
+      {
+        "query_id": "q_0008",
+        "customer_message": "Sample message about billing_issue",
+        "intent": "billing_issue",
+        "gold_decision": "ESCALATE_TO_HUMAN",
+        "predicted_decision": "AUTO_HANDLE",
+        "reason_codes": [],
+        "signals": {
+          "intent_confidence": 0.8559565186598455,
+          "confidence_margin": 0.4399176500398713,
+          "retrieval_quality_score": 0.5280757350234997,
+          "grounding_status": "pass",
+          "is_high_risk_request": true,
+          "conversation_complexity_level": "medium"
+        }
+      }
+    ],
+    "F_complexity_failure": [
+      {
+        "query_id": "q_0012",
+        "customer_message": "Sample message about product_question",
+        "intent": "product_question",
+        "gold_decision": "AUTO_HANDLE",
+        "predicted_decision": "ESCALATE_TO_HUMAN",
+        "reason_codes": [
+          "GROUNDING_FAILURE"
+        ],
+        "signals": {
+          "intent_confidence": 0.8341716861044253,
+          "confidence_margin": 0.41227061034704643,
+          "retrieval_quality_score": 0.5406988722133974,
+          "grounding_status": "fail",
+          "is_high_risk_request": false,
+          "conversation_complexity_level": "high"
+        }
+      }
+    ],
+    "G_policy_threshold": [
+      {
+        "query_id": "q_0035",
+        "customer_message": "Sample message about order_status",
+        "intent": "order_status",
+        "gold_decision": "AUTO_HANDLE",
+        "predicted_decision": "ESCALATE_TO_HUMAN",
+        "reason_codes": [
+          "GROUNDING_FAILURE"
+        ],
+        "signals": {
+          "intent_confidence": 0.9298475672350883,
+          "confidence_margin": 0.4668651423536574,
+          "retrieval_quality_score": 0.8092174406485833,
+          "grounding_status": "fail",
+          "is_high_risk_request": false,
+          "conversation_complexity_level": "medium"
+        }
+      },
+      {
+        "query_id": "q_0047",
+        "customer_message": "Sample message about order_status",
+        "intent": "order_status",
+        "gold_decision": "AUTO_HANDLE",
+        "predicted_decision": "ESCALATE_TO_HUMAN",
+        "reason_codes": [
+          "GROUNDING_FAILURE"
+        ],
+        "signals": {
+          "intent_confidence": 0.7341110824131792,
+          "confidence_margin": 0.299571027120355,
+          "retrieval_quality_score": 0.8590536236616466,
+          "grounding_status": "fail",
+          "is_high_risk_request": false,
+          "conversation_complexity_level": "low"
+        }
+      },
+      {
+        "query_id": "q_0084",
+        "customer_message": "Sample message about order_status",
+        "intent": "order_status",
+        "gold_decision": "AUTO_HANDLE",
+        "predicted_decision": "ESCALATE_TO_HUMAN",
+        "reason_codes": [
+          "GROUNDING_FAILURE"
+        ],
+        "signals": {
+          "intent_confidence": 0.8568758209975571,
+          "confidence_margin": 0.39451755925313126,
+          "retrieval_quality_score": 0.5282286173566271,
+          "grounding_status": "fail",
+          "is_high_risk_request": false,
+          "conversation_complexity_level": "medium"
+        }
+      }
+    ]
+  }
+}
