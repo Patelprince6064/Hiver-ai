@@ -98,7 +98,7 @@ Customer Message + Context History
        v                             v
 [ AUTO_HANDLE ]             [ ESCALATE_TO_HUMAN ]
  70.0% coverage              30.0% review rate
- Safe Auto: 68.0%            Expected Cost: 2.14 vs 6.10
+ Safe Auto: 68%            Expected Cost: 2.14 vs 6.10
  Unsafe Auto: 2%
 ```
 
