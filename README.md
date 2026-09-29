@@ -43,7 +43,7 @@ $$\text{Input: Customer Inquiry + Context Thread} \longrightarrow \text{Pipeline
 - **Retrieved Evidence:** Top-5 relevant historical support snippets.
 - **Grounded Draft Reply:** Evidence-anchored support reply.
 - **Verification Status:** `PASS`, `REVIEW`, or `FAIL` from deterministic claim checks.
-- **Routing Decision:** `AUTO_HANDLE` (70.0% coverage) or `ESCALATE_TO_HUMAN` (30.0% review).
+- **Routing Decision:** `AUTO_HANDLE` (70.0% coverage) or `ESCALATE_TO_HUMAN` (30% review).
 - **Escalation Reason:** Explicit structural reason code (e.g., `HIGH_RISK_CLAIM`, `INSUFFICIENT_EVIDENCE`).
 
 ### What Was Intentionally NOT Built:
